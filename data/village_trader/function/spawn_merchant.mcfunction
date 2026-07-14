@@ -1,0 +1,2 @@
+summon minecraft:villager ~ ~ ~ {Tags:["village_trader.merchant","village_trader.new"],NoAI:1b,Invulnerable:1b,PersistenceRequired:1b,CanPickUpLoot:0b,Silent:1b,CustomNameVisible:1b,CustomName:'{"text":"32K 矿物商人","color":"gold","bold":true}',VillagerData:{type:"minecraft:plains",profession:"minecraft:armorer",level:5},Xp:0,Rotation:[180.0f,0.0f]}
+execute as @e[type=minecraft:villager,tag=village_trader.new,limit=1,sort=nearest,distance=..2] run function village_trader:set_trades
