@@ -10,7 +10,7 @@ execute if score @s vt_action matches 50 run function village_trader:main/menu/a
 execute if score @s vt_action matches 60 run function village_trader:main/menu/task
 execute if score @s vt_action matches 70 run function village_trader:main/menu/settings
 
-execute if score @s vt_action matches 101..110 run function village_trader:main/purchase/route_goods
+execute if score @s vt_action matches 101..111 run function village_trader:main/purchase/route_goods
 execute if score @s vt_action matches 121 run function village_trader:main/task/purchase
 execute if score @s vt_action matches 122 run function village_trader:main/task/reclaim
 execute if score @s vt_action matches 123 run function village_trader:main/task/submit
@@ -19,3 +19,10 @@ execute if score @s vt_action matches 141..146 run function village_trader:main/
 execute if score @s vt_action matches 150..157 run function village_trader:main/equipment/route
 execute if score @s vt_action matches 170 run function village_trader:main/settings/normal
 execute if score @s vt_action matches 171 run function village_trader:main/settings/hard
+execute if score @s vt_action matches 180 run function village_trader:achievement/menu/open
+execute if score @s vt_action matches 181 run function village_trader:achievement/menu/story
+execute if score @s vt_action matches 182 run function village_trader:achievement/menu/explore
+execute if score @s vt_action matches 183 run function village_trader:achievement/menu/combat
+execute if score @s vt_action matches 184 run function village_trader:achievement/menu/trade
+execute if score @s vt_action matches 185 run function village_trader:achievement/menu/guardian
+execute if score @s vt_action matches 186 run function village_trader:achievement/claim_current

@@ -1,0 +1,116 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {
+    "text": "儿童线：可选辅助用品",
+    "color": "light_purple",
+    "bold": true
+  },
+  "body": [
+    {
+      "type": "minecraft:plain_message",
+      "contents": [
+        {
+          "text": "只显示当前章节已开放的辅助用品；补领仍需已有所有权记录。",
+          "color": "gray"
+        }
+      ]
+    }
+  ],
+  "columns": 2,
+  "actions": [
+    {
+      "label": "购买/选择 伐木手套",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 331"
+      }
+    },
+    {
+      "label": "补领 伐木手套",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 341"
+      }
+    },
+    {
+      "label": "购买/选择 矿工护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 332"
+      }
+    },
+    {
+      "label": "补领 矿工护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 342"
+      }
+    },
+    {
+      "label": "购买/选择 旅行护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 333"
+      }
+    },
+    {
+      "label": "补领 旅行护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 343"
+      }
+    },
+    {
+      "label": "购买/选择 勇气护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 334"
+      }
+    },
+    {
+      "label": "补领 勇气护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 344"
+      }
+    },
+    {
+      "label": "购买/选择 商人徽章",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 335"
+      }
+    },
+    {
+      "label": "补领 商人徽章",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 345"
+      }
+    },
+    {
+      "label": "购买/选择 守护护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 336"
+      }
+    },
+    {
+      "label": "补领 守护护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 346"
+      }
+    },
+    {
+      "label": "返回主菜单",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 1"
+      }
+    }
+  ],
+  "exit_action": {
+    "label": "关闭"
+  }
+}

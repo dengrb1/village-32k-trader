@@ -1,2 +1,1 @@
-give @s minecraft:paper[minecraft:custom_name='{"text":"村庄守卫令","color":"green","bold":true,"italic":false}',minecraft:lore=['{"text":"主线必需任务道具；仅本人兑换记录有效","color":"gray","italic":false}','{"text":"提交时消耗；辅助用品不能替代","color":"red","italic":false}'],minecraft:custom_data={kind:"main_quest",id:4},minecraft:max_stack_size=1,minecraft:enchantment_glint_override=true] 1
-
+give @s minecraft:paper[minecraft:custom_name={text:"沧海巡航证",color:"blue",bold:true,italic:false},minecraft:lore=[{text:"主线第 4 章任务道具；仅本人激活有效",color:"gray",italic:false},{text:"提交时消耗，辅助用品不能替代",color:"red",italic:false}],minecraft:custom_data={kind:"main_quest",id:4},minecraft:max_stack_size=1,minecraft:enchantment_glint_override=true] 1

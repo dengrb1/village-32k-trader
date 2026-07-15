@@ -7,6 +7,8 @@ scoreboard players set @s vt_a 0
 scoreboard players set @s vt_b 0
 scoreboard players set @s vt_c 0
 scoreboard players set @s vt_gear 0
-tellraw @s [{"text":"[村庄商人] 「矿工试炼证」已提交并消耗，个人主线晋升至阶段 2！","color":"green","bold":true}]
+give @s minecraft:bread 24
+give @s minecraft:torch 48
+advancement grant @s only village_trader:achievements/story_01
+tellraw @s [{"text":"[村庄商人] ","color":"gold"},{"text":"定居启程完成！已获得行旅补给，并解锁 5 级装备。","color":"green","bold":true}]
 function village_trader:main/menu/root
-

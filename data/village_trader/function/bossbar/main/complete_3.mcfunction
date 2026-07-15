@@ -1,2 +1,2 @@
-$bossbar set village_trader:player_$(id) name [{"text":"可提交 · 末地追踪 · 进入末地 "},{"score":{"name":"@s","objective":"vt_a"}},{"text":"/1 | 末影龙 "},{"score":{"name":"@s","objective":"vt_b"}},{"text":"/1"}]
+$bossbar set village_trader:player_$(id) name [{"text":"可提交 · 下界远征 · 下界 "},{"score":{"name":"@s","objective":"vt_a"}},{"text":"/1 | 烈焰人 "},{"score":{"name":"@s","objective":"vt_b"}},{"text":"/10 | 残骸 "},{"score":{"name":"@s","objective":"vt_c"}},{"text":"/4"}]
 $bossbar set village_trader:player_$(id) color green

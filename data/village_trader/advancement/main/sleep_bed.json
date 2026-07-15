@@ -1,0 +1,4 @@
+{
+  "criteria": {"event": {"trigger": "minecraft:slept_in_bed"}},
+  "rewards": {"function": "village_trader:main/reward/sleep_bed"}
+}

@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {
+    "text": "难度与旧装备回溯",
+    "color": "blue",
+    "bold": true
+  },
+  "body": [
+    {
+      "type": "minecraft:plain_message",
+      "contents": [
+        {
+          "text": "只显示当前已解锁的旧装备页；不会回退阶段或商品。",
+          "color": "gray"
+        }
+      ]
+    }
+  ],
+  "columns": 2,
+  "actions": [
+    {
+      "label": "普通商店",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 170"
+      }
+    },
+    {
+      "label": "查看 5 级装备",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 151"
+      }
+    },
+    {
+      "label": "返回主菜单",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 1"
+      }
+    }
+  ],
+  "exit_action": {
+    "label": "关闭"
+  }
+}

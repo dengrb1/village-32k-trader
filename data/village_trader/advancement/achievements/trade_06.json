@@ -1,0 +1,1 @@
+{"parent":"village_trader:achievements/root","display":{"icon":{"id":"minecraft:nether_star"},"title":{"text":"终焉签章"},"description":{"text":"兑换 64 级装备"},"frame":"goal","show_toast":true,"announce_to_chat":false},"criteria":{"earned":{"trigger":"minecraft:impossible"}},"rewards":{"function":"village_trader:achievement/award/trade_06"}}

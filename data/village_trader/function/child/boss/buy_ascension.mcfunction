@@ -14,7 +14,7 @@ execute unless score @s vt_tmp matches 4.. run title @s actionbar {"text":"守�
 execute unless score @s vt_tmp matches 4.. run return 0
 clear @s minecraft:diamond 16
 clear @s minecraft:netherite_ingot 4
-give @s minecraft:paper[minecraft:custom_name='{"text":"守护升格核心","color":"aqua","bold":true,"italic":false}',minecraft:custom_data={kind:"child_ascension_core",id:1},minecraft:enchantment_glint_override=true]
+give @s minecraft:paper[minecraft:custom_name={text:"守护升格核心",color:"aqua",bold:true,italic:false},minecraft:custom_data={kind:"child_ascension_core",id:1},minecraft:enchantment_glint_override=true]
 scoreboard players set @s vt_asckey 1
 scoreboard players set @s vt_cqrep 0
 title @s actionbar {"text":"升格核心已兑换；请提交以永久解锁128级守护装备。","color":"green"}

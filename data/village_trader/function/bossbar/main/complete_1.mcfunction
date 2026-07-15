@@ -1,2 +1,2 @@
-$bossbar set village_trader:player_$(id) name [{"text":"可提交 · 矿工试炼 · 钻石矿 "},{"score":{"name":"@s","objective":"vt_a"}},{"text":"/8 | 敌对生物 "},{"score":{"name":"@s","objective":"vt_b"}},{"text":"/20"}]
+$bossbar set village_trader:player_$(id) name [{"text":"可提交 · 定居启程 · 工作台 "},{"score":{"name":"@s","objective":"vt_a"}},{"text":"/1 | 睡床 "},{"score":{"name":"@s","objective":"vt_b"}},{"text":"/1"}]
 $bossbar set village_trader:player_$(id) color green

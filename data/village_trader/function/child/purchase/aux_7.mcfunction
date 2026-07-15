@@ -11,6 +11,6 @@ execute unless score @s vt_tmp matches 1.. run title @s actionbar {"text":"需�
 execute unless score @s vt_tmp matches 1.. run return 0
 clear @s minecraft:diamond 4
 clear @s minecraft:golden_apple 1
-give @s minecraft:paper[minecraft:custom_name='{"text":"龙战护符","color":"light_purple","italic":false}',minecraft:custom_data={kind:"child_aux",id:7},minecraft:enchantment_glint_override=true]
+give @s minecraft:paper[minecraft:custom_name={text:"龙战护符",color:"light_purple",italic:false},minecraft:custom_data={kind:"child_aux",id:7},minecraft:enchantment_glint_override=true]
 tag @s add village_trader.child_aux_7
 scoreboard players set @s vt_caux 7

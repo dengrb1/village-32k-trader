@@ -17,7 +17,8 @@
     {"label": "必需任务道具", "action": {"type": "run_command", "command": "/trigger vt_action set 40"}},
     {"label": "可选辅助用品", "action": {"type": "run_command", "command": "/trigger vt_action set 50"}},
     {"label": "当前任务与提交", "action": {"type": "run_command", "command": "/trigger vt_action set 60"}},
-    {"label": "难度与旧装备", "action": {"type": "run_command", "command": "/trigger vt_action set 70"}}
+    {"label": "难度与旧装备", "action": {"type": "run_command", "command": "/trigger vt_action set 70"}},
+    {"label": "成就档案", "action": {"type": "run_command", "command": "/trigger vt_action set 180"}}
   ],
   "exit_action": {"label": "关闭"}
 }

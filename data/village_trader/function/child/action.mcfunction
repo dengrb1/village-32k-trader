@@ -24,3 +24,10 @@ execute if score @s vt_action matches 371..373 run function village_trader:child
 execute if score @s vt_action matches 381..383 run function village_trader:child/boss/aux_reissue_dispatch
 execute if score @s vt_action matches 391 run function village_trader:child/boss/buy_ascension
 execute if score @s vt_action matches 392 run function village_trader:child/boss/submit_ascension
+execute if score @s vt_action matches 180 run function village_trader:achievement/menu/open
+execute if score @s vt_action matches 181 run function village_trader:achievement/menu/story
+execute if score @s vt_action matches 182 run function village_trader:achievement/menu/explore
+execute if score @s vt_action matches 183 run function village_trader:achievement/menu/combat
+execute if score @s vt_action matches 184 run function village_trader:achievement/menu/trade
+execute if score @s vt_action matches 185 run function village_trader:achievement/menu/guardian
+execute if score @s vt_action matches 186 run function village_trader:achievement/claim_current

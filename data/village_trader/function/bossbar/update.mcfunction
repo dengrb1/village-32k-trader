@@ -10,6 +10,10 @@ execute if score @s vt_child matches 0 if score @s vt_qactive matches 3 if score
 execute if score @s vt_child matches 0 if score @s vt_qactive matches 4 if score @s vt_stage matches 4 run function village_trader:bossbar/main/task_4
 execute if score @s vt_child matches 0 if score @s vt_qactive matches 5 if score @s vt_stage matches 5 run function village_trader:bossbar/main/task_5
 execute if score @s vt_child matches 0 if score @s vt_qactive matches 6 if score @s vt_stage matches 6 run function village_trader:bossbar/main/task_6
+execute if score @s vt_child matches 0 if score @s vt_qactive matches 7 if score @s vt_stage matches 7 run function village_trader:bossbar/main/task_7
+execute if score @s vt_child matches 0 if score @s vt_qactive matches 8 if score @s vt_stage matches 8 run function village_trader:bossbar/main/task_8
+execute if score @s vt_child matches 0 if score @s vt_qactive matches 9 if score @s vt_stage matches 9 run function village_trader:bossbar/main/task_9
+execute if score @s vt_child matches 0 if score @s vt_qactive matches 10 if score @s vt_stage matches 10 run function village_trader:bossbar/main/task_10
 
 execute if score @s vt_child matches 1 if score @s vt_cstage matches 1..6 run function village_trader:bossbar/child/idle with storage village_trader:runtime bossbar
 execute if score @s vt_child matches 1 if score @s vt_cactive matches 1 if score @s vt_cstage matches 1 run function village_trader:bossbar/child/task_1

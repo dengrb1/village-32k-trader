@@ -1,0 +1,81 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {
+    "text": "难度与旧装备回溯",
+    "color": "blue",
+    "bold": true
+  },
+  "body": [
+    {
+      "type": "minecraft:plain_message",
+      "contents": [
+        {
+          "text": "普通主线已毕业；可切换难度并查看已解锁的旧装备页。",
+          "color": "gray"
+        }
+      ]
+    }
+  ],
+  "columns": 2,
+  "actions": [
+    {
+      "label": "普通商店",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 170"
+      }
+    },
+    {
+      "label": "困难商店",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 171"
+      }
+    },
+    {
+      "label": "查看 5 级装备",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 151"
+      }
+    },
+    {
+      "label": "查看 10 级装备",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 152"
+      }
+    },
+    {
+      "label": "查看 20 级装备",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 153"
+      }
+    },
+    {
+      "label": "查看 32 级装备",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 154"
+      }
+    },
+    {
+      "label": "查看 64 级装备",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 155"
+      }
+    },
+    {
+      "label": "返回主菜单",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 1"
+      }
+    }
+  ],
+  "exit_action": {
+    "label": "关闭"
+  }
+}

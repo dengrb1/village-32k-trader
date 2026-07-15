@@ -1,0 +1,1 @@
+{"parent":"village_trader:achievements/root","display":{"icon":{"id":"minecraft:crafting_table"},"title":{"text":"安居第一夜"},"description":{"text":"完成定居启程"},"frame":"task","show_toast":true,"announce_to_chat":false},"criteria":{"earned":{"trigger":"minecraft:impossible"}},"rewards":{"function":"village_trader:achievement/award/story_01"}}

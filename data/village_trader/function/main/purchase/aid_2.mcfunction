@@ -1,5 +1,5 @@
-execute unless score @s vt_stage matches 2.. run title @s actionbar [{"text":"[村庄商人] 当前阶段尚未开放「下界护符」。","color":"red"}]
-execute unless score @s vt_stage matches 2.. run return 0
+execute unless score @s vt_stage matches 3.. run title @s actionbar [{"text":"[村庄商人] 当前阶段尚未开放「下界护符」。","color":"red"}]
+execute unless score @s vt_stage matches 3.. run return 0
 execute if entity @s[tag=village_trader.main_aux_2] run scoreboard players set @s vt_aux 2
 execute if entity @s[tag=village_trader.main_aux_2] run title @s actionbar [{"text":"[村庄商人] 已选择永久登记的「下界护符」。","color":"aqua"}]
 execute if entity @s[tag=village_trader.main_aux_2] run return 0

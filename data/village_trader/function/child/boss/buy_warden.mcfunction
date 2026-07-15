@@ -10,6 +10,6 @@ execute unless score @s vt_tmp matches 1.. run return 0
 clear @s minecraft:echo_shard 8
 clear @s #minecraft:wool 16
 clear @s minecraft:totem_of_undying 1
-give @s minecraft:paper[minecraft:custom_name='{"text":"幽匿挑战书","color":"dark_aqua","italic":false}',minecraft:custom_data={kind:"child_boss_quest",id:3},minecraft:enchantment_glint_override=true]
+give @s minecraft:paper[minecraft:custom_name={text:"幽匿挑战书",color:"dark_aqua",italic:false},minecraft:custom_data={kind:"child_boss_quest",id:3},minecraft:enchantment_glint_override=true]
 scoreboard players set @s vt_ok 1
 

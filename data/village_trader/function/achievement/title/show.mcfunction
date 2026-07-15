@@ -1,0 +1,6 @@
+execute if score @s vt_title matches 0 run title @s actionbar [{"text":"[称号] 旅程新人","color":"gray"}]
+execute if score @s vt_title matches 1 run title @s actionbar [{"text":"[称号] 村庄旅人","color":"green"}]
+execute if score @s vt_title matches 2 run title @s actionbar [{"text":"[称号] 远征先锋","color":"aqua"}]
+execute if score @s vt_title matches 3 run title @s actionbar [{"text":"[称号] 传奇商会","color":"gold"}]
+execute if score @s vt_title matches 4 run title @s actionbar [{"text":"[称号] 守护传说","color":"light_purple"}]
+execute if score @s vt_title matches 5 run title @s actionbar [{"text":"[称号] 终焉传奇","color":"dark_purple","bold":true}]

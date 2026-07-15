@@ -1,0 +1,1 @@
+{"parent":"village_trader:achievements/root","display":{"icon":{"id":"minecraft:echo_shard"},"title":{"text":"深暗猎手"},"description":{"text":"击败监守者"},"frame":"challenge","show_toast":true,"announce_to_chat":false},"criteria":{"earned":{"trigger":"minecraft:impossible"}},"rewards":{"function":"village_trader:achievement/award/combat_08"}}

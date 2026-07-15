@@ -1,0 +1,4 @@
+{
+  "display": {"icon": {"id": "minecraft:book"}, "title": {"text": "村庄商人档案", "color": "gold"}, "description": {"text": "40 项旅程、探索、战斗、商会与守护成就"}, "background": "minecraft:textures/gui/advancements/backgrounds/stone.png", "show_toast": false, "announce_to_chat": false},
+  "criteria": {"opened": {"trigger": "minecraft:impossible"}}
+}

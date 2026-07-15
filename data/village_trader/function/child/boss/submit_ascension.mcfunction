@@ -5,4 +5,5 @@ execute unless score @s vt_ok matches 1 run title @s actionbar {"text":"提交�
 execute unless score @s vt_ok matches 1 run return 0
 scoreboard players set @s vt_asckey 0
 scoreboard players set @s vt_asc 1
+advancement grant @s only village_trader:achievements/guardian_07
 tellraw @s {"text":"守护升格完成！128级强化守护装备已永久解锁。","color":"light_purple","bold":true}

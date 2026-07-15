@@ -9,4 +9,5 @@ execute if score @s vt_action matches 107 run function village_trader:main/purch
 execute if score @s vt_action matches 108 run function village_trader:main/purchase/enchanted_golden_apple
 execute if score @s vt_action matches 109 run function village_trader:main/purchase/totem
 execute if score @s vt_action matches 110 run function village_trader:main/purchase/netherite_block
+execute if score @s vt_action matches 111 run function village_trader:main/purchase/firework_rocket
 

@@ -1,7 +1,5 @@
-execute unless score @s vt_stage matches 6.. run title @s actionbar [{"text":"[村庄商人] 当前阶段尚未开放「幽匿护符」。","color":"red"}]
-execute unless score @s vt_stage matches 6.. run return 0
-execute unless score @s vt_diff matches 1 run title @s actionbar [{"text":"[村庄商人] 切换困难商店后才能购买或选择幽匿护符。","color":"yellow"}]
-execute unless score @s vt_diff matches 1 run return 0
+execute unless score @s vt_stage matches 9.. run title @s actionbar [{"text":"[村庄商人] 当前阶段尚未开放「幽匿护符」。","color":"red"}]
+execute unless score @s vt_stage matches 9.. run return 0
 execute if entity @s[tag=village_trader.main_aux_6] run scoreboard players set @s vt_aux 6
 execute if entity @s[tag=village_trader.main_aux_6] run title @s actionbar [{"text":"[村庄商人] 已选择永久登记的「幽匿护符」。","color":"aqua"}]
 execute if entity @s[tag=village_trader.main_aux_6] run return 0

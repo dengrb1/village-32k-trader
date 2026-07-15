@@ -1,5 +1,5 @@
-execute unless score @s vt_stage matches 5.. run title @s actionbar [{"text":"[村庄商人] 当前阶段尚未开放「凋灵净化符」。","color":"red"}]
-execute unless score @s vt_stage matches 5.. run return 0
+execute unless score @s vt_stage matches 8.. run title @s actionbar [{"text":"[村庄商人] 当前阶段尚未开放「凋灵净化符」。","color":"red"}]
+execute unless score @s vt_stage matches 8.. run return 0
 execute if entity @s[tag=village_trader.main_aux_5] run scoreboard players set @s vt_aux 5
 execute if entity @s[tag=village_trader.main_aux_5] run title @s actionbar [{"text":"[村庄商人] 已选择永久登记的「凋灵净化符」。","color":"aqua"}]
 execute if entity @s[tag=village_trader.main_aux_5] run return 0

@@ -1,13 +1,1 @@
-{
-  "type": "minecraft:multi_action",
-  "title": {"text": "困难终局已完成", "color": "dark_purple", "bold": true},
-  "body": [
-    {"type": "minecraft:item", "item": {"id": "minecraft:netherite_chestplate", "count": 1}, "description": "深暗挑战已提交；255 级 32K 终焉主宰装备已永久开放。"}
-  ],
-  "columns": 1,
-  "actions": [
-    {"label": "查看装备", "action": {"type": "run_command", "command": "/trigger vt_action set 10"}},
-    {"label": "返回主菜单", "action": {"type": "run_command", "command": "/trigger vt_action set 1"}}
-  ],
-  "exit_action": {"label": "关闭"}
-}
+{"type":"minecraft:multi_action","title":{"text":"试炼密室","color":"yellow","bold":true},"body":[{"type":"minecraft:item","item":{"id":"minecraft:wind_charge","count":3},"description":{"contents":[{"text":"击杀旋风人：","color":"gray"},{"score":{"name":"@s","objective":"vt_a"},"color":"aqua"},{"text":" / 3", "color":"gray"}]}},{"type":"minecraft:item","item":{"id":"minecraft:trial_key","count":1},"description":{"contents":[{"text":"激活后使用试炼钥匙：","color":"gray"},{"score":{"name":"@s","objective":"vt_b"},"color":"aqua"},{"text":" / 1", "color":"gray"}]}}],"columns":2,"actions":[{"label":"免费补领任务牌","action":{"type":"run_command","command":"/trigger vt_action set 122"}},{"label":"提交并晋级","action":{"type":"run_command","command":"/trigger vt_action set 123"}},{"label":"返回主菜单","action":{"type":"run_command","command":"/trigger vt_action set 1"}}],"exit_action":{"label":"关闭"}}

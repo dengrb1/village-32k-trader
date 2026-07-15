@@ -1,4 +1,4 @@
-$bossbar set village_trader:player_$(id) name [{"text":"凋灵挑战 · 凋灵 "},{"score":{"name":"@s","objective":"vt_a"}},{"text":"/1 | 信标 "},{"score":{"name":"@s","objective":"vt_b"}},{"text":"/1"}]
+$bossbar set village_trader:player_$(id) name [{"text":"末地远征 · 末地 "},{"score":{"name":"@s","objective":"vt_a"}},{"text":"/1 | 末影龙 "},{"score":{"name":"@s","objective":"vt_b"}},{"text":"/1"}]
 $bossbar set village_trader:player_$(id) max 2
 $bossbar set village_trader:player_$(id) value $(value)
 $bossbar set village_trader:player_$(id) color purple

@@ -7,6 +7,11 @@ scoreboard players set @s vt_a 0
 scoreboard players set @s vt_b 0
 scoreboard players set @s vt_c 0
 scoreboard players set @s vt_gear 0
-tellraw @s [{"text":"[村庄商人] 「下界通行证」已提交并消耗，个人主线晋升至阶段 3！","color":"green","bold":true}]
+give @s minecraft:diamond 8
+give @s minecraft:iron_ingot 16
+give @s minecraft:coal 32
+advancement grant @s only village_trader:achievements/story_02
+advancement grant @s only village_trader:achievements/explore_01
+advancement grant @s only village_trader:achievements/combat_01
+tellraw @s [{"text":"[村庄商人] ","color":"gold"},{"text":"矿脉勘探完成！已获得采掘补给，并解锁 10 级装备。","color":"green","bold":true}]
 function village_trader:main/menu/root
-

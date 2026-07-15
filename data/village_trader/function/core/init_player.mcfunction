@@ -22,6 +22,9 @@ tag @s remove village_trader.child_set
 tag @s remove village_trader.asc_set
 tag @s remove village_trader.effect_target
 scoreboard players set @s vt_stage 1
+scoreboard players set @s vt_version 2
+scoreboard players set @s vt_legacy_stage 0
+scoreboard players set @s vt_legacy_active 0
 scoreboard players set @s vt_diff 0
 scoreboard players set @s vt_gear 1
 scoreboard players set @s vt_qown 0
@@ -55,6 +58,21 @@ scoreboard players set @s vt_mddia 0
 scoreboard players set @s vt_mdebris 0
 scoreboard players set @s vt_mcob 0
 scoreboard players set @s vt_ptotem 0
+scoreboard players set @s vt_utkey 0
+scoreboard players set @s vt_butkey 0
+scoreboard players set @s vt_pecho 0
+scoreboard players set @s vt_bpecho 0
+scoreboard players set @s vt_ucrystal 0
+scoreboard players set @s vt_bucrystal 0
+scoreboard players set @s vt_ach_total 0
+scoreboard players set @s vt_ach_story 0
+scoreboard players set @s vt_ach_explore 0
+scoreboard players set @s vt_ach_combat 0
+scoreboard players set @s vt_ach_trade 0
+scoreboard players set @s vt_ach_guardian 0
+scoreboard players set @s vt_title 0
+scoreboard players set @s vt_ach_view 0
+advancement grant @s only village_trader:achievements/root
 scoreboard players set @s vt_bdia 0
 scoreboard players set @s vt_bddia 0
 scoreboard players set @s vt_bdebris 0
@@ -67,6 +85,8 @@ scoreboard players set @s vt_action 0
 scoreboard players set @s vt_ui 0
 scoreboard players set @s vt_ui_last 0
 scoreboard players set @s vt_ui_card 0
+scoreboard players set @s vt_ui_pending 0
+scoreboard players set @s vt_ui_delay 0
 scoreboard players set @s vt_portable 0
 scoreboard players set @s vt_key_cd 0
 scoreboard players set @s vt_barid 0

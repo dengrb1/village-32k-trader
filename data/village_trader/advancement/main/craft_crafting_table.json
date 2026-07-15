@@ -1,0 +1,4 @@
+{
+  "criteria": {"event": {"trigger": "minecraft:recipe_crafted", "conditions": {"recipe_id": "minecraft:crafting_table"}}},
+  "rewards": {"function": "village_trader:main/reward/craft_crafting_table"}
+}

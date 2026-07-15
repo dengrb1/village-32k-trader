@@ -1,15 +1,1 @@
-{
-  "type": "minecraft:multi_action",
-  "title": {"text": "村庄守卫", "color": "red", "bold": true},
-  "body": [
-    {"type": "minecraft:item", "item": {"id": "minecraft:ominous_bottle", "count": 1}, "description": {"contents": [{"text": "亲自赢得袭击：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_a"}, "color": "aqua"}, {"text": " / 1", "color": "gray"}]}},
-    {"type": "minecraft:item", "item": {"id": "minecraft:totem_of_undying", "count": 1}, "description": {"contents": [{"text": "激活后亲自拾取图腾：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_b"}, "color": "aqua"}, {"text": " / 1", "color": "gray"}]}}
-  ],
-  "columns": 2,
-  "actions": [
-    {"label": "免费补领任务牌", "action": {"type": "run_command", "command": "/trigger vt_action set 122"}},
-    {"label": "提交并晋级", "action": {"type": "run_command", "command": "/trigger vt_action set 123"}},
-    {"label": "返回主菜单", "action": {"type": "run_command", "command": "/trigger vt_action set 1"}}
-  ],
-  "exit_action": {"label": "关闭"}
-}
+{"type":"minecraft:multi_action","title":{"text":"沧海巡航","color":"blue","bold":true},"body":[{"type":"minecraft:item","item":{"id":"minecraft:prismarine_shard","count":1},"description":{"contents":[{"text":"击杀远古守卫者：","color":"gray"},{"score":{"name":"@s","objective":"vt_a"},"color":"aqua"},{"text":" / 1", "color":"gray"}]}},{"type":"minecraft:item","item":{"id":"minecraft:conduit","count":1},"description":{"contents":[{"text":"亲自制作潮涌核心：","color":"gray"},{"score":{"name":"@s","objective":"vt_b"},"color":"aqua"},{"text":" / 1", "color":"gray"}]}}],"columns":2,"actions":[{"label":"免费补领任务牌","action":{"type":"run_command","command":"/trigger vt_action set 122"}},{"label":"提交并晋级","action":{"type":"run_command","command":"/trigger vt_action set 123"}},{"label":"返回主菜单","action":{"type":"run_command","command":"/trigger vt_action set 1"}}],"exit_action":{"label":"关闭"}}

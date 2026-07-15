@@ -25,6 +25,9 @@ execute if score @s vt_cstage matches 5 if score @s vt_ca matches 1.. unless sco
 execute if score @s vt_cstage matches 5 if score @s vt_ca matches 1.. if score @s vt_cb matches 1.. unless score @s vt_cc matches 1.. run title @s actionbar {"text":"提交失败：背包还需持有4个绿宝石。","color":"red"}
 execute if score @s vt_cstage matches 6 unless score @s vt_ca matches 1.. run title @s actionbar {"text":"提交失败：还需在激活后右键本数据包商人一次。","color":"red"}
 execute unless score @s vt_ok matches 1 run return 0
+execute if score @s vt_cstage matches 1 run advancement grant @s only village_trader:achievements/guardian_01
+execute if score @s vt_cstage matches 3 run advancement grant @s only village_trader:achievements/guardian_02
+execute if score @s vt_cstage matches 6 run advancement grant @s only village_trader:achievements/guardian_03
 scoreboard players set @s vt_ok 0
 execute if score @s vt_cstage matches 1 store result score @s vt_ok run clear @s minecraft:paper[minecraft:custom_data~{kind:"child_quest",id:1}] 1
 execute if score @s vt_cstage matches 2 store result score @s vt_ok run clear @s minecraft:paper[minecraft:custom_data~{kind:"child_quest",id:2}] 1
