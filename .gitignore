@@ -1,14 +1,5 @@
-# Release archives are published through GitHub Releases.
-*.zip
-
-# Local Minecraft test artifacts.
-*.log
-logs/
-world/
-test-world/
-
-# Editor and OS metadata.
+.gradle/
+build/
+run/
 .idea/
-.vscode/
-.DS_Store
-Thumbs.db
+*.iml

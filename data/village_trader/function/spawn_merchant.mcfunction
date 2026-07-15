@@ -1,2 +1,0 @@
-summon minecraft:villager ~ ~ ~ {Tags:["village_trader.merchant","village_trader.new"],NoAI:1b,PersistenceRequired:1b,CanPickUpLoot:0b,Silent:1b,CustomNameVisible:1b,CustomName:'{"text":"「终焉黑市」成长商店","color":"dark_purple","bold":true}',VillagerData:{type:"minecraft:plains",profession:"minecraft:none",level:1},Xp:0,Rotation:[180.0f,0.0f]}
-execute as @e[type=minecraft:villager,tag=village_trader.new,limit=1,sort=nearest,distance=..2] run function village_trader:set_trades
