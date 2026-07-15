@@ -1,0 +1,14 @@
+{
+  "criteria": {
+    "event": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "minecraft:beacon"
+      }
+    }
+  },
+  "rewards": {
+    "function": "village_trader:main/reward/craft_beacon"
+  }
+}
+

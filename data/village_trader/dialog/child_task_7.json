@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {"text": "核心六章已毕业", "color": "green", "bold": true},
+  "body": [
+    {"type": "minecraft:item", "item": {"id": "minecraft:dragon_head", "count": 1}, "description": "核心六章完成；Boss 番外依次为末影龙、凋灵和监守者。"}
+  ],
+  "columns": 1,
+  "actions": [
+    {"label": "查看 Boss 番外", "action": {"type": "run_command", "command": "/trigger vt_action set 207"}},
+    {"label": "返回主菜单", "action": {"type": "run_command", "command": "/trigger vt_action set 1"}}
+  ],
+  "exit_action": {"label": "关闭"}
+}

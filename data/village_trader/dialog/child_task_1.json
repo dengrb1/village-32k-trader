@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {"text": "木工启程：当前任务", "color": "gold", "bold": true},
+  "body": [
+    {"type": "minecraft:plain_message", "contents": "激活后，背包持有任意 4 个原木或重新制作工作台均可记录；提交还必须持有本章任务牌。"},
+    {"type": "minecraft:item", "item": {"id": "minecraft:oak_log", "count": 4}, "description": {"contents": [{"text": "原木目标（满足=1，需 4）：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_ca"}, "color": "aqua"}] }},
+    {"type": "minecraft:item", "item": {"id": "minecraft:crafting_table", "count": 1}, "description": {"contents": [{"text": "工作台目标（持有或新制作，满足=1）：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_cb"}, "color": "aqua"}] }},
+    {"type": "minecraft:item", "item": {"id": "minecraft:paper", "count": 1}, "description": {"contents": [{"text": "任务牌在背包（数量）：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_ui_card"}, "color": "aqua"}] }}
+  ],
+  "columns": 2,
+  "actions": [
+    {"label": "任务牌页面", "action": {"type": "run_command", "command": "/trigger vt_action set 204"}},
+    {"label": "提交当前任务", "action": {"type": "run_command", "command": "/trigger vt_action set 323"}},
+    {"label": "第一章教程", "action": {"type": "run_command", "command": "/trigger vt_action set 208"}},
+    {"label": "返回主菜单", "action": {"type": "run_command", "command": "/trigger vt_action set 1"}}
+  ],
+  "exit_action": {"label": "关闭"}
+}

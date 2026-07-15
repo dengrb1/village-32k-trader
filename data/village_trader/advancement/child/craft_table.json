@@ -1,0 +1,14 @@
+{
+  "criteria": {
+    "crafted": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "minecraft:crafting_table"
+      }
+    }
+  },
+  "rewards": {
+    "function": "village_trader:child/reward/craft_table"
+  }
+}
+

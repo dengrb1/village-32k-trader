@@ -1,0 +1,11 @@
+{
+  "criteria": {
+    "slept": {
+      "trigger": "minecraft:slept_in_bed"
+    }
+  },
+  "rewards": {
+    "function": "village_trader:child/reward/sleep"
+  }
+}
+

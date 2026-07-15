@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {"text": "儿童守护线状态", "color": "gold", "bold": true},
+  "body": [
+    {"type": "minecraft:item", "item": {"id": "minecraft:shield", "count": 1}, "description": {"contents": [{"text": "启用（1是 / 0否）：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_child"}, "color": "aqua"}, {"text": "　核心章节：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_cstage"}, "color": "aqua"}, {"text": " / 7", "color": "gray"}]}},
+    {"type": "minecraft:item", "item": {"id": "minecraft:paper", "count": 1}, "description": {"contents": [{"text": "目标 A / B / C：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_ca"}}, {"text": " / "}, {"score": {"name": "@s", "objective": "vt_cb"}}, {"text": " / "}, {"score": {"name": "@s", "objective": "vt_cc"}}]}},
+    {"type": "minecraft:item", "item": {"id": "minecraft:dragon_head", "count": 1}, "description": {"contents": [{"text": "Boss 章节：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_bstage"}, "color": "dark_red"}, {"text": "　升格：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_asc"}, "color": "light_purple"}]}}
+  ],
+  "columns": 2,
+  "actions": [
+    {"label": "当前任务", "action": {"type": "run_command", "command": "/trigger vt_action set 206"}},
+    {"label": "当前章节教程", "action": {"type": "run_command", "command": "/trigger vt_action set 208"}},
+    {"label": "夜视状态", "action": {"type": "run_command", "command": "/trigger vt_action set 209"}},
+    {"label": "打开商店", "action": {"type": "run_command", "command": "/trigger vt_action set 201"}}
+  ],
+  "exit_action": {"label": "关闭"}
+}

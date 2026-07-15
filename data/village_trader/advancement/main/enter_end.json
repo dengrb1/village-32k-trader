@@ -1,0 +1,14 @@
+{
+  "criteria": {
+    "event": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "minecraft:the_end"
+      }
+    }
+  },
+  "rewards": {
+    "function": "village_trader:main/reward/enter_end"
+  }
+}
+

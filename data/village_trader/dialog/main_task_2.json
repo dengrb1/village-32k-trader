@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {"text": "下界通行", "color": "red", "bold": true},
+  "body": [
+    {"type": "minecraft:item", "item": {"id": "minecraft:obsidian", "count": 1}, "description": {"contents": [{"text": "进入下界：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_a"}, "color": "aqua"}, {"text": " / 1；烈焰人：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_b"}, "color": "aqua"}, {"text": " / 10", "color": "gray"}]}},
+    {"type": "minecraft:item", "item": {"id": "minecraft:ancient_debris", "count": 4}, "description": {"contents": [{"text": "亲自挖掘远古残骸：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_c"}, "color": "aqua"}, {"text": " / 4", "color": "gray"}]}}
+  ],
+  "columns": 2,
+  "actions": [
+    {"label": "免费补领任务牌", "action": {"type": "run_command", "command": "/trigger vt_action set 122"}},
+    {"label": "提交并晋级", "action": {"type": "run_command", "command": "/trigger vt_action set 123"}},
+    {"label": "返回主菜单", "action": {"type": "run_command", "command": "/trigger vt_action set 1"}}
+  ],
+  "exit_action": {"label": "关闭"}
+}

@@ -1,0 +1,10 @@
+execute store result score @s horror_san.rng run random value 0..8
+execute if score @s horror_san.rng matches 0 run function horror_san:events/illusion/wither_6
+execute if score @s horror_san.rng matches 1 run function horror_san:events/illusion/wither_7
+execute if score @s horror_san.rng matches 2 run function horror_san:events/illusion/wither_8
+execute if score @s horror_san.rng matches 3 run function horror_san:events/illusion/enderman_6
+execute if score @s horror_san.rng matches 4 run function horror_san:events/illusion/enderman_7
+execute if score @s horror_san.rng matches 5 run function horror_san:events/illusion/enderman_8
+execute if score @s horror_san.rng matches 6 run function horror_san:events/illusion/creeper_6
+execute if score @s horror_san.rng matches 7 run function horror_san:events/illusion/creeper_7
+execute if score @s horror_san.rng matches 8 run function horror_san:events/illusion/creeper_8

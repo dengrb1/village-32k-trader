@@ -1,0 +1,1 @@
+execute at @s if predicate horror_san:dark rotated as @s rotated ~ 0 positioned ^ ^ ^-7 if block ~ ~ ~ #minecraft:air if block ~ ~1 ~ #minecraft:air if block ~ ~2 ~ #minecraft:air unless block ~ ~-1 ~ #minecraft:replaceable unless entity @e[distance=..1] run function horror_san:events/illusion/spawn_enderman
