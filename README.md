@@ -9,7 +9,7 @@
 - 服务端：Paper `26.1.2`，建议构建 `74-stable` 或兼容更新构建。
 - Java：25。
 - 构建：`./gradlew clean build`（Windows 使用 `gradlew.bat clean build`）。Gradle Toolchain 会在本机没有 Java 25 时自动下载匹配 JDK。
-- 产物：`build/libs/VillageTrader-1.0.0.jar`。
+- 产物：`build/libs/VillageTrader-1.1.jar`（v1.1）。
 - 将 JAR 放入 `plugins/`，首次启动后编辑 `plugins/VillageTrader/config.yml` 的 `enabled-worlds`，再重启服务器。
 
 ## 数据安全

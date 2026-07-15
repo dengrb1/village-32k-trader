@@ -3,6 +3,7 @@ package cn.villagetrader.effect;
 import cn.villagetrader.VillageTraderPlugin;
 import cn.villagetrader.item.ItemService;
 import cn.villagetrader.model.PlayerProfile;
+import cn.villagetrader.shop.UnlockPolicy;
 import cn.villagetrader.storage.ProfileManager;
 import java.util.List;
 import net.kyori.adventure.text.Component;
@@ -48,8 +49,8 @@ public final class EffectsService implements Listener {
 
   public void giveEquipment(Player player, int tier) {
     PlayerProfile p = profiles.get(player.getUniqueId());
+    if (p == null || !UnlockPolicy.equipment(p, tier)) { player.sendActionBar(Component.text("尚未解锁此装备。", NamedTextColor.RED)); return; }
     boolean child = tier == 128;
-    if (child && !p.child.ascended) { player.sendActionBar(Component.text("尚未完成守护升格。", NamedTextColor.RED)); return; }
     String kind = child ? "child_equipment" : "main_equipment";
     Material[] types = {Material.NETHERITE_HELMET,Material.NETHERITE_CHESTPLATE,Material.NETHERITE_LEGGINGS,Material.NETHERITE_BOOTS,Material.NETHERITE_SWORD,Material.NETHERITE_AXE,Material.NETHERITE_PICKAXE,Material.NETHERITE_PICKAXE,Material.NETHERITE_SHOVEL,Material.NETHERITE_HOE,Material.BOW,Material.CROSSBOW,Material.SHIELD,Material.ELYTRA,Material.TRIDENT,Material.MACE};
     String[] names = {"神盔","战甲","护腿","战靴","长剑","战斧","时运镐","精准镐","战铲","战锄","长弓","连弩","守护盾","羽翼","战戟","重锤"};

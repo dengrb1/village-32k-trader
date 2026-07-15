@@ -4,7 +4,7 @@
 
 - Minecraft Java 服务端：Paper 26.1.2，已验证构建为 `74-stable`。
 - Java：25。
-- 插件文件：`VillageTrader-1.0.0.jar`。
+- 插件文件：`VillageTrader-1.1.jar`（v1.1）。
 - 不支持 Vanilla 服务端，也不要与 VillageTrader 数据包版同时运行。
 
 插件版适合需要库存 GUI、玩家 JSON 档案、跨服务器迁移、档案导入导出和按世界启用的服务器。
@@ -23,7 +23,7 @@ Linux 或 macOS 使用：
 ./gradlew clean build --no-daemon
 ```
 
-构建产物位于 `build/libs/VillageTrader-1.0.0.jar`。
+构建产物位于 `build/libs/VillageTrader-1.1.jar`。
 
 安装步骤：
 

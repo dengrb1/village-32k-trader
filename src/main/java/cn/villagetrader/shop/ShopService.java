@@ -58,12 +58,10 @@ public final class ShopService implements Listener {
     Menu menu = new Menu(Component.text(p.child.enabled ? "儿童普通商品" : "主线资源与消耗品"));
     if (p.child.enabled) {
       Goods[] goods = {new Goods(Material.COBBLESTONE, 64, 1), new Goods(Material.OAK_LOG, 32, 1), new Goods(Material.IRON_INGOT, 16, 2), new Goods(Material.BREAD, 16, 2), new Goods(Material.TORCH, 64, 3), new Goods(Material.SHIELD, 1, 4), new Goods(Material.EMERALD, 8, 5), new Goods(Material.GOLDEN_APPLE, 2, 6)};
-      int slot = 10;
-      for (Goods good : goods) { int s = slot++; menu.button(s, icon(good.material, good.material.translationKey(), "获得 ×" + good.amount + "，解锁章 " + good.stage), pl -> purchaseChildGood(pl, good)); }
+      addGoods(menu, goods, p, true);
     } else {
       Goods[] goods = {new Goods(Material.DIAMOND, 64, 2), new Goods(Material.EMERALD, 64, 2), new Goods(Material.GOLDEN_APPLE, 8, 2), new Goods(Material.DIAMOND_BLOCK, 16, 3), new Goods(Material.EMERALD_BLOCK, 16, 3), new Goods(Material.NETHERITE_SCRAP, 16, 3), new Goods(Material.NETHERITE_INGOT, 8, 4), new Goods(Material.ENCHANTED_GOLDEN_APPLE, 2, 4), new Goods(Material.TOTEM_OF_UNDYING, 1, 5), new Goods(Material.NETHERITE_BLOCK, 4, 6)};
-      int slot = 10;
-      for (Goods good : goods) { int s = slot++; menu.button(s, icon(good.material, good.material.translationKey(), "获得 ×" + good.amount + "，解锁阶段 " + good.stage), pl -> purchaseMainGood(pl, good)); }
+      addGoods(menu, goods, p, false);
     }
     back(menu, 49);
     player.openInventory(menu.inventory);
@@ -71,18 +69,11 @@ public final class ShopService implements Listener {
 
   private void openTasks(Player player) {
     PlayerProfile p = profiles.get(player.getUniqueId());
+    if (p.child.enabled && p.child.stage >= 7) { openBossTasks(player, p); return; }
     TaskDefinitions.Route route = currentRoute(p);
     int stage = currentStage(p, route);
     Menu menu = new Menu(Component.text("当前任务与提交"));
     TaskDefinitions.Definition definition = TaskDefinitions.get(route, stage);
-    if (p.child.enabled && p.child.stage >= 7 && p.child.bossStage >= 4) {
-      menu.button(13, icon(Material.NETHER_STAR, p.child.ascended ? "守护升格已完成" : "守护升格核心", p.child.ascended ? "128级强化守护装备已解锁" : "需要龙、凋灵、幽匿三个印记"), ignored -> {});
-      if (!p.child.ascended) {
-        menu.button(29, icon(Material.DIAMOND, "兑换升格核心", "钻石×16 + 下界合金锭×4"), this::buyAscension);
-        menu.button(33, icon(Material.LIME_DYE, "提交升格核心", "校验三个印记、所有权和本人绑定核心"), this::submitAscension);
-      }
-      back(menu, 49); player.openInventory(menu.inventory); return;
-    }
     String name = definition == null ? "当前路线已完成" : definition.name();
     menu.button(13, icon(Material.WRITABLE_BOOK, name, definition == null ? "无后续普通任务" : goals(definition)), ignored -> {});
     if (definition != null) {
@@ -94,18 +85,35 @@ public final class ShopService implements Listener {
     player.openInventory(menu.inventory);
   }
 
+  private void openBossTasks(Player player, PlayerProfile p) {
+    Menu menu = new Menu(Component.text("守护 Boss 与升格"));
+    int slot = 10;
+    if (p.child.bossStage <= 3) {
+      int stage = p.child.bossStage;
+      TaskDefinitions.Definition definition = TaskDefinitions.get(TaskDefinitions.Route.BOSS, stage);
+      menu.button(slot++, icon(Material.WRITABLE_BOOK, definition.name(), goals(definition)), ignored -> {});
+      menu.button(slot++, icon(Material.EMERALD, "购买 Boss 挑战书", costText(taskCost(TaskDefinitions.Route.BOSS, stage))), pl -> purchaseTask(pl, TaskDefinitions.Route.BOSS, stage));
+      menu.button(slot++, icon(Material.PAPER, "免费补领一次", "仅当前挑战书丢失且尚未补领时可用"), pl -> reissue(pl, TaskDefinitions.Route.BOSS, stage));
+      menu.button(slot++, icon(Material.LIME_DYE, "提交挑战书并开始挑战", "消耗挑战书后才开始记录击杀"), pl -> { activateBossChallenge(pl, stage); openTasks(pl); });
+    } else {
+      menu.button(slot++, icon(Material.NETHER_STAR, p.child.ascended ? "守护升格已完成" : "守护升格核心", p.child.ascended ? "128级强化守护装备已解锁" : "需要龙、凋灵、幽匿三个印记"), ignored -> {});
+      if (!p.child.ascended) {
+        menu.button(slot++, icon(Material.DIAMOND, "兑换升格核心", "钻石×16 + 下界合金锭×4"), this::buyAscension);
+        menu.button(slot++, icon(Material.LIME_DYE, "提交升格核心", "校验三个印记、所有权和本人绑定核心"), this::submitAscension);
+      } else {
+        menu.button(slot++, icon(Material.NETHERITE_CHESTPLATE, "领取 128级装备", "领取本人绑定套装"), pl -> plugin.effects().giveEquipment(pl, 128));
+      }
+    }
+    addAuxiliaries(menu, p, true, 7, 9, slot);
+    back(menu, 49);
+    player.openInventory(menu.inventory);
+  }
+
   private void openAuxiliaries(Player player) {
     PlayerProfile p = profiles.get(player.getUniqueId());
     Menu menu = new Menu(Component.text("可选辅助用品"));
-    String[] mainNames = {"矿工补给包", "下界护符", "末地护符", "袭击守护符", "凋灵净化符", "幽匿护符"};
-    String[] childNames = {"学徒护符", "红石工具包", "归途罗盘", "金苹果护符", "商人徽章", "龙战护符", "凋灵护符", "净化乳剂", "幽匿软靴"};
-    int max = p.child.enabled ? 9 : 6;
-    for (int id = 1; id <= max; id++) {
-      int itemId = id;
-      String name = p.child.enabled ? childNames[id - 1] : mainNames[id - 1];
-      boolean owned = p.child.enabled ? p.childAuxiliaries.contains(id) : p.mainAuxiliaries.contains(id);
-      menu.button(9 + id, icon(Material.PAPER, name, owned ? "已登记：点击选择/缺失时补领" : "点击购买并登记"), pl -> auxiliary(pl, p.child.enabled, itemId, name));
-    }
+    int next = addAuxiliaries(menu, p, p.child.enabled, 1, 6, 10);
+    if (next == 10) menu.button(22, icon(Material.PAPER, "暂无可用辅助用品", "随着进度推进会在此显示"), ignored -> {});
     back(menu, 49);
     player.openInventory(menu.inventory);
   }
@@ -113,12 +121,13 @@ public final class ShopService implements Listener {
   private void openEquipment(Player player) {
     PlayerProfile p = profiles.get(player.getUniqueId());
     Menu menu = new Menu(Component.text("装备与旧装备回溯"));
-    int[] tiers = {1, 5, 10, 20, 32, 64, 128, 255};
+    int[] tiers = {5, 10, 20, 32, 64, 128, 255};
     int slot = 10;
     for (int tier : tiers) {
-      boolean unlocked = tier == 1 || p.equipmentTiers.contains(tier) || (tier == p.main.equipmentTier);
-      menu.button(slot++, icon(unlocked ? Material.NETHERITE_CHESTPLATE : Material.BARRIER, tier + "级装备", unlocked ? "点击领取本人绑定套装" : "尚未解锁"), pl -> { if (unlocked) plugin.effects().giveEquipment(pl, tier); });
+      if (!UnlockPolicy.equipment(p, tier)) continue;
+      menu.button(slot++, icon(Material.NETHERITE_CHESTPLATE, tier + "级装备", "点击领取本人绑定套装"), pl -> plugin.effects().giveEquipment(pl, tier));
     }
+    if (slot == 10) menu.button(22, icon(Material.PAPER, "暂无可领取装备", "随着进度推进会在此显示"), ignored -> {});
     back(menu, 49); player.openInventory(menu.inventory);
   }
 
@@ -141,6 +150,7 @@ public final class ShopService implements Listener {
 
   private void purchaseTask(Player player, TaskDefinitions.Route route, int stage) {
     PlayerProfile p = profiles.get(player.getUniqueId());
+    if (!UnlockPolicy.task(p, route, stage)) { error(player, "尚未解锁此任务。"); return; }
     PlayerProfile.Task task = profileTask(p, route);
     if (task.activeId != 0 || task.ownedCardId != 0) { error(player, "已有任务处于激活或持有状态。"); return; }
     Map<Material, Integer> cost = new LinkedHashMap<>(taskCost(route, stage));
@@ -158,7 +168,9 @@ public final class ShopService implements Listener {
   }
 
   private void reissue(Player player, TaskDefinitions.Route route, int stage) {
-    PlayerProfile p = profiles.get(player.getUniqueId()); PlayerProfile.Task task = profileTask(p, route);
+    PlayerProfile p = profiles.get(player.getUniqueId());
+    if (!UnlockPolicy.task(p, route, stage)) { error(player, "尚未解锁此任务。"); return; }
+    PlayerProfile.Task task = profileTask(p, route);
     if (task.ownedCardId != stage || task.replacementClaimed || items.has(player, itemKind(route), stage)) { error(player, "不满足补领条件，或任务牌仍在背包中。"); return; }
     player.getInventory().addItem(items.taskCard(player, routeName(route), stage)); task.replacementClaimed = true; profiles.save(p);
     player.sendActionBar(Component.text("已免费补领当前任务牌。", NamedTextColor.AQUA));
@@ -166,39 +178,42 @@ public final class ShopService implements Listener {
 
   private void activateBossChallenge(Player player, int stage) {
     PlayerProfile p=profiles.get(player.getUniqueId());PlayerProfile.Task task=p.child.bossTask;
+    if (!UnlockPolicy.task(p, TaskDefinitions.Route.BOSS, stage)) { error(player, "尚未解锁此 Boss 挑战。"); return; }
     if(task.activeId==stage){error(player,"当前 Boss 挑战已经激活，击杀目标即可获得印记。");return;}
     if(task.ownedCardId!=stage||!items.removeOne(player,"child_boss_quest",stage)){error(player,"缺少本人绑定的当前 Boss 挑战书。");return;}
     task.activeId=stage;task.ownedCardId=0;task.progress.clear();profiles.save(p);success(player,"挑战书已消耗，Boss 挑战正式激活。");
   }
 
   private void buyAscension(Player player) {
-    PlayerProfile p=profiles.get(player.getUniqueId());if(p.child.ascended||p.child.ascensionKeyOwned){error(player,"升格核心已登记或升格已完成。");return;}
+    PlayerProfile p=profiles.get(player.getUniqueId());if(!UnlockPolicy.ascension(p)){error(player,"尚未解锁守护升格。");return;}if(p.child.ascended||p.child.ascensionKeyOwned){error(player,"升格核心已登记或升格已完成。");return;}
     if(!p.child.bossMarks.containsAll(List.of("dragon","wither","warden"))){error(player,"尚未集齐三个 Boss 印记。");return;}
     Map<Material,Integer> cost=InventoryUtil.cost(Material.DIAMOND,16,Material.NETHERITE_INGOT,4);if(!InventoryUtil.pay(player,cost)){error(player,"材料不足："+costText(cost));return;}
     p.child.ascensionKeyOwned=true;player.getInventory().addItem(items.taskCard(player,"ascension",1));profiles.save(p);success(player,"已兑换本人绑定的守护升格核心。");openTasks(player);
   }
 
   private void submitAscension(Player player) {
-    PlayerProfile p=profiles.get(player.getUniqueId());if(!p.child.ascensionKeyOwned||!p.child.bossMarks.containsAll(List.of("dragon","wither","warden"))){error(player,"缺少升格核心所有权或三个 Boss 印记。");return;}
+    PlayerProfile p=profiles.get(player.getUniqueId());if(!UnlockPolicy.ascension(p)||!p.child.ascensionKeyOwned){error(player,"缺少升格核心所有权或三个 Boss 印记。");return;}
     if(!items.removeOne(player,"child_ascension_core",1)){error(player,"背包中没有本人绑定的守护升格核心。");return;}
     p.child.ascensionKeyOwned=false;p.child.ascended=true;p.equipmentTiers.add(128);profiles.save(p);player.sendMessage(Component.text("守护升格完成！128级强化守护装备已永久解锁。",NamedTextColor.LIGHT_PURPLE));openTasks(player);
   }
 
   private void purchaseMainGood(Player player, Goods good) {
-    PlayerProfile p = profiles.get(player.getUniqueId()); if (p.main.stage < good.stage) { error(player, "尚未解锁此商品。"); return; }
+    PlayerProfile p = profiles.get(player.getUniqueId()); if (p.child.enabled || !UnlockPolicy.good(p, good.stage)) { error(player, "尚未解锁此商品。"); return; }
     Map<Material, Integer> price = goodsPrice(); if (!InventoryUtil.pay(player, price)) { error(player, "支付物不足：" + costText(price)); return; }
     player.getInventory().addItem(new ItemStack(good.material, good.amount)); success(player, "兑换成功 ×" + good.amount);
   }
 
   private void purchaseChildGood(Player player, Goods good) {
-    PlayerProfile p = profiles.get(player.getUniqueId()); if (p.child.stage < good.stage) { error(player, "尚未解锁此商品。"); return; }
+    PlayerProfile p = profiles.get(player.getUniqueId()); if (!p.child.enabled || !UnlockPolicy.good(p, good.stage)) { error(player, "尚未解锁此商品。"); return; }
     int dirt = p.selectedChildAuxiliary == 5 && p.childAuxiliaries.contains(5) && items.has(player, "child_aux", 5) ? 1 : 4;
     if (!InventoryUtil.pay(player, InventoryUtil.cost(Material.DIRT, dirt))) { error(player, "泥土不足，需要 " + dirt + " 个。"); return; }
     player.getInventory().addItem(new ItemStack(good.material, good.amount)); tasks.recordChildPurchase(player); success(player, "兑换成功 ×" + good.amount);
   }
 
   private void auxiliary(Player player, boolean child, int id, String name) {
-    PlayerProfile p = profiles.get(player.getUniqueId()); boolean owned = child ? p.childAuxiliaries.contains(id) : p.mainAuxiliaries.contains(id); String kind = child ? "child_aux" : "main_aid";
+    PlayerProfile p = profiles.get(player.getUniqueId());
+    if (!UnlockPolicy.auxiliary(p, child, id)) { error(player, "尚未解锁此辅助用品。"); return; }
+    boolean owned = child ? p.childAuxiliaries.contains(id) : p.mainAuxiliaries.contains(id); String kind = child ? "child_aux" : "main_aid";
     if (owned) {
       if (!items.has(player, kind, id)) player.getInventory().addItem(items.auxiliary(player, child, id, name));
       if (child) p.selectedChildAuxiliary = id; else p.selectedMainAuxiliary = id;
@@ -209,6 +224,32 @@ public final class ShopService implements Listener {
     if (!payAuxCost(player, child, id, cost)) { error(player, "材料不足：" + costText(cost)); return; }
     if (child) { p.childAuxiliaries.add(id); p.selectedChildAuxiliary = id; } else { p.mainAuxiliaries.add(id); p.selectedMainAuxiliary = id; }
     player.getInventory().addItem(items.auxiliary(player, child, id, name)); profiles.save(p); success(player, "已购买并登记 " + name);
+  }
+
+  private void addGoods(Menu menu, Goods[] goods, PlayerProfile profile, boolean child) {
+    int slot = 10;
+    for (Goods good : goods) {
+      if (!UnlockPolicy.good(profile, good.stage)) continue;
+      int targetSlot = slot++;
+      String stageLabel = child ? "解锁章 " : "解锁阶段 ";
+      menu.button(targetSlot, icon(good.material, good.material.translationKey(), "获得 ×" + good.amount + "，" + stageLabel + good.stage), pl -> {
+        if (child) purchaseChildGood(pl, good); else purchaseMainGood(pl, good);
+      });
+    }
+    if (slot == 10) menu.button(22, icon(Material.PAPER, "暂无可兑换商品", "随着进度推进会在此显示"), ignored -> {});
+  }
+
+  private int addAuxiliaries(Menu menu, PlayerProfile profile, boolean child, int firstId, int lastId, int slot) {
+    String[] mainNames = {"矿工补给包", "下界护符", "末地护符", "袭击守护符", "凋灵净化符", "幽匿护符"};
+    String[] childNames = {"学徒护符", "红石工具包", "归途罗盘", "金苹果护符", "商人徽章", "龙战护符", "凋灵护符", "净化乳剂", "幽匿软靴"};
+    for (int id = firstId; id <= lastId; id++) {
+      if (!UnlockPolicy.auxiliary(profile, child, id)) continue;
+      int itemId = id;
+      String name = child ? childNames[id - 1] : mainNames[id - 1];
+      boolean owned = child ? profile.childAuxiliaries.contains(id) : profile.mainAuxiliaries.contains(id);
+      menu.button(slot++, icon(Material.PAPER, name, owned ? "已登记：点击选择/缺失时补领" : "点击购买并登记"), pl -> auxiliary(pl, child, itemId, name));
+    }
+    return slot;
   }
 
   private Map<Material, Integer> goodsPrice() { return switch (serverState.state().penaltyLevel) { case 1 -> InventoryUtil.cost(Material.DIRT, 16); case 2 -> InventoryUtil.cost(Material.EMERALD, 16); case 3 -> InventoryUtil.cost(Material.NETHERITE_INGOT, 4); default -> InventoryUtil.cost(Material.DIRT, 1); }; }

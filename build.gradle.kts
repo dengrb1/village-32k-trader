@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "cn.villagetrader"
-version = "1.0.0"
+version = "1.1"
 
 repositories {
   mavenCentral()
