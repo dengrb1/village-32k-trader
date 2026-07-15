@@ -7,6 +7,8 @@ scoreboard objectives add vt_ui_last dummy
 scoreboard objectives add vt_ui_card dummy
 scoreboard objectives add vt_portable dummy
 scoreboard objectives add vt_key_cd dummy
+scoreboard objectives add vt_barid dummy
+scoreboard objectives add vt_barvalue dummy
 scoreboard objectives add vt_stage dummy
 scoreboard objectives add vt_diff dummy
 scoreboard objectives add vt_gear dummy
@@ -50,6 +52,7 @@ scoreboard objectives add vt_cbddia dummy
 scoreboard objectives add vt_cbcob dummy
 scoreboard objectives add vt_btotem dummy
 execute unless score $level vt_penalty matches -2147483648..2147483647 run scoreboard players set $level vt_penalty 0
+execute unless score #next vt_barid matches 0.. run scoreboard players set #next vt_barid 0
 execute if score $level vt_penalty matches ..-1 run scoreboard players set $level vt_penalty 0
 execute if score $level vt_penalty matches 4.. run scoreboard players set $level vt_penalty 3
 data modify storage village_trader:state installed set value 1b

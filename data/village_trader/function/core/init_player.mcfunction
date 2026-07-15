@@ -69,6 +69,9 @@ scoreboard players set @s vt_ui_last 0
 scoreboard players set @s vt_ui_card 0
 scoreboard players set @s vt_portable 0
 scoreboard players set @s vt_key_cd 0
+scoreboard players set @s vt_barid 0
+scoreboard players set @s vt_barvalue 0
 scoreboard players enable @s vt_menu
 scoreboard players enable @s vt_action
 scoreboard players set @s vt_init 1
+function village_trader:bossbar/allocate

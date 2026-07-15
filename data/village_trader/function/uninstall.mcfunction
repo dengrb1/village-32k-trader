@@ -1,6 +1,8 @@
 schedule clear village_trader:scan
 schedule clear village_trader:second
 data remove storage village_trader:state installed
+execute if score #next vt_barid matches 1.. run scoreboard players operation #cursor vt_barid = #next vt_barid
+execute if score #cursor vt_barid matches 1.. run function village_trader:bossbar/remove_loop
 kill @e[type=minecraft:villager,tag=village_trader.merchant]
 kill @e[type=minecraft:marker,tag=village_trader.house]
 tag @a remove village_trader.main_aux_1
@@ -34,6 +36,7 @@ scoreboard objectives remove vt_ui_last
 scoreboard objectives remove vt_ui_card
 scoreboard objectives remove vt_portable
 scoreboard objectives remove vt_key_cd
+scoreboard objectives remove vt_barvalue
 scoreboard objectives remove vt_stage
 scoreboard objectives remove vt_diff
 scoreboard objectives remove vt_gear
@@ -76,4 +79,5 @@ scoreboard objectives remove vt_cbdia
 scoreboard objectives remove vt_cbddia
 scoreboard objectives remove vt_cbcob
 scoreboard objectives remove vt_btotem
+scoreboard objectives remove vt_barid
 tellraw @a [{"text":"[村庄商人] ","color":"gold"},{"text":"实体、定时任务、个人进度和公共状态已清理；已生成的房屋方块会保留。","color":"yellow"}]
