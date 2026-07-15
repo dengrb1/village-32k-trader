@@ -1,0 +1,18 @@
+name: VillageTrader
+version: ${version}
+main: cn.villagetrader.VillageTraderPlugin
+api-version: '26.1'
+description: 村庄成长商店 Paper 插件版
+authors: [VillageTrader]
+commands:
+  villagetrader:
+    description: VillageTrader 管理与玩家命令
+    aliases: [vt]
+    usage: /villagetrader help
+permissions:
+  villagetrader.admin:
+    description: 使用 VillageTrader 管理命令
+    default: op
+  villagetrader.use:
+    description: 使用 VillageTrader 商店
+    default: true

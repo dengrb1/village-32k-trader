@@ -1,0 +1,13 @@
+# 留空时自动使用服务器第一个 NORMAL 世界。建议生产服显式填写。
+enabled-worlds: []
+autosave-ticks: 9468
+merchant-respawn-ticks: 100
+shop-duplicate-radius: 160
+village-scan-radius: 32
+build-shop-house: true
+bossbar:
+  enabled: true
+  update-ticks: 10
+legacy-migration:
+  enabled: true
+  convert-items-on-join: true
