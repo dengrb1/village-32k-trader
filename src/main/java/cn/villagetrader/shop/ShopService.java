@@ -25,6 +25,7 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public final class ShopService implements Listener {
@@ -60,7 +61,7 @@ public final class ShopService implements Listener {
       Goods[] goods = {new Goods(Material.COBBLESTONE, 64, 1), new Goods(Material.OAK_LOG, 32, 1), new Goods(Material.IRON_INGOT, 16, 2), new Goods(Material.BREAD, 16, 2), new Goods(Material.TORCH, 64, 3), new Goods(Material.SHIELD, 1, 4), new Goods(Material.EMERALD, 8, 5), new Goods(Material.GOLDEN_APPLE, 2, 6)};
       addGoods(menu, goods, p, true);
     } else {
-      Goods[] goods = {new Goods(Material.DIAMOND, 64, 2), new Goods(Material.EMERALD, 64, 2), new Goods(Material.GOLDEN_APPLE, 8, 2), new Goods(Material.DIAMOND_BLOCK, 16, 3), new Goods(Material.EMERALD_BLOCK, 16, 3), new Goods(Material.NETHERITE_SCRAP, 16, 3), new Goods(Material.NETHERITE_INGOT, 8, 4), new Goods(Material.ENCHANTED_GOLDEN_APPLE, 2, 4), new Goods(Material.TOTEM_OF_UNDYING, 1, 5), new Goods(Material.NETHERITE_BLOCK, 4, 6)};
+      Goods[] goods = {new Goods(Material.DIAMOND, 64, 2), new Goods(Material.EMERALD, 64, 2), new Goods(Material.GOLDEN_APPLE, 8, 2), new Goods(Material.FIREWORK_ROCKET, 64, 2), new Goods(Material.DIAMOND_BLOCK, 16, 3), new Goods(Material.EMERALD_BLOCK, 16, 3), new Goods(Material.NETHERITE_SCRAP, 16, 3), new Goods(Material.NETHERITE_INGOT, 8, 4), new Goods(Material.ENCHANTED_GOLDEN_APPLE, 2, 4), new Goods(Material.TOTEM_OF_UNDYING, 1, 5), new Goods(Material.NETHERITE_BLOCK, 4, 6)};
       addGoods(menu, goods, p, false);
     }
     back(menu, 49);
@@ -200,14 +201,14 @@ public final class ShopService implements Listener {
   private void purchaseMainGood(Player player, Goods good) {
     PlayerProfile p = profiles.get(player.getUniqueId()); if (p.child.enabled || !UnlockPolicy.good(p, good.stage)) { error(player, "尚未解锁此商品。"); return; }
     Map<Material, Integer> price = goodsPrice(); if (!InventoryUtil.pay(player, price)) { error(player, "支付物不足：" + costText(price)); return; }
-    player.getInventory().addItem(new ItemStack(good.material, good.amount)); success(player, "兑换成功 ×" + good.amount);
+    player.getInventory().addItem(createGood(good)); success(player, "兑换成功 ×" + good.amount);
   }
 
   private void purchaseChildGood(Player player, Goods good) {
     PlayerProfile p = profiles.get(player.getUniqueId()); if (!p.child.enabled || !UnlockPolicy.good(p, good.stage)) { error(player, "尚未解锁此商品。"); return; }
     int dirt = p.selectedChildAuxiliary == 5 && p.childAuxiliaries.contains(5) && items.has(player, "child_aux", 5) ? 1 : 4;
     if (!InventoryUtil.pay(player, InventoryUtil.cost(Material.DIRT, dirt))) { error(player, "泥土不足，需要 " + dirt + " 个。"); return; }
-    player.getInventory().addItem(new ItemStack(good.material, good.amount)); tasks.recordChildPurchase(player); success(player, "兑换成功 ×" + good.amount);
+    player.getInventory().addItem(createGood(good)); tasks.recordChildPurchase(player); success(player, "兑换成功 ×" + good.amount);
   }
 
   private void auxiliary(Player player, boolean child, int id, String name) {
@@ -237,6 +238,16 @@ public final class ShopService implements Listener {
       });
     }
     if (slot == 10) menu.button(22, icon(Material.PAPER, "暂无可兑换商品", "随着进度推进会在此显示"), ignored -> {});
+  }
+
+  private ItemStack createGood(Goods good) {
+    ItemStack item = new ItemStack(good.material, good.amount);
+    if (good.material == Material.FIREWORK_ROCKET) {
+      FireworkMeta meta = (FireworkMeta) item.getItemMeta();
+      meta.setPower(3);
+      item.setItemMeta(meta);
+    }
+    return item;
   }
 
   private int addAuxiliaries(Menu menu, PlayerProfile profile, boolean child, int firstId, int lastId, int slot) {
