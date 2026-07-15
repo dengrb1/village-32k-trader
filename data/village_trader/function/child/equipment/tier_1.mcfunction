@@ -1,0 +1,14 @@
+execute store result score @s vt_ok run function village_trader:child/purchase/pay_dirt
+execute unless score @s vt_ok matches 1 run return 0
+give @s minecraft:iron_helmet[minecraft:custom_name='{"text":"1级守护铁盔","color":"white","italic":false}',minecraft:enchantments={"minecraft:protection":1,"minecraft:unbreaking":1},minecraft:unbreakable={},minecraft:custom_data={kind:"child_equipment",tier:1,slot:"head"}]
+give @s minecraft:iron_chestplate[minecraft:custom_name='{"text":"1级守护铁甲","color":"white","italic":false}',minecraft:enchantments={"minecraft:protection":1,"minecraft:unbreaking":1},minecraft:unbreakable={},minecraft:custom_data={kind:"child_equipment",tier:1,slot:"chest"}]
+give @s minecraft:iron_leggings[minecraft:custom_name='{"text":"1级守护护腿","color":"white","italic":false}',minecraft:enchantments={"minecraft:protection":1,"minecraft:unbreaking":1},minecraft:unbreakable={},minecraft:custom_data={kind:"child_equipment",tier:1,slot:"legs"}]
+give @s minecraft:iron_boots[minecraft:custom_name='{"text":"1级守护铁靴","color":"white","italic":false}',minecraft:enchantments={"minecraft:protection":1,"minecraft:feather_falling":1,"minecraft:unbreaking":1},minecraft:unbreakable={},minecraft:custom_data={kind:"child_equipment",tier:1,slot:"feet"}]
+give @s minecraft:iron_sword[minecraft:custom_name='{"text":"1级守护剑","color":"white","italic":false}',minecraft:enchantments={"minecraft:sharpness":1,"minecraft:unbreaking":1},minecraft:unbreakable={},minecraft:custom_data={kind:"child_equipment",tier:1,slot:"weapon"}]
+give @s minecraft:iron_pickaxe[minecraft:custom_name='{"text":"1级守护镐","color":"white","italic":false}',minecraft:enchantments={"minecraft:efficiency":1,"minecraft:unbreaking":1},minecraft:unbreakable={},minecraft:custom_data={kind:"child_equipment",tier:1,slot:"pickaxe"}]
+give @s minecraft:iron_axe[minecraft:enchantments={"minecraft:efficiency":1,"minecraft:unbreaking":1},minecraft:unbreakable={},minecraft:custom_data={kind:"child_equipment",tier:1,slot:"axe"}]
+give @s minecraft:iron_shovel[minecraft:enchantments={"minecraft:efficiency":1,"minecraft:unbreaking":1},minecraft:unbreakable={},minecraft:custom_data={kind:"child_equipment",tier:1,slot:"shovel"}]
+give @s minecraft:iron_hoe[minecraft:enchantments={"minecraft:efficiency":1,"minecraft:unbreaking":1},minecraft:unbreakable={},minecraft:custom_data={kind:"child_equipment",tier:1,slot:"hoe"}]
+give @s minecraft:bow[minecraft:enchantments={"minecraft:power":1,"minecraft:unbreaking":1,"minecraft:infinity":1},minecraft:unbreakable={},minecraft:custom_data={kind:"child_equipment",tier:1,slot:"bow"}]
+give @s minecraft:shield[minecraft:enchantments={"minecraft:unbreaking":1},minecraft:unbreakable={},minecraft:custom_data={kind:"child_equipment",tier:1,slot:"shield"}]
+title @s actionbar {"text":"已兑换1级铁质守护套装。","color":"green"}

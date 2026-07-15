@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "event": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:blaze"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "function": "village_trader:main/reward/kill_blaze"
+  }
+}
+

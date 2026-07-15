@@ -1,0 +1,32 @@
+{
+  "criteria": {
+    "smelt_raw": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": { "recipe_id": "minecraft:iron_ingot_from_smelting_raw_iron" }
+    },
+    "smelt_ore": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": { "recipe_id": "minecraft:iron_ingot_from_smelting_iron_ore" }
+    },
+    "smelt_deepslate": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": { "recipe_id": "minecraft:iron_ingot_from_smelting_deepslate_iron_ore" }
+    },
+    "blast_raw": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": { "recipe_id": "minecraft:iron_ingot_from_blasting_raw_iron" }
+    },
+    "blast_ore": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": { "recipe_id": "minecraft:iron_ingot_from_blasting_iron_ore" }
+    },
+    "blast_deepslate": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": { "recipe_id": "minecraft:iron_ingot_from_blasting_deepslate_iron_ore" }
+    }
+  },
+  "requirements": [["smelt_raw", "smelt_ore", "smelt_deepslate", "blast_raw", "blast_ore", "blast_deepslate"]],
+  "rewards": {
+    "function": "village_trader:child/reward/smelt_iron"
+  }
+}

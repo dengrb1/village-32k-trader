@@ -1,0 +1,10 @@
+execute if score @s vt_tmp matches 1 run give @s minecraft:paper[minecraft:custom_name='{"text":"伐木手套","color":"gold","italic":false}',minecraft:custom_data={kind:"child_aux",id:1},minecraft:enchantment_glint_override=true]
+execute if score @s vt_tmp matches 2 run give @s minecraft:paper[minecraft:custom_name='{"text":"矿工护符","color":"aqua","italic":false}',minecraft:custom_data={kind:"child_aux",id:2},minecraft:enchantment_glint_override=true]
+execute if score @s vt_tmp matches 3 run give @s minecraft:paper[minecraft:custom_name='{"text":"旅行护符","color":"green","italic":false}',minecraft:custom_data={kind:"child_aux",id:3},minecraft:enchantment_glint_override=true]
+execute if score @s vt_tmp matches 4 run give @s minecraft:paper[minecraft:custom_name='{"text":"勇气护符","color":"red","italic":false}',minecraft:custom_data={kind:"child_aux",id:4},minecraft:enchantment_glint_override=true]
+execute if score @s vt_tmp matches 5 run give @s minecraft:paper[minecraft:custom_name='{"text":"商人徽章","color":"green","italic":false}',minecraft:custom_data={kind:"child_aux",id:5},minecraft:enchantment_glint_override=true]
+execute if score @s vt_tmp matches 6 run give @s minecraft:paper[minecraft:custom_name='{"text":"守护护符","color":"light_purple","italic":false}',minecraft:custom_data={kind:"child_aux",id:6},minecraft:enchantment_glint_override=true]
+execute if score @s vt_tmp matches 7 run give @s minecraft:paper[minecraft:custom_name='{"text":"龙战护符","color":"light_purple","italic":false}',minecraft:custom_data={kind:"child_aux",id:7},minecraft:enchantment_glint_override=true]
+execute if score @s vt_tmp matches 8 run give @s minecraft:paper[minecraft:custom_name='{"text":"净化护符","color":"white","italic":false}',minecraft:custom_data={kind:"child_aux",id:8},minecraft:enchantment_glint_override=true]
+execute if score @s vt_tmp matches 9 run give @s minecraft:paper[minecraft:custom_name='{"text":"深暗护符","color":"dark_aqua","italic":false}',minecraft:custom_data={kind:"child_aux",id:9},minecraft:enchantment_glint_override=true]
+

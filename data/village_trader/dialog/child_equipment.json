@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {"text": "儿童线：当前装备", "color": "yellow", "bold": true},
+  "body": [
+    {"type": "minecraft:item", "item": {"id": "minecraft:diamond_chestplate", "count": 1}, "description": {"contents": [{"text": "核心章节：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_cstage"}, "color": "aqua"}, {"text": " / 7；当前章节会兑换对应的守护套装。", "color": "gray"}]}},
+    {"type": "minecraft:item", "item": {"id": "minecraft:netherite_chestplate", "count": 1}, "description": {"contents": [{"text": "守护升格：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_asc"}, "color": "light_purple"}, {"text": "；完成后可兑换 128 级强化守护套装。", "color": "gray"}]}}
+  ],
+  "columns": 2,
+  "actions": [
+    {"label": "兑换当前套装", "action": {"type": "run_command", "command": "/trigger vt_action set 350"}},
+    {"label": "查看第 1 章套装", "action": {"type": "run_command", "command": "/trigger vt_action set 351"}},
+    {"label": "查看第 2 章套装", "action": {"type": "run_command", "command": "/trigger vt_action set 352"}},
+    {"label": "查看第 3 章套装", "action": {"type": "run_command", "command": "/trigger vt_action set 353"}},
+    {"label": "查看第 4 章套装", "action": {"type": "run_command", "command": "/trigger vt_action set 354"}},
+    {"label": "查看第 5 章套装", "action": {"type": "run_command", "command": "/trigger vt_action set 355"}},
+    {"label": "查看第 6 章套装", "action": {"type": "run_command", "command": "/trigger vt_action set 356"}},
+    {"label": "兑换 128 级套装", "action": {"type": "run_command", "command": "/trigger vt_action set 357"}},
+    {"label": "返回主菜单", "action": {"type": "run_command", "command": "/trigger vt_action set 1"}}
+  ],
+  "exit_action": {"label": "关闭"}
+}

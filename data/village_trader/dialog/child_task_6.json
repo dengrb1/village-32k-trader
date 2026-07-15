@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {"text": "守护毕业：当前任务", "color": "gold", "bold": true},
+  "body": [
+    {"type": "minecraft:item", "item": {"id": "minecraft:villager_spawn_egg", "count": 1}, "description": {"contents": [{"text": "激活后再次与本数据包商人互动：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_ca"}, "color": "aqua"}] }},
+    {"type": "minecraft:item", "item": {"id": "minecraft:paper", "count": 1}, "description": {"contents": [{"text": "任务牌在背包：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_ui_card"}, "color": "aqua"}] }}
+  ],
+  "columns": 2,
+  "actions": [
+    {"label": "任务牌页面", "action": {"type": "run_command", "command": "/trigger vt_action set 204"}},
+    {"label": "提交并毕业", "action": {"type": "run_command", "command": "/trigger vt_action set 323"}},
+    {"label": "本章教程", "action": {"type": "run_command", "command": "/trigger vt_action set 208"}},
+    {"label": "返回主菜单", "action": {"type": "run_command", "command": "/trigger vt_action set 1"}}
+  ],
+  "exit_action": {"label": "关闭"}
+}

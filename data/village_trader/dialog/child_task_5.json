@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {"text": "商人助手：当前任务", "color": "gold", "bold": true},
+  "body": [
+    {"type": "minecraft:item", "item": {"id": "minecraft:emerald", "count": 4}, "description": {"contents": [{"text": "购买一次普通商品：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_ca"}, "color": "aqua"}, {"text": "　持有绿宝石：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_cc"}, "color": "aqua"}]}},
+    {"type": "minecraft:item", "item": {"id": "minecraft:diamond_ore", "count": 1}, "description": {"contents": [{"text": "亲自挖掘钻石矿：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_cb"}, "color": "aqua"}]}}
+  ],
+  "columns": 2,
+  "actions": [
+    {"label": "任务牌页面", "action": {"type": "run_command", "command": "/trigger vt_action set 204"}},
+    {"label": "提交当前任务", "action": {"type": "run_command", "command": "/trigger vt_action set 323"}},
+    {"label": "本章教程", "action": {"type": "run_command", "command": "/trigger vt_action set 208"}},
+    {"label": "返回主菜单", "action": {"type": "run_command", "command": "/trigger vt_action set 1"}}
+  ],
+  "exit_action": {"label": "关闭"}
+}
