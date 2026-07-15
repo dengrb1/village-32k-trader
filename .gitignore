@@ -1,6 +1,10 @@
 # Release archives are published through GitHub Releases.
 *.zip
 
+# Gradle local state and generated build artifacts.
+.gradle/
+build/
+
 # Local Minecraft test artifacts.
 *.log
 logs/
