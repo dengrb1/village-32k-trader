@@ -21,7 +21,7 @@ public final class UnlockPolicy {
 
   static boolean task(PlayerProfile profile, TaskDefinitions.Route route, int stage) {
     return switch (route) {
-      case MAIN -> !profile.child.enabled && stage == profile.main.stage && stage >= 1 && stage <= 6;
+      case MAIN -> !profile.child.enabled && stage == profile.main.stage && stage >= 1 && stage <= 10;
       case CHILD -> profile.child.enabled && profile.child.stage < 7 && stage == profile.child.stage;
       case BOSS -> profile.child.enabled && profile.child.stage >= 7 && stage == profile.child.bossStage && stage >= 1 && stage <= 3;
       case ASCENSION -> ascension(profile);
@@ -34,13 +34,35 @@ public final class UnlockPolicy {
   }
 
   public static boolean equipment(PlayerProfile profile, int tier) {
-    if (profile.child.enabled) return tier == 128 && profile.child.ascended;
-    if (tier == 128) return false;
-    return (tier == 5 && profile.main.stage >= 2)
-        || (tier == 10 && profile.main.stage >= 3)
-        || (tier == 20 && profile.main.stage >= 4)
-        || (tier == 32 && profile.main.stage >= 5)
-        || (tier == 64 && profile.main.stage >= 6)
-        || (tier == 255 && profile.main.stage >= 7 && profile.main.hardMode);
+    return profile.child.enabled ? childEquipment(profile, tier) : mainEquipment(profile, tier);
+  }
+
+  public static boolean mainEquipment(PlayerProfile profile, int tier) {
+    if (profile == null) return false;
+    if (tier != 5 && tier != 10 && tier != 20 && tier != 32 && tier != 64 && tier != 255) return false;
+    if (profile.equipmentTiers != null && profile.equipmentTiers.contains(tier)) return true;
+    return switch (tier) {
+      case 5 -> profile.main.stage >= 2;
+      case 10 -> profile.main.stage >= 3;
+      case 20 -> profile.main.stage >= 6;
+      case 32 -> profile.main.stage >= 7;
+      case 64 -> profile.main.stage >= 9;
+      case 255 -> profile.main.stage >= 11;
+      default -> false;
+    };
+  }
+
+  public static boolean childEquipment(PlayerProfile profile, int tier) {
+    if (profile == null || !profile.child.enabled) return false;
+    return switch (tier) {
+      case 1 -> profile.child.stage >= 1;
+      case 3 -> profile.child.stage >= 2;
+      case 5 -> profile.child.stage >= 3;
+      case 10 -> profile.child.stage >= 4;
+      case 20 -> profile.child.stage >= 5;
+      case 32 -> profile.child.stage >= 6;
+      case 128 -> profile.child.ascended;
+      default -> false;
+    };
   }
 }

@@ -9,6 +9,7 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -50,12 +51,13 @@ public final class ProfileManager implements AutoCloseable {
 
   public PlayerProfile load(UUID uuid, String name) throws IOException {
     PlayerProfile profile;
+    boolean migrated = false;
     Path file = path(uuid);
     if (Files.exists(file)) {
       try {
         profile = json.read(file, PlayerProfile.class);
         validate(profile, uuid);
-        if (profile.schemaVersion < PlayerProfile.CURRENT_SCHEMA) profile = migrate(profile, file);
+        if (profile.schemaVersion < PlayerProfile.CURRENT_SCHEMA) { profile = migrate(profile, file); migrated = true; }
       } catch (IOException ex) {
         logger.log(Level.SEVERE, "档案加载失败，已锁定且不会覆盖: " + file, ex);
         profile = new PlayerProfile(uuid, name);
@@ -67,6 +69,7 @@ public final class ProfileManager implements AutoCloseable {
     normalize(profile);
     profile.touch(name);
     loaded.put(uuid, profile);
+    if (migrated) save(profile);
     return profile;
   }
 
@@ -124,11 +127,84 @@ public final class ProfileManager implements AutoCloseable {
     json.backup(source, backupsDir, "pre-migration-v" + profile.schemaVersion);
     int version = profile.schemaVersion;
     while (version < PlayerProfile.CURRENT_SCHEMA) {
-      // 后续 schema 在这里按 vN -> vN+1 顺序迁移，禁止跳版本。
+      if (version == 1) {
+        migrateV1ToV2(profile);
+        version = 2;
+        continue;
+      }
       throw new IOException("缺少从 schema " + version + " 到新版本的迁移器");
     }
     profile.schemaVersion = version;
     return profile;
+  }
+
+  /**
+   * The original Paper release used the old six-stage data-pack route.  Keep a
+   * player's proven progress, but do not manufacture completion for chapters
+   * that were newly inserted in the ten-stage route.
+   */
+  private void migrateV1ToV2(PlayerProfile p) {
+    if (p.freeMainTaskContracts == null) p.freeMainTaskContracts = new HashSet<>();
+    if (p.achievements == null) p.achievements = new HashSet<>();
+    if (p.achievementBundles == null) p.achievementBundles = new HashSet<>();
+    if (p.equipmentTiers == null) p.equipmentTiers = new HashSet<>();
+
+    int oldStage = Math.max(1, p.main.stage);
+    int oldActive = p.main.task == null ? 0 : p.main.task.activeId;
+    boolean oldHardMode = p.main.hardMode;
+
+    // Active cards become a single free activation for the corresponding new
+    // chapter.  Their former partial counters cannot prove the new goals.
+    int activeTarget = switch (oldActive) {
+      case 1 -> 2;
+      case 2 -> 3;
+      case 3 -> 5;
+      case 4 -> 6;
+      case 5 -> 8;
+      case 6 -> 9;
+      case 7 -> 10;
+      default -> 0;
+    };
+    if (activeTarget > 0) {
+      p.main.stage = activeTarget;
+      p.freeMainTaskContracts.add(activeTarget);
+    } else {
+      p.main.stage = switch (oldStage) {
+        case 1 -> 1;
+        case 2 -> 3;
+        case 3 -> 4;
+        case 4 -> 6;
+        case 5 -> 7;
+        case 6 -> 9;
+        default -> 10;
+      };
+    }
+
+    // The old completed route unlocked 64 gear; old hard-mode completion also
+    // retains its 255 entitlement while the player works through the new end.
+    if (oldStage >= 6) p.equipmentTiers.add(64);
+    if (oldStage >= 7 || oldActive == 7 || oldHardMode) p.equipmentTiers.add(255);
+    p.main.equipmentTier = 0;
+    p.main.task = new PlayerProfile.Task();
+
+    // Only achievements that can be proved by the old route are backfilled.
+    if (oldStage >= 2) p.achievements.add("story_02");
+    if (oldStage >= 3) p.achievements.add("story_03");
+    if (oldStage >= 4) p.achievements.add("story_05");
+    if (oldStage >= 5) p.achievements.add("story_06");
+    if (oldStage >= 6) p.achievements.add("story_08");
+    if (oldActive == 7) p.achievements.add("story_09");
+    if (p.child != null) {
+      if (p.child.stage >= 2) p.achievements.add("guardian_01");
+      if (p.child.stage >= 4) p.achievements.add("guardian_02");
+      if (p.child.stage >= 7) p.achievements.add("guardian_03");
+      if (p.child.bossMarks != null) {
+        if (p.child.bossMarks.contains("dragon")) p.achievements.add("guardian_04");
+        if (p.child.bossMarks.contains("wither")) p.achievements.add("guardian_05");
+        if (p.child.bossMarks.contains("warden")) p.achievements.add("guardian_06");
+      }
+      if (p.child.ascended) p.achievements.add("guardian_07");
+    }
   }
 
   private void normalize(PlayerProfile p) {
@@ -140,6 +216,9 @@ public final class ProfileManager implements AutoCloseable {
     if (p.mainAuxiliaries == null) p.mainAuxiliaries = ConcurrentHashMap.newKeySet();
     if (p.childAuxiliaries == null) p.childAuxiliaries = ConcurrentHashMap.newKeySet();
     if (p.equipmentTiers == null) p.equipmentTiers = ConcurrentHashMap.newKeySet();
+    if (p.freeMainTaskContracts == null) p.freeMainTaskContracts = ConcurrentHashMap.newKeySet();
+    if (p.achievements == null) p.achievements = ConcurrentHashMap.newKeySet();
+    if (p.achievementBundles == null) p.achievementBundles = ConcurrentHashMap.newKeySet();
     if (p.statisticBaselines == null) p.statisticBaselines = new ConcurrentHashMap<>();
     if (p.cooldowns == null) p.cooldowns = new ConcurrentHashMap<>();
     if (p.settings == null) p.settings = new ConcurrentHashMap<>();

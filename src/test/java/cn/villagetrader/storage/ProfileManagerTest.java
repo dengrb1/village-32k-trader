@@ -43,4 +43,29 @@ final class ProfileManagerTest {
       assertEquals(target, json.read(manager.profilesDirectory().resolve(target + ".json"), PlayerProfile.class).uuid);
     }
   }
+
+  @Test void v1ProfileMigratesToTenChapterRouteWithoutLosingEntitlements() throws Exception {
+    UUID uuid = UUID.randomUUID();
+    JsonStore json = new JsonStore();
+    PlayerProfile legacy = new PlayerProfile(uuid, "Tester");
+    legacy.schemaVersion = 1;
+    legacy.main.stage = 6;
+    legacy.main.task.activate(6);
+    legacy.freeMainTaskContracts = null;
+    legacy.achievements = null;
+    legacy.achievementBundles = null;
+    Path file = temp.resolve("profiles").resolve(uuid + ".json");
+    Files.createDirectories(file.getParent());
+    json.writeAtomic(file, legacy);
+
+    try (ProfileManager manager = new ProfileManager(temp, json, Logger.getAnonymousLogger())) {
+      PlayerProfile migrated = manager.load(uuid, "Tester");
+      assertEquals(PlayerProfile.CURRENT_SCHEMA, migrated.schemaVersion);
+      assertEquals(9, migrated.main.stage);
+      assertTrue(migrated.freeMainTaskContracts.contains(9));
+      assertEquals(0, migrated.main.task.activeId);
+      assertTrue(migrated.equipmentTiers.contains(64));
+      assertTrue(migrated.achievements.contains("story_08"));
+    }
+  }
 }

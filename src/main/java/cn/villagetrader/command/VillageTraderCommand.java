@@ -44,7 +44,7 @@ public final class VillageTraderCommand implements CommandExecutor, TabCompleter
     switch(a[1].toLowerCase()){
       case "export"->{Path file=plugin.profiles().exportProfile(p);sender.sendMessage(Component.text("已导出："+file.getFileName(),NamedTextColor.GREEN));}
       case "import"->{if(a.length<4)throw new IllegalArgumentException("缺少 exports/ 内文件名");p=plugin.profiles().importProfile(target.getUniqueId(),a[3]);plugin.bossBars().update(target);sender.sendMessage(Component.text("已备份当前档并立即导入应用。",NamedTextColor.GREEN));}
-      case "status"->sender.sendMessage(Component.text("schema="+p.schemaVersion+" UUID="+p.uuid+" updated="+DateTimeFormatter.ISO_INSTANT.format(p.updatedAt)+" 主线="+p.main.stage+" 儿童="+p.child.stage+" Boss="+p.child.bossStage+" 锁定="+p.writeBlocked,NamedTextColor.AQUA));
+      case "status"->sender.sendMessage(Component.text("schema="+p.schemaVersion+" UUID="+p.uuid+" updated="+DateTimeFormatter.ISO_INSTANT.format(p.updatedAt)+" 主线="+p.main.stage+" 儿童="+p.child.stage+" Boss="+p.child.bossStage+" 成就="+plugin.achievements().total(p)+"/40 称号="+plugin.achievements().title(p).name()+" 锁定="+p.writeBlocked,NamedTextColor.AQUA));
       default->throw new IllegalArgumentException("未知 profile 子命令");
     }
   }

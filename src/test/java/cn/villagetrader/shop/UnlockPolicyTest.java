@@ -11,21 +11,27 @@ import org.junit.jupiter.api.Test;
 final class UnlockPolicyTest {
   @Test void mainStagesGateGoodsAuxiliariesTasksAndEquipment() {
     PlayerProfile profile = profile();
-    for (int stage = 1; stage <= 6; stage++) {
+    for (int stage = 1; stage <= 10; stage++) {
       profile.main.stage = stage;
       assertTrue(UnlockPolicy.good(profile, stage));
-      assertTrue(UnlockPolicy.auxiliary(profile, false, stage));
       assertTrue(UnlockPolicy.task(profile, TaskDefinitions.Route.MAIN, stage));
-      if (stage < 6) assertFalse(UnlockPolicy.good(profile, stage + 1));
+      if (stage <= 6) assertTrue(UnlockPolicy.auxiliary(profile, false, stage));
+      assertFalse(UnlockPolicy.auxiliary(profile, false, 7));
+      if (stage < 10) assertFalse(UnlockPolicy.task(profile, TaskDefinitions.Route.MAIN, stage + 1));
     }
     profile.main.stage = 2;
     assertTrue(UnlockPolicy.equipment(profile, 5));
     assertFalse(UnlockPolicy.equipment(profile, 10));
+    profile.main.stage = 3;
+    assertTrue(UnlockPolicy.equipment(profile, 10));
     profile.main.stage = 6;
+    assertTrue(UnlockPolicy.equipment(profile, 20));
+    profile.main.stage = 7;
+    assertTrue(UnlockPolicy.equipment(profile, 32));
+    profile.main.stage = 9;
     assertTrue(UnlockPolicy.equipment(profile, 64));
     assertFalse(UnlockPolicy.equipment(profile, 255));
-    profile.main.stage = 7;
-    profile.main.hardMode = true;
+    profile.main.stage = 11;
     assertTrue(UnlockPolicy.equipment(profile, 255));
   }
 

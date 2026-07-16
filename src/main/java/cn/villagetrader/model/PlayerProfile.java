@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public final class PlayerProfile {
-  public static final int CURRENT_SCHEMA = 1;
+  public static final int CURRENT_SCHEMA = 2;
 
   public int schemaVersion = CURRENT_SCHEMA;
   public UUID uuid;
@@ -24,6 +24,12 @@ public final class PlayerProfile {
   public int selectedChildAuxiliary;
   public boolean portableKeyAuthorized;
   public Set<Integer> equipmentTiers = new HashSet<>();
+  /** One-time no-cost task activations issued while migrating the former six-stage main route. */
+  public Set<Integer> freeMainTaskContracts = new HashSet<>();
+  /** Stable achievement identifiers, for example {@code story_01}. */
+  public Set<String> achievements = new HashSet<>();
+  /** One-time category and 40/40 reward identifiers already claimed. */
+  public Set<String> achievementBundles = new HashSet<>();
   public Map<String, Long> statisticBaselines = new HashMap<>();
   public Map<String, Long> cooldowns = new HashMap<>();
   public Map<String, Boolean> settings = new HashMap<>();

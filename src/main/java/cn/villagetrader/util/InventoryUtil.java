@@ -26,6 +26,12 @@ public final class InventoryUtil {
     return true;
   }
 
+  /** Never silently lose a quest or achievement reward when the inventory is full. */
+  public static void giveOrDrop(Player player, ItemStack stack) {
+    if (stack == null || stack.getType().isAir() || stack.getAmount() <= 0) return;
+    player.getInventory().addItem(stack).values().forEach(leftover -> player.getWorld().dropItemNaturally(player.getLocation(), leftover));
+  }
+
   public static void remove(Player player, Material material, int amount) {
     ItemStack[] items = player.getInventory().getContents();
     for (int slot = 0; slot < items.length && amount > 0; slot++) {
