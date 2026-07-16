@@ -1,0 +1,15 @@
+# 通行证首次购买已在 open_pass 中结算；单件补领免费。
+# 单件补领不再重复扣款。
+execute if score @s vt_cequip_slot matches 1 run give @s minecraft:iron_helmet[minecraft:custom_name={text:"3级守护铁盔",color:"green",italic:false},minecraft:enchantments={"minecraft:protection":3,"minecraft:unbreaking":3},minecraft:custom_data={kind:"child_equipment",tier:3,slot:"head"}]
+execute if score @s vt_cequip_slot matches 2 run give @s minecraft:iron_chestplate[minecraft:custom_name={text:"3级守护铁甲",color:"green",italic:false},minecraft:enchantments={"minecraft:protection":3,"minecraft:unbreaking":3},minecraft:custom_data={kind:"child_equipment",tier:3,slot:"chest"}]
+execute if score @s vt_cequip_slot matches 3 run give @s minecraft:iron_leggings[minecraft:custom_name={text:"3级守护护腿",color:"green",italic:false},minecraft:enchantments={"minecraft:protection":3,"minecraft:unbreaking":3},minecraft:custom_data={kind:"child_equipment",tier:3,slot:"legs"}]
+execute if score @s vt_cequip_slot matches 4 run give @s minecraft:iron_boots[minecraft:custom_name={text:"3级守护铁靴",color:"green",italic:false},minecraft:enchantments={"minecraft:protection":3,"minecraft:feather_falling":3,"minecraft:unbreaking":3},minecraft:custom_data={kind:"child_equipment",tier:3,slot:"feet"}]
+execute if score @s vt_cequip_slot matches 5 run give @s minecraft:iron_sword[minecraft:enchantments={"minecraft:sharpness":3,"minecraft:unbreaking":3},minecraft:custom_data={kind:"child_equipment",tier:3,slot:"weapon"}]
+execute if score @s vt_cequip_slot matches 6 run give @s minecraft:iron_spear[minecraft:custom_name={text:"3级守护长矛",color:"green",italic:false},minecraft:enchantments={"minecraft:sharpness":3,"minecraft:lunge":2,"minecraft:unbreaking":3},minecraft:custom_data={kind:"child_equipment",tier:3,slot:"spear"}]
+execute if score @s vt_cequip_slot matches 7 run give @s minecraft:iron_pickaxe[minecraft:enchantments={"minecraft:efficiency":3,"minecraft:unbreaking":3},minecraft:custom_data={kind:"child_equipment",tier:3,slot:"pickaxe"}]
+execute if score @s vt_cequip_slot matches 8 run give @s minecraft:iron_axe[minecraft:enchantments={"minecraft:efficiency":3,"minecraft:unbreaking":3},minecraft:custom_data={kind:"child_equipment",tier:3,slot:"axe"}]
+execute if score @s vt_cequip_slot matches 9 run give @s minecraft:iron_shovel[minecraft:enchantments={"minecraft:efficiency":3,"minecraft:unbreaking":3},minecraft:custom_data={kind:"child_equipment",tier:3,slot:"shovel"}]
+execute if score @s vt_cequip_slot matches 10 run give @s minecraft:iron_hoe[minecraft:enchantments={"minecraft:efficiency":3,"minecraft:unbreaking":3},minecraft:custom_data={kind:"child_equipment",tier:3,slot:"hoe"}]
+execute if score @s vt_cequip_slot matches 11 run give @s minecraft:bow[minecraft:enchantments={"minecraft:power":3,"minecraft:unbreaking":3,"minecraft:infinity":1},minecraft:custom_data={kind:"child_equipment",tier:3,slot:"bow"}]
+execute if score @s vt_cequip_slot matches 12 run give @s minecraft:shield[minecraft:enchantments={"minecraft:unbreaking":3},minecraft:custom_data={kind:"child_equipment",tier:3,slot:"shield"}]
+title @s actionbar {"text":"已按需领取一件儿童通行证装备。","color":"green"}

@@ -1,0 +1,88 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {
+    "text": "儿童线：Boss 番外",
+    "color": "dark_red",
+    "bold": true
+  },
+  "body": [
+    {
+      "type": "minecraft:plain_message",
+      "contents": [
+        {
+          "text": "三个 Boss 印记已完成；可兑换并提交守护升格核心。",
+          "color": "gray"
+        }
+      ]
+    }
+  ],
+  "columns": 2,
+  "actions": [
+    {
+      "label": "购买/选择 龙战护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 371"
+      }
+    },
+    {
+      "label": "补领 龙战护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 381"
+      }
+    },
+    {
+      "label": "购买/选择 净化护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 372"
+      }
+    },
+    {
+      "label": "补领 净化护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 382"
+      }
+    },
+    {
+      "label": "购买/选择 深暗护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 373"
+      }
+    },
+    {
+      "label": "补领 深暗护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 383"
+      }
+    },
+    {
+      "label": "购买/补领升格核心",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 391"
+      }
+    },
+    {
+      "label": "提交升格核心",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 392"
+      }
+    },
+    {
+      "label": "返回主菜单",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 1"
+      }
+    }
+  ],
+  "exit_action": {
+    "label": "关闭"
+  }
+}

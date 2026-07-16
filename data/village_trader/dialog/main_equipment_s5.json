@@ -1,0 +1,67 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {
+    "text": "当前装备",
+    "color": "aqua",
+    "bold": true
+  },
+  "body": [
+    {
+      "type": "minecraft:plain_message",
+      "contents": [
+        {
+          "text": "只显示当前已解锁的装备套装。",
+          "color": "gray"
+        }
+      ]
+    }
+  ],
+  "columns": 2,
+  "actions": [
+    {
+      "label": "兑换当前套装",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 150"
+      }
+    },
+    {
+      "label": "查看 5 级装备",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 151"
+      }
+    },
+    {
+      "label": "查看 10 级装备",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 152"
+      }
+    },
+    {
+      "label": "查看 20 级装备",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 153"
+      }
+    },
+    {
+      "label": "查看 32 级装备",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 154"
+      }
+    },
+    {
+      "label": "返回主菜单",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 1"
+      }
+    }
+  ],
+  "exit_action": {
+    "label": "关闭"
+  }
+}

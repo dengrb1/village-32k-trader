@@ -1,0 +1,1 @@
+{"parent":"village_trader:achievements/root","display":{"icon":{"id":"minecraft:sculk_catalyst"},"title":{"text":"幽匿深渊"},"description":{"text":"净化深暗之域"},"show_toast":true,"announce_to_chat":false},"criteria":{"earned":{"trigger":"minecraft:impossible"}},"rewards":{"function":"village_trader:achievement/award/explore_07"}}

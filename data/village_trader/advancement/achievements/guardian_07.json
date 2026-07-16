@@ -1,0 +1,1 @@
+{"parent":"village_trader:achievements/root","display":{"icon":{"id":"minecraft:totem_of_undying"},"title":{"text":"守护升格"},"description":{"text":"提交守护升格核心"},"frame":"challenge","show_toast":true,"announce_to_chat":false},"criteria":{"earned":{"trigger":"minecraft:impossible"}},"rewards":{"function":"village_trader:achievement/award/guardian_07"}}

@@ -1,0 +1,19 @@
+{
+  "type":"minecraft:multi_action",
+  "title":{"text":"批量购买","color":"gold","bold":true},
+  "body":[
+    {"type":"minecraft:plain_message","contents":[{"text":"已选商品编号：","color":"gray"},{"score":{"name":"@s","objective":"vt_good"},"color":"aqua"},{"text":"。当前制裁等级：","color":"gray"},{"score":{"name":"$level","objective":"vt_penalty"},"color":"red"}]},
+    {"type":"minecraft:plain_message","contents":[{"text":"每包价格：制裁 0/1/2/3 分别为 1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭。批量总价会先完整校验，失败不扣款。","color":"gray"}]},
+    {"type":"minecraft:item","item":{"id":"minecraft:bundle","count":1},"description":"可直接执行 /trigger vt_buy_qty set <1–64>；商品选择和交易仍会经过个人距离/钥匙校验。"}
+  ],
+  "columns":3,
+  "actions":[
+    {"label":"购买 1 包","action":{"type":"run_command","command":"/trigger vt_action set 191"}},
+    {"label":"购买 16 包","action":{"type":"run_command","command":"/trigger vt_action set 192"}},
+    {"label":"购买 64 包","action":{"type":"run_command","command":"/trigger vt_action set 193"}},
+    {"label":"资源目录","action":{"type":"run_command","command":"/trigger vt_action set 20"}},
+    {"label":"消耗品目录","action":{"type":"run_command","command":"/trigger vt_action set 30"}},
+    {"label":"返回主菜单","action":{"type":"run_command","command":"/trigger vt_action set 1"}}
+  ],
+  "exit_action":{"label":"关闭"}
+}

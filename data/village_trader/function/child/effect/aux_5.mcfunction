@@ -1,0 +1,1 @@
+title @s actionbar [{"text":"商人徽章：普通商品1泥土｜章节 ","color":"green"},{"score":{"name":"@s","objective":"vt_cstage"},"color":"gold"},{"text":" 目标A/B/C ","color":"gray"},{"score":{"name":"@s","objective":"vt_ca"}},{"text":"/"},{"score":{"name":"@s","objective":"vt_cb"}},{"text":"/"},{"score":{"name":"@s","objective":"vt_cc"}}]

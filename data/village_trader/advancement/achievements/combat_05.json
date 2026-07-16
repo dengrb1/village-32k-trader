@@ -1,0 +1,1 @@
+{"parent":"village_trader:achievements/root","display":{"icon":{"id":"minecraft:ominous_bottle"},"title":{"text":"袭击粉碎"},"description":{"text":"赢得一次袭击"},"show_toast":true,"announce_to_chat":false},"criteria":{"earned":{"trigger":"minecraft:impossible"}},"rewards":{"function":"village_trader:achievement/award/combat_05"}}

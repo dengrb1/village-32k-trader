@@ -1,0 +1,88 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {
+    "text": "儿童线：Boss 番外",
+    "color": "dark_red",
+    "bold": true
+  },
+  "body": [
+    {
+      "type": "minecraft:plain_message",
+      "contents": [
+        {
+          "text": "只显示当前 Boss 进度已开放的挑战与辅助用品。",
+          "color": "gray"
+        }
+      ]
+    }
+  ],
+  "columns": 2,
+  "actions": [
+    {
+      "label": "购买/补领当前挑战书",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 361"
+      }
+    },
+    {
+      "label": "提交并激活",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 362"
+      }
+    },
+    {
+      "label": "购买/选择 龙战护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 371"
+      }
+    },
+    {
+      "label": "补领 龙战护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 381"
+      }
+    },
+    {
+      "label": "购买/选择 净化护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 372"
+      }
+    },
+    {
+      "label": "补领 净化护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 382"
+      }
+    },
+    {
+      "label": "购买/选择 深暗护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 373"
+      }
+    },
+    {
+      "label": "补领 深暗护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 383"
+      }
+    },
+    {
+      "label": "返回主菜单",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 1"
+      }
+    }
+  ],
+  "exit_action": {
+    "label": "关闭"
+  }
+}

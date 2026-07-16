@@ -1,0 +1,19 @@
+# 购买前的阶段锁；数值与商品页的“解锁阶段”一致。
+execute if score @s vt_good matches 1..3 unless score @s vt_stage matches 1.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 16..18 unless score @s vt_stage matches 1.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 4..8 unless score @s vt_stage matches 2.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 19 unless score @s vt_stage matches 2.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 23..24 unless score @s vt_stage matches 2.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 9..11 unless score @s vt_stage matches 3.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 20 unless score @s vt_stage matches 3.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 25 unless score @s vt_stage matches 3.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 28 unless score @s vt_stage matches 3.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 13 unless score @s vt_stage matches 4.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 21 unless score @s vt_stage matches 4.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 12 unless score @s vt_stage matches 5.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 14 unless score @s vt_stage matches 5.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 22 unless score @s vt_stage matches 5.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 26..27 unless score @s vt_stage matches 5.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 29 unless score @s vt_stage matches 5.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 15 unless score @s vt_stage matches 9.. run scoreboard players set @s vt_ok 0
+execute if score @s vt_good matches 30 unless score @s vt_stage matches 8.. run scoreboard players set @s vt_ok 0

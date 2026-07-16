@@ -1,0 +1,1 @@
+{"parent":"village_trader:achievements/root","display":{"icon":{"id":"minecraft:nether_star"},"title":{"text":"凋灵猎手"},"description":{"text":"击败凋灵"},"frame":"goal","show_toast":true,"announce_to_chat":false},"criteria":{"earned":{"trigger":"minecraft:impossible"}},"rewards":{"function":"village_trader:achievement/award/combat_07"}}

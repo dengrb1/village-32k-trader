@@ -1,0 +1,15 @@
+# 通行证首次购买已在 open_pass 中结算；单件补领免费。
+# 单件补领不再重复扣款。
+execute if score @s vt_cequip_slot matches 1 run give @s minecraft:diamond_helmet[minecraft:custom_name={text:"5级守护钻石盔",color:"aqua",italic:false},minecraft:enchantments={"minecraft:protection":5,"minecraft:unbreaking":5,"minecraft:respiration":3,"minecraft:aqua_affinity":1},minecraft:custom_data={kind:"child_equipment",tier:5,slot:"head"}]
+execute if score @s vt_cequip_slot matches 2 run give @s minecraft:diamond_chestplate[minecraft:enchantments={"minecraft:protection":5,"minecraft:unbreaking":5},minecraft:custom_data={kind:"child_equipment",tier:5,slot:"chest"}]
+execute if score @s vt_cequip_slot matches 3 run give @s minecraft:diamond_leggings[minecraft:enchantments={"minecraft:protection":5,"minecraft:unbreaking":5},minecraft:custom_data={kind:"child_equipment",tier:5,slot:"legs"}]
+execute if score @s vt_cequip_slot matches 4 run give @s minecraft:diamond_boots[minecraft:enchantments={"minecraft:protection":5,"minecraft:feather_falling":4,"minecraft:unbreaking":5},minecraft:custom_data={kind:"child_equipment",tier:5,slot:"feet"}]
+execute if score @s vt_cequip_slot matches 5 run give @s minecraft:diamond_sword[minecraft:enchantments={"minecraft:sharpness":5,"minecraft:looting":3,"minecraft:unbreaking":5},minecraft:custom_data={kind:"child_equipment",tier:5,slot:"weapon"}]
+execute if score @s vt_cequip_slot matches 6 run give @s minecraft:diamond_spear[minecraft:custom_name={text:"5级守护长矛",color:"aqua",italic:false},minecraft:enchantments={"minecraft:sharpness":5,"minecraft:looting":3,"minecraft:lunge":3,"minecraft:unbreaking":5},minecraft:custom_data={kind:"child_equipment",tier:5,slot:"spear"}]
+execute if score @s vt_cequip_slot matches 7 run give @s minecraft:diamond_pickaxe[minecraft:enchantments={"minecraft:efficiency":5,"minecraft:fortune":3,"minecraft:unbreaking":5},minecraft:custom_data={kind:"child_equipment",tier:5,slot:"pickaxe"}]
+execute if score @s vt_cequip_slot matches 8 run give @s minecraft:diamond_axe[minecraft:enchantments={"minecraft:efficiency":5,"minecraft:unbreaking":5},minecraft:custom_data={kind:"child_equipment",tier:5,slot:"axe"}]
+execute if score @s vt_cequip_slot matches 9 run give @s minecraft:diamond_shovel[minecraft:enchantments={"minecraft:efficiency":5,"minecraft:unbreaking":5},minecraft:custom_data={kind:"child_equipment",tier:5,slot:"shovel"}]
+execute if score @s vt_cequip_slot matches 10 run give @s minecraft:diamond_hoe[minecraft:enchantments={"minecraft:efficiency":5,"minecraft:unbreaking":5},minecraft:custom_data={kind:"child_equipment",tier:5,slot:"hoe"}]
+execute if score @s vt_cequip_slot matches 11 run give @s minecraft:bow[minecraft:enchantments={"minecraft:power":5,"minecraft:punch":2,"minecraft:flame":1,"minecraft:infinity":1,"minecraft:unbreaking":5},minecraft:custom_data={kind:"child_equipment",tier:5,slot:"bow"}]
+execute if score @s vt_cequip_slot matches 12 run give @s minecraft:shield[minecraft:enchantments={"minecraft:unbreaking":5},minecraft:custom_data={kind:"child_equipment",tier:5,slot:"shield"}]
+title @s actionbar {"text":"已按需领取一件儿童通行证装备。","color":"green"}

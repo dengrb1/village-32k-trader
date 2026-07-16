@@ -1,0 +1,1 @@
+{"parent":"village_trader:achievements/root","display":{"icon":{"id":"minecraft:iron_sword"},"title":{"text":"百战初试"},"description":{"text":"完成矿脉战斗目标"},"show_toast":true,"announce_to_chat":false},"criteria":{"earned":{"trigger":"minecraft:impossible"}},"rewards":{"function":"village_trader:achievement/award/combat_01"}}

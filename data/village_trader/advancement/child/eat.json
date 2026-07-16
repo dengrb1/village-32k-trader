@@ -1,0 +1,15 @@
+{
+  "criteria": {
+    "ate": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "#village_trader:foods"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "village_trader:child/reward/eat"
+  }
+}

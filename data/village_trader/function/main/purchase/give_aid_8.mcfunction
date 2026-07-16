@@ -1,0 +1,1 @@
+give @s minecraft:paper[minecraft:custom_name={text:"旅行者护符",color:"aqua",bold:true,italic:false},minecraft:lore=[{text:"任意维度：速度与抗性",color:"gray",italic:false},{text:"需登记、选中且随身携带；同一时间仅一件生效",color:"aqua",italic:false}],minecraft:custom_data={kind:"main_aid",id:8},minecraft:max_stack_size=1,minecraft:enchantment_glint_override=true] 1

@@ -1,0 +1,1 @@
+give @s minecraft:paper[minecraft:custom_name={text:"末地远征证",color:"light_purple",bold:true,italic:false},minecraft:lore=[{text:"主线第 5 章任务道具；仅本人激活有效",color:"gray",italic:false},{text:"提交时消耗，辅助用品不能替代",color:"red",italic:false}],minecraft:custom_data={kind:"main_quest",id:5},minecraft:max_stack_size=1,minecraft:enchantment_glint_override=true] 1

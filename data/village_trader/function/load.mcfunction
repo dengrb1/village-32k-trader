@@ -1,3 +1,104 @@
-# 村庄 32K 商人数据包加载入口
-tellraw @a [{"text":"[村庄商人] ","color":"gold"},{"text":"数据包已加载（Java 1.21.5）","color":"green"}]
+# 村庄成长商店公共加载入口。只补定义和缺失的全局值，不重置玩家进度。
+scoreboard objectives add vt_init dummy
+scoreboard objectives add vt_menu trigger
+scoreboard objectives add vt_action trigger
+scoreboard objectives add vt_buy_qty trigger
+scoreboard objectives add vt_progress trigger
+scoreboard objectives add vt_progress_done dummy
+scoreboard objectives add vt_ui dummy
+scoreboard objectives add vt_ui_last dummy
+scoreboard objectives add vt_ui_card dummy
+scoreboard objectives add vt_ui_pending dummy
+scoreboard objectives add vt_ui_delay dummy
+scoreboard objectives add vt_portable dummy
+scoreboard objectives add vt_key_cd dummy
+scoreboard objectives add vt_barid dummy
+scoreboard objectives add vt_barvalue dummy
+scoreboard objectives add vt_stage dummy
+scoreboard objectives add vt_diff dummy
+scoreboard objectives add vt_gear dummy
+scoreboard objectives add vt_good dummy
+scoreboard objectives add vt_buy_pending dummy
+scoreboard objectives add vt_cost dummy
+scoreboard objectives add vt_price_unit dummy
+scoreboard objectives add vt_equip_slot dummy
+scoreboard objectives add vt_qown dummy
+scoreboard objectives add vt_qrep dummy
+scoreboard objectives add vt_qactive dummy
+scoreboard objectives add vt_a dummy
+scoreboard objectives add vt_b dummy
+scoreboard objectives add vt_c dummy
+scoreboard objectives add vt_d dummy
+scoreboard objectives add vt_child dummy
+scoreboard objectives add vt_cstage dummy
+scoreboard objectives add vt_cgear dummy
+scoreboard objectives add vt_cequip_slot dummy
+scoreboard objectives add vt_cqown dummy
+scoreboard objectives add vt_cqrep dummy
+scoreboard objectives add vt_cactive dummy
+scoreboard objectives add vt_ca dummy
+scoreboard objectives add vt_cb dummy
+scoreboard objectives add vt_cc dummy
+scoreboard objectives add vt_bstage dummy
+scoreboard objectives add vt_bqown dummy
+scoreboard objectives add vt_bactive dummy
+scoreboard objectives add vt_asc dummy
+scoreboard objectives add vt_asckey dummy
+scoreboard objectives add vt_aux dummy
+scoreboard objectives add vt_aux_state dummy
+scoreboard objectives add vt_aux_reg dummy
+scoreboard objectives add vt_aux_carried dummy
+scoreboard objectives add vt_caux dummy
+scoreboard objectives add vt_nvpause dummy
+scoreboard objectives add vt_nvsusp dummy
+scoreboard objectives add vt_healcd dummy
+scoreboard objectives add vt_tmp dummy
+scoreboard objectives add vt_ok dummy
+scoreboard objectives add vt_penalty dummy
+scoreboard objectives add vt_version dummy
+scoreboard objectives add vt_legacy_stage dummy
+scoreboard objectives add vt_legacy_active dummy
+scoreboard objectives add vt_ach_total dummy
+scoreboard objectives add vt_ach_story dummy
+scoreboard objectives add vt_ach_explore dummy
+scoreboard objectives add vt_ach_combat dummy
+scoreboard objectives add vt_ach_trade dummy
+scoreboard objectives add vt_ach_guardian dummy
+scoreboard objectives add vt_title dummy
+scoreboard objectives add vt_ach_view dummy
+scoreboard objectives add vt_mdia minecraft.mined:minecraft.diamond_ore
+scoreboard objectives add vt_mddia minecraft.mined:minecraft.deepslate_diamond_ore
+scoreboard objectives add vt_mdebris minecraft.mined:minecraft.ancient_debris
+scoreboard objectives add vt_mredstone minecraft.mined:minecraft.redstone_ore
+scoreboard objectives add vt_mdredstone minecraft.mined:minecraft.deepslate_redstone_ore
+scoreboard objectives add vt_pskull minecraft.picked_up:minecraft.wither_skeleton_skull
+scoreboard objectives add vt_pbreath minecraft.picked_up:minecraft.dragon_breath
+scoreboard objectives add vt_mcob minecraft.mined:minecraft.cobblestone
+scoreboard objectives add vt_ptotem minecraft.picked_up:minecraft.totem_of_undying
+scoreboard objectives add vt_utkey minecraft.used:minecraft.trial_key
+scoreboard objectives add vt_butkey dummy
+scoreboard objectives add vt_pecho minecraft.picked_up:minecraft.echo_shard
+scoreboard objectives add vt_bpecho dummy
+scoreboard objectives add vt_ucrystal minecraft.used:minecraft.end_crystal
+scoreboard objectives add vt_bucrystal dummy
+scoreboard objectives add vt_bdia dummy
+scoreboard objectives add vt_bddia dummy
+scoreboard objectives add vt_bdebris dummy
+scoreboard objectives add vt_bredstone dummy
+scoreboard objectives add vt_bdredstone dummy
+scoreboard objectives add vt_bskull dummy
+scoreboard objectives add vt_bbreath dummy
+scoreboard objectives add vt_cbdia dummy
+scoreboard objectives add vt_cbddia dummy
+scoreboard objectives add vt_cbcob dummy
+scoreboard objectives add vt_btotem dummy
+execute unless score $level vt_penalty matches -2147483648..2147483647 run scoreboard players set $level vt_penalty 0
+execute unless score #next vt_barid matches 0.. run scoreboard players set #next vt_barid 0
+execute if score $level vt_penalty matches ..-1 run scoreboard players set $level vt_penalty 0
+execute if score $level vt_penalty matches 4.. run scoreboard players set $level vt_penalty 3
+data modify storage village_trader:state installed set value 1b
+function village_trader:ui/cleanup_all
+tellraw @a [{"text":"[村庄商人] ","color":"gold"},{"text":"数据包已加载（成长商店通行证版）","color":"green"}]
+function village_trader:penalty/refresh
 schedule function village_trader:scan 1s replace
+schedule function village_trader:second 1s replace

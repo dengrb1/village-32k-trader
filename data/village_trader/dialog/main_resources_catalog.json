@@ -1,0 +1,279 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {
+    "text": "资源商店",
+    "color": "green",
+    "bold": true
+  },
+  "body": [
+    {
+      "type": "minecraft:plain_message",
+      "contents": [
+        {
+          "text": "当前阶段：",
+          "color": "gray"
+        },
+        {
+          "score": {
+            "name": "@s",
+            "objective": "vt_stage"
+          },
+          "color": "aqua"
+        },
+        {
+          "text": "　当前制裁：",
+          "color": "gray"
+        },
+        {
+          "score": {
+            "name": "$level",
+            "objective": "vt_penalty"
+          },
+          "color": "red"
+        },
+        {
+          "text": "。每项均显示单包数量与解锁阶段；选择后可用 1/16/64 包或自定义 1–64 包购买。",
+          "color": "gray"
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:coal",
+        "count": 64
+      },
+      "description": "煤炭 ×64｜阶段 1｜单包：1泥土 / 16泥土 / 16绿宝石 / 4下界合金锭｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:iron_ingot",
+        "count": 32
+      },
+      "description": "铁锭 ×32｜阶段 1｜单包按当前制裁结算｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:copper_ingot",
+        "count": 32
+      },
+      "description": "铜锭 ×32｜阶段 1｜单包按当前制裁结算｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:gold_ingot",
+        "count": 32
+      },
+      "description": "金锭 ×32｜阶段 2｜单包按当前制裁结算｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:redstone",
+        "count": 64
+      },
+      "description": "红石 ×64｜阶段 2｜单包按当前制裁结算｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:lapis_lazuli",
+        "count": 64
+      },
+      "description": "青金石 ×64｜阶段 2｜单包按当前制裁结算｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:diamond",
+        "count": 64
+      },
+      "description": "钻石 ×64｜阶段 2｜单包按当前制裁结算｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:emerald",
+        "count": 64
+      },
+      "description": "绿宝石 ×64｜阶段 2｜单包按当前制裁结算｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:diamond_block",
+        "count": 16
+      },
+      "description": "钻石块 ×16｜阶段 3｜单包按当前制裁结算｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:emerald_block",
+        "count": 16
+      },
+      "description": "绿宝石块 ×16｜阶段 3｜单包按当前制裁结算｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:quartz",
+        "count": 64
+      },
+      "description": "下界石英 ×64｜阶段 3｜单包按当前制裁结算｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:ender_pearl",
+        "count": 16
+      },
+      "description": "末影珍珠 ×16｜阶段 5｜单包按当前制裁结算｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:netherite_scrap",
+        "count": 16
+      },
+      "description": "下界合金碎片 ×16｜阶段 4｜单包按当前制裁结算｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:netherite_ingot",
+        "count": 8
+      },
+      "description": "下界合金锭 ×8｜阶段 5｜单包按当前制裁结算｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:netherite_block",
+        "count": 4
+      },
+      "description": "下界合金块 ×4｜阶段 9｜单包按当前制裁结算｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    }
+  ],
+  "columns": 3,
+  "actions": [
+    {
+      "label": "煤炭 ×64",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 101"
+      }
+    },
+    {
+      "label": "铁锭 ×32",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 102"
+      }
+    },
+    {
+      "label": "铜锭 ×32",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 103"
+      }
+    },
+    {
+      "label": "金锭 ×32",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 104"
+      }
+    },
+    {
+      "label": "红石 ×64",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 105"
+      }
+    },
+    {
+      "label": "青金石 ×64",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 106"
+      }
+    },
+    {
+      "label": "钻石 ×64",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 107"
+      }
+    },
+    {
+      "label": "绿宝石 ×64",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 108"
+      }
+    },
+    {
+      "label": "钻石块 ×16",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 109"
+      }
+    },
+    {
+      "label": "绿宝石块 ×16",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 110"
+      }
+    },
+    {
+      "label": "石英 ×64",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 111"
+      }
+    },
+    {
+      "label": "末影珍珠 ×16",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 210"
+      }
+    },
+    {
+      "label": "合金碎片 ×16",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 211"
+      }
+    },
+    {
+      "label": "合金锭 ×8",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 212"
+      }
+    },
+    {
+      "label": "合金块 ×4",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 213"
+      }
+    },
+    {
+      "label": "返回主菜单",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 1"
+      }
+    }
+  ],
+  "exit_action": {
+    "label": "关闭"
+  }
+}

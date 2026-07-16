@@ -1,0 +1,1 @@
+give @s minecraft:paper[minecraft:custom_name={text:"矿工补给包",color:"yellow",bold:true,italic:false},minecraft:lore=[{text:"主线可选辅助用品；不参与任务提交",color:"gray",italic:false},{text:"购买后永久登记，选中且物品在身时生效",color:"aqua",italic:false}],minecraft:custom_data={kind:"main_aid",id:1},minecraft:max_stack_size=1,minecraft:enchantment_glint_override=true] 1

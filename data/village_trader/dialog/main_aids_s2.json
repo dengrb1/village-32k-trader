@@ -1,0 +1,60 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {
+    "text": "可选辅助用品",
+    "color": "light_purple",
+    "bold": true
+  },
+  "body": [
+    {
+      "type": "minecraft:plain_message",
+      "contents": [
+        {
+          "text": "只显示当前阶段已开放的辅助用品；补领仍需已有所有权记录。",
+          "color": "gray"
+        }
+      ]
+    }
+  ],
+  "columns": 2,
+  "actions": [
+    {
+      "label": "购买/选择 矿工补给包",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 131"
+      }
+    },
+    {
+      "label": "补领 矿工补给包",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 141"
+      }
+    },
+    {
+      "label": "购买/选择 下界护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 132"
+      }
+    },
+    {
+      "label": "补领 下界护符",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 142"
+      }
+    },
+    {
+      "label": "返回主菜单",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 1"
+      }
+    }
+  ],
+  "exit_action": {
+    "label": "关闭"
+  }
+}

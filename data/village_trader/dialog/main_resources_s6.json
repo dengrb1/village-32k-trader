@@ -1,0 +1,81 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {
+    "text": "已解锁资源",
+    "color": "green",
+    "bold": true
+  },
+  "body": [
+    {
+      "type": "minecraft:plain_message",
+      "contents": [
+        {
+          "text": "只显示当前阶段已解锁的资源。价格仍按黑市制裁等级结算。",
+          "color": "gray"
+        }
+      ]
+    }
+  ],
+  "columns": 2,
+  "actions": [
+    {
+      "label": "钻石 ×64",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 101"
+      }
+    },
+    {
+      "label": "绿宝石 ×64",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 102"
+      }
+    },
+    {
+      "label": "钻石块 ×16",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 104"
+      }
+    },
+    {
+      "label": "绿宝石块 ×16",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 105"
+      }
+    },
+    {
+      "label": "下界合金碎片 ×16",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 106"
+      }
+    },
+    {
+      "label": "下界合金锭 ×8",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 107"
+      }
+    },
+    {
+      "label": "下界合金块 ×4",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 110"
+      }
+    },
+    {
+      "label": "返回主菜单",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 1"
+      }
+    }
+  ],
+  "exit_action": {
+    "label": "关闭"
+  }
+}

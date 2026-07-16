@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {"text": "村庄商人成就档案", "color": "gold", "bold": true},
+  "body": [
+    {"type": "minecraft:plain_message", "contents": [{"text": "总进度：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_ach_total"}, "color": "gold"}, {"text": " / 40　称号等级：", "color": "gray"}, {"score": {"name": "@s", "objective": "vt_title"}, "color": "light_purple"}]},
+    {"type": "minecraft:item", "item": {"id": "minecraft:book", "count": 1}, "description": {"contents": [{"text": "剧情：", "color": "gold"}, {"score": {"name": "@s", "objective": "vt_ach_story"}}, {"text": " / 10　完成十章主线后可领毕业补给。", "color": "gray"}]}},
+    {"type": "minecraft:item", "item": {"id": "minecraft:map", "count": 1}, "description": {"contents": [{"text": "探索：", "color": "aqua"}, {"score": {"name": "@s", "objective": "vt_ach_explore"}}, {"text": " / 8", "color": "gray"}]}},
+    {"type": "minecraft:item", "item": {"id": "minecraft:iron_sword", "count": 1}, "description": {"contents": [{"text": "战斗：", "color": "red"}, {"score": {"name": "@s", "objective": "vt_ach_combat"}}, {"text": " / 8", "color": "gray"}]}},
+    {"type": "minecraft:item", "item": {"id": "minecraft:emerald", "count": 1}, "description": {"contents": [{"text": "商会：", "color": "green"}, {"score": {"name": "@s", "objective": "vt_ach_trade"}}, {"text": " / 7", "color": "gray"}]}},
+    {"type": "minecraft:item", "item": {"id": "minecraft:totem_of_undying", "count": 1}, "description": {"contents": [{"text": "守护：", "color": "light_purple"}, {"score": {"name": "@s", "objective": "vt_ach_guardian"}}, {"text": " / 7", "color": "gray"}]}}
+  ],
+  "columns": 2,
+  "actions": [
+    {"label": "剧情成就与补给", "action": {"type": "run_command", "command": "/trigger vt_action set 181"}},
+    {"label": "探索成就与补给", "action": {"type": "run_command", "command": "/trigger vt_action set 182"}},
+    {"label": "战斗成就与补给", "action": {"type": "run_command", "command": "/trigger vt_action set 183"}},
+    {"label": "商会成就与补给", "action": {"type": "run_command", "command": "/trigger vt_action set 184"}},
+    {"label": "守护成就与补给", "action": {"type": "run_command", "command": "/trigger vt_action set 185"}},
+    {"label": "返回当前商店", "action": {"type": "run_command", "command": "/trigger vt_action set 1"}}
+  ],
+  "exit_action": {"label": "关闭"}
+}

@@ -1,0 +1,268 @@
+{
+  "type": "minecraft:multi_action",
+  "title": {
+    "text": "消耗品商店",
+    "color": "yellow",
+    "bold": true
+  },
+  "body": [
+    {
+      "type": "minecraft:plain_message",
+      "contents": [
+        {
+          "text": "当前阶段：",
+          "color": "gray"
+        },
+        {
+          "score": {
+            "name": "@s",
+            "objective": "vt_stage"
+          },
+          "color": "aqua"
+        },
+        {
+          "text": "。每包按当前制裁结算；商品选择后可用 /trigger vt_buy_qty set <1–64>。",
+          "color": "gray"
+        }
+      ]
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:torch",
+        "count": 64
+      },
+      "description": "火把 ×64｜阶段 1｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:arrow",
+        "count": 64
+      },
+      "description": "箭矢 ×64｜阶段 1｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:cooked_beef",
+        "count": 16
+      },
+      "description": "熟牛排 ×16｜阶段 1｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:golden_apple",
+        "count": 8
+      },
+      "description": "金苹果 ×8｜阶段 2｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:firework_rocket",
+        "count": 64
+      },
+      "description": "烟花火箭 ×64｜阶段 3｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:enchanted_golden_apple",
+        "count": 2
+      },
+      "description": "附魔金苹果 ×2｜阶段 4｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:totem_of_undying",
+        "count": 1
+      },
+      "description": "不死图腾 ×1｜阶段 5｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:potion",
+        "count": 8
+      },
+      "description": "治疗药水 ×8｜阶段 2｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:potion",
+        "count": 8
+      },
+      "description": "迅捷药水 ×8｜阶段 2｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:potion",
+        "count": 8
+      },
+      "description": "抗火药水 ×8｜阶段 3｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:potion",
+        "count": 8
+      },
+      "description": "水肺药水 ×8｜阶段 5｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:potion",
+        "count": 8
+      },
+      "description": "缓降药水 ×8｜阶段 5｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:experience_bottle",
+        "count": 32
+      },
+      "description": "经验瓶 ×32｜阶段 3｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:white_shulker_box",
+        "count": 1
+      },
+      "description": "白色潜影盒 ×1｜阶段 5｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    },
+    {
+      "type": "minecraft:item",
+      "item": {
+        "id": "minecraft:purple_shulker_box",
+        "count": 1
+      },
+      "description": "紫色潜影盒 ×1｜阶段 8｜单包价（制裁 0/1/2/3）：1 泥土 / 16 泥土 / 16 绿宝石 / 4 下界合金锭"
+    }
+  ],
+  "columns": 3,
+  "actions": [
+    {
+      "label": "火把 ×64",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 214"
+      }
+    },
+    {
+      "label": "箭矢 ×64",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 215"
+      }
+    },
+    {
+      "label": "熟牛排 ×16",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 216"
+      }
+    },
+    {
+      "label": "金苹果 ×8",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 217"
+      }
+    },
+    {
+      "label": "烟花 ×64",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 218"
+      }
+    },
+    {
+      "label": "附魔金苹果 ×2",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 219"
+      }
+    },
+    {
+      "label": "图腾 ×1",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 220"
+      }
+    },
+    {
+      "label": "治疗 ×8",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 221"
+      }
+    },
+    {
+      "label": "迅捷 ×8",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 222"
+      }
+    },
+    {
+      "label": "抗火 ×8",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 223"
+      }
+    },
+    {
+      "label": "水肺 ×8",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 224"
+      }
+    },
+    {
+      "label": "缓降 ×8",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 225"
+      }
+    },
+    {
+      "label": "经验瓶 ×32",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 226"
+      }
+    },
+    {
+      "label": "白色潜影盒",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 227"
+      }
+    },
+    {
+      "label": "紫色潜影盒",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 228"
+      }
+    },
+    {
+      "label": "返回主菜单",
+      "action": {
+        "type": "run_command",
+        "command": "/trigger vt_action set 1"
+      }
+    }
+  ],
+  "exit_action": {
+    "label": "关闭"
+  }
+}

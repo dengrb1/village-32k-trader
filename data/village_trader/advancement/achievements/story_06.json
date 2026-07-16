@@ -1,0 +1,1 @@
+{"parent":"village_trader:achievements/root","display":{"icon":{"id":"minecraft:totem_of_undying"},"title":{"text":"守卫家园"},"description":{"text":"完成村庄守卫"},"frame":"goal","show_toast":true,"announce_to_chat":false},"criteria":{"earned":{"trigger":"minecraft:impossible"}},"rewards":{"function":"village_trader:achievement/award/story_06"}}

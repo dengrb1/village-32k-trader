@@ -1,0 +1,11 @@
+{
+  "criteria": {
+    "event": {
+      "trigger": "minecraft:hero_of_the_village"
+    }
+  },
+  "rewards": {
+    "function": "village_trader:main/reward/raid_win"
+  }
+}
+

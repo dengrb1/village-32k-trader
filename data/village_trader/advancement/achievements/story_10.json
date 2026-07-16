@@ -1,0 +1,1 @@
+{"parent":"village_trader:achievements/root","display":{"icon":{"id":"minecraft:dragon_head"},"title":{"text":"龙魂再临"},"description":{"text":"完成十章主线"},"frame":"challenge","show_toast":true,"announce_to_chat":false},"criteria":{"earned":{"trigger":"minecraft:impossible"}},"rewards":{"function":"village_trader:achievement/award/story_10"}}

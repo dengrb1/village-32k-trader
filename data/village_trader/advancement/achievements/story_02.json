@@ -1,0 +1,1 @@
+{"parent":"village_trader:achievements/root","display":{"icon":{"id":"minecraft:diamond_ore"},"title":{"text":"矿脉初醒"},"description":{"text":"完成矿脉勘探"},"frame":"task","show_toast":true,"announce_to_chat":false},"criteria":{"earned":{"trigger":"minecraft:impossible"}},"rewards":{"function":"village_trader:achievement/award/story_02"}}
