@@ -6,6 +6,7 @@ scoreboard players set @s vt_qrep 0
 scoreboard players set @s vt_a 0
 scoreboard players set @s vt_b 0
 scoreboard players set @s vt_c 0
+scoreboard players set @s vt_d 0
 scoreboard players set @s vt_gear 0
 give @s minecraft:trial_key 4
 give @s minecraft:wind_charge 16

@@ -6,6 +6,7 @@ scoreboard players set @s vt_qrep 0
 scoreboard players set @s vt_a 0
 scoreboard players set @s vt_b 0
 scoreboard players set @s vt_c 0
+scoreboard players set @s vt_d 0
 scoreboard players set @s vt_gear 0
 give @s minecraft:heart_of_the_sea 1
 give @s minecraft:nautilus_shell 8

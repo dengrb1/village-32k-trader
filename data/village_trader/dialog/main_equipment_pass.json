@@ -1,0 +1,17 @@
+{
+  "type":"minecraft:multi_action",
+  "title":{"text":"已购装备通行证","color":"green","bold":true},
+  "body":[
+    {"type":"minecraft:plain_message","contents":[{"text":"当前通行证等级页：","color":"gray"},{"score":{"name":"@s","objective":"vt_gear"},"color":"yellow"},{"text":"。每次点击仅领取一件，免费且可重复补领。","color":"gray"}]}
+  ],
+  "columns":2,
+  "actions":[
+    {"label":"护甲","action":{"type":"run_command","command":"/trigger vt_action set 500"}},
+    {"label":"近战","action":{"type":"run_command","command":"/trigger vt_action set 501"}},
+    {"label":"工具","action":{"type":"run_command","command":"/trigger vt_action set 502"}},
+    {"label":"远程与功能装备","action":{"type":"run_command","command":"/trigger vt_action set 503"}},
+    {"label":"切换/购买其他等级","action":{"type":"run_command","command":"/trigger vt_action set 10"}},
+    {"label":"返回主菜单","action":{"type":"run_command","command":"/trigger vt_action set 1"}}
+  ],
+  "exit_action":{"label":"关闭"}
+}

@@ -17,7 +17,12 @@ execute if score @s vt_action matches 331..339 run function village_trader:child
 execute if score @s vt_action matches 341..349 run function village_trader:child/purchase/aux_reissue_dispatch
 execute if score @s vt_action matches 350 run function village_trader:child/equipment/current
 execute if score @s vt_action matches 351..356 run function village_trader:child/equipment/old_dispatch
-execute if score @s vt_action matches 357 run function village_trader:child/equipment/tier_128
+execute if score @s vt_action matches 357 run function village_trader:child/equipment/current
+execute if score @s vt_action matches 400..404 run function village_trader:child/equipment/pass_route
+execute if score @s vt_action matches 410..413 run function village_trader:child/equipment/pass_route
+execute if score @s vt_action matches 420..422 run function village_trader:child/equipment/pass_route
+execute if score @s vt_action matches 430..432 run function village_trader:child/equipment/pass_route
+execute if score @s vt_action matches 440..441 run function village_trader:child/equipment/pass_route
 execute if score @s vt_action matches 361 run function village_trader:child/boss/buy_challenge
 execute if score @s vt_action matches 362 run function village_trader:child/boss/submit_challenge
 execute if score @s vt_action matches 371..373 run function village_trader:child/boss/aux_dispatch

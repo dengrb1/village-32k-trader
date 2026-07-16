@@ -1,0 +1,20 @@
+{
+  "type":"minecraft:multi_action",
+  "title":{"text":"装备等级通行证","color":"aqua","bold":true},
+  "body":[
+    {"type":"minecraft:plain_message","contents":[{"text":"已选等级页：","color":"gray"},{"score":{"name":"@s","objective":"vt_gear"},"color":"yellow"},{"text":"。首次购买已解锁等级时收取原整套价格；购买后不发整套，永久按需补领单件。","color":"gray"}]},
+    {"type":"minecraft:item","item":{"id":"minecraft:anvil","count":1},"description":"装备已移除不可破坏；保留原有耐久、耐久附魔与经验修补。"}
+  ],
+  "columns":3,
+  "actions":[
+    {"label":"购买/打开当前通行证","action":{"type":"run_command","command":"/trigger vt_action set 150"}},
+    {"label":"5 级（阶段 2）","action":{"type":"run_command","command":"/trigger vt_action set 151"}},
+    {"label":"10 级（阶段 3）","action":{"type":"run_command","command":"/trigger vt_action set 152"}},
+    {"label":"20 级（阶段 6）","action":{"type":"run_command","command":"/trigger vt_action set 153"}},
+    {"label":"32 级（阶段 7）","action":{"type":"run_command","command":"/trigger vt_action set 154"}},
+    {"label":"64 级（阶段 9）","action":{"type":"run_command","command":"/trigger vt_action set 155"}},
+    {"label":"255 级（阶段 11）","action":{"type":"run_command","command":"/trigger vt_action set 157"}},
+    {"label":"返回主菜单","action":{"type":"run_command","command":"/trigger vt_action set 1"}}
+  ],
+  "exit_action":{"label":"关闭"}
+}

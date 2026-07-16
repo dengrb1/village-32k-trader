@@ -1,0 +1,1 @@
+{"criteria":{"event":{"trigger":"minecraft:location","conditions":{"location":[{"condition":"minecraft:location_check","predicate":{"structures":"minecraft:ocean_monument"}}]}}},"rewards":{"function":"village_trader:main/reward/find_ocean_monument"}}

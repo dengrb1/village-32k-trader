@@ -1,0 +1,1 @@
+give @s minecraft:paper[minecraft:custom_name={text:"建造者护符",color:"yellow",bold:true,italic:false},minecraft:lore=[{text:"主世界：急迫 II 与缓降",color:"gray",italic:false},{text:"需登记、选中且随身携带；同一时间仅一件生效",color:"aqua",italic:false}],minecraft:custom_data={kind:"main_aid",id:7},minecraft:max_stack_size=1,minecraft:enchantment_glint_override=true] 1

@@ -5,6 +5,7 @@ execute unless score @s vt_qown matches 3 run scoreboard players set @s vt_ok 0
 execute unless score @s vt_a matches 1.. run scoreboard players set @s vt_ok 0
 execute unless score @s vt_b matches 10.. run scoreboard players set @s vt_ok 0
 execute unless score @s vt_c matches 4.. run scoreboard players set @s vt_ok 0
+execute unless score @s vt_d matches 5.. run scoreboard players set @s vt_ok 0
 execute store result score @s vt_tmp run clear @s minecraft:paper[minecraft:custom_data~{kind:"main_quest",id:3}] 0
 execute if score @s vt_tmp matches 0 run scoreboard players set @s vt_ok 0
 execute if score @s vt_ok matches 1 run function village_trader:main/task/complete_3

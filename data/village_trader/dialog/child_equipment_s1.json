@@ -19,7 +19,7 @@
   "columns": 2,
   "actions": [
     {
-      "label": "兑换当前套装",
+      "label": "购买/打开当前通行证",
       "action": {
         "type": "run_command",
         "command": "/trigger vt_action set 350"

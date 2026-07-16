@@ -1,25 +1,14 @@
 # 每位玩家只保存一个页面编号；对话框根据该编号及当前阶段即时选择，不共享会话。
 execute if score @s vt_ui matches 1 run dialog show @s village_trader:main_root
-execute if score @s vt_ui matches 2 if score @s vt_stage matches 1 run dialog show @s village_trader:main_equipment_s1
-execute if score @s vt_ui matches 2 if score @s vt_stage matches 2 run dialog show @s village_trader:main_equipment_s2
-execute if score @s vt_ui matches 2 if score @s vt_stage matches 3 run dialog show @s village_trader:main_equipment_s3
-execute if score @s vt_ui matches 2 if score @s vt_stage matches 4 run dialog show @s village_trader:main_equipment_s4
-execute if score @s vt_ui matches 2 if score @s vt_stage matches 5 run dialog show @s village_trader:main_equipment_s5
-execute if score @s vt_ui matches 2 if entity @s[tag=village_trader.legacy_255] run dialog show @s village_trader:main_equipment_s6_final
-execute if score @s vt_ui matches 2 if score @s vt_stage matches 11.. unless entity @s[tag=village_trader.legacy_255] run dialog show @s village_trader:main_equipment_s6_final
-execute if score @s vt_ui matches 2 if score @s vt_stage matches 6..10 unless entity @s[tag=village_trader.legacy_255] run dialog show @s village_trader:main_equipment_s6
-execute if score @s vt_ui matches 3 if score @s vt_stage matches 1 run dialog show @s village_trader:main_resources_s1
-execute if score @s vt_ui matches 3 if score @s vt_stage matches 2 run dialog show @s village_trader:main_resources_s2
-execute if score @s vt_ui matches 3 if score @s vt_stage matches 3 run dialog show @s village_trader:main_resources_s3
-execute if score @s vt_ui matches 3 if score @s vt_stage matches 4 run dialog show @s village_trader:main_resources_s4
-execute if score @s vt_ui matches 3 if score @s vt_stage matches 5 run dialog show @s village_trader:main_resources_s5
-execute if score @s vt_ui matches 3 if score @s vt_stage matches 6.. run dialog show @s village_trader:main_resources_s6
-execute if score @s vt_ui matches 4 if score @s vt_stage matches 1 run dialog show @s village_trader:main_consumables_s1
-execute if score @s vt_ui matches 4 if score @s vt_stage matches 2 run dialog show @s village_trader:main_consumables_s2
-execute if score @s vt_ui matches 4 if score @s vt_stage matches 3 run dialog show @s village_trader:main_consumables_s3
-execute if score @s vt_ui matches 4 if score @s vt_stage matches 4 run dialog show @s village_trader:main_consumables_s4
-execute if score @s vt_ui matches 4 if score @s vt_stage matches 5 run dialog show @s village_trader:main_consumables_s5
-execute if score @s vt_ui matches 4 if score @s vt_stage matches 6.. run dialog show @s village_trader:main_consumables_s6
+execute if score @s vt_ui matches 2 run dialog show @s village_trader:main_equipment_pass_select
+execute if score @s vt_ui matches 3 run dialog show @s village_trader:main_resources_catalog
+execute if score @s vt_ui matches 4 run dialog show @s village_trader:main_consumables_catalog
+execute if score @s vt_ui matches 15 run dialog show @s village_trader:main_buy_quantity
+execute if score @s vt_ui matches 16 run dialog show @s village_trader:main_equipment_pass
+execute if score @s vt_ui matches 17 run dialog show @s village_trader:main_equipment_pass_armor
+execute if score @s vt_ui matches 18 run dialog show @s village_trader:main_equipment_pass_melee
+execute if score @s vt_ui matches 19 run dialog show @s village_trader:main_equipment_pass_tools
+execute if score @s vt_ui matches 20 run dialog show @s village_trader:main_equipment_pass_ranged
 execute if score @s vt_ui matches 5 if score @s vt_stage matches 1 run dialog show @s village_trader:main_quest_1
 execute if score @s vt_ui matches 5 if score @s vt_stage matches 2 run dialog show @s village_trader:main_quest_2
 execute if score @s vt_ui matches 5 if score @s vt_stage matches 3 run dialog show @s village_trader:main_quest_3
@@ -31,13 +20,17 @@ execute if score @s vt_ui matches 5 if score @s vt_stage matches 8 run dialog sh
 execute if score @s vt_ui matches 5 if score @s vt_stage matches 9 run dialog show @s village_trader:main_quest_9
 execute if score @s vt_ui matches 5 if score @s vt_stage matches 10 run dialog show @s village_trader:main_quest_10
 execute if score @s vt_ui matches 5 if score @s vt_stage matches 11.. run dialog show @s village_trader:main_quest_11
-execute if score @s vt_ui matches 6 if score @s vt_stage matches 1 run dialog show @s village_trader:main_aids_s1
-execute if score @s vt_ui matches 6 if score @s vt_stage matches 2 run dialog show @s village_trader:main_aids_s2
-execute if score @s vt_ui matches 6 if score @s vt_stage matches 3 run dialog show @s village_trader:main_aids_s3
-execute if score @s vt_ui matches 6 if score @s vt_stage matches 4 run dialog show @s village_trader:main_aids_s4
-execute if score @s vt_ui matches 6 if score @s vt_stage matches 5 run dialog show @s village_trader:main_aids_s5
-execute if score @s vt_ui matches 6 if score @s vt_stage matches 6.. run dialog show @s village_trader:main_aids_s6
-execute if score @s vt_ui matches 7 if score @s vt_qactive matches 0 run dialog show @s village_trader:main_task_0
+execute if score @s vt_ui matches 6 run dialog show @s village_trader:main_aids_catalog
+execute if score @s vt_ui matches 7 if score @s vt_qactive matches 0 if score @s vt_stage matches 1 run dialog show @s village_trader:main_task_0_s1
+execute if score @s vt_ui matches 7 if score @s vt_qactive matches 0 if score @s vt_stage matches 2 run dialog show @s village_trader:main_task_0_s2
+execute if score @s vt_ui matches 7 if score @s vt_qactive matches 0 if score @s vt_stage matches 3 run dialog show @s village_trader:main_task_0_s3
+execute if score @s vt_ui matches 7 if score @s vt_qactive matches 0 if score @s vt_stage matches 4 run dialog show @s village_trader:main_task_0_s4
+execute if score @s vt_ui matches 7 if score @s vt_qactive matches 0 if score @s vt_stage matches 5 run dialog show @s village_trader:main_task_0_s5
+execute if score @s vt_ui matches 7 if score @s vt_qactive matches 0 if score @s vt_stage matches 6 run dialog show @s village_trader:main_task_0_s6
+execute if score @s vt_ui matches 7 if score @s vt_qactive matches 0 if score @s vt_stage matches 7 run dialog show @s village_trader:main_task_0_s7
+execute if score @s vt_ui matches 7 if score @s vt_qactive matches 0 if score @s vt_stage matches 8 run dialog show @s village_trader:main_task_0_s8
+execute if score @s vt_ui matches 7 if score @s vt_qactive matches 0 if score @s vt_stage matches 9 run dialog show @s village_trader:main_task_0_s9
+execute if score @s vt_ui matches 7 if score @s vt_qactive matches 0 if score @s vt_stage matches 10 run dialog show @s village_trader:main_task_0_s10
 execute if score @s vt_ui matches 7 if score @s vt_qactive matches 1 run dialog show @s village_trader:main_task_1
 execute if score @s vt_ui matches 7 if score @s vt_qactive matches 2 run dialog show @s village_trader:main_task_2
 execute if score @s vt_ui matches 7 if score @s vt_qactive matches 3 run dialog show @s village_trader:main_task_3
@@ -121,3 +114,8 @@ execute if score @s vt_ui matches 30 if score @s vt_cstage matches 5 run dialog 
 execute if score @s vt_ui matches 30 if score @s vt_cstage matches 6 run dialog show @s village_trader:child_equipment_s6
 execute if score @s vt_ui matches 30 if score @s vt_cstage matches 7.. unless score @s vt_asc matches 1 run dialog show @s village_trader:child_equipment_s7
 execute if score @s vt_ui matches 30 if score @s vt_cstage matches 7.. if score @s vt_asc matches 1 run dialog show @s village_trader:child_equipment_s7_asc
+execute if score @s vt_ui matches 31 run dialog show @s village_trader:child_equipment_pass
+execute if score @s vt_ui matches 32 run dialog show @s village_trader:child_equipment_pass_armor
+execute if score @s vt_ui matches 33 run dialog show @s village_trader:child_equipment_pass_melee
+execute if score @s vt_ui matches 34 run dialog show @s village_trader:child_equipment_pass_tools
+execute if score @s vt_ui matches 35 run dialog show @s village_trader:child_equipment_pass_ranged

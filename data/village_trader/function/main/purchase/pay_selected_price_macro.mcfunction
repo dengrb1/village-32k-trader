@@ -1,0 +1,1 @@
+$clear @s $(currency) $(count)

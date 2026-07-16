@@ -6,7 +6,7 @@
     {"type": "minecraft:item", "item": {"id": "minecraft:diamond_chestplate", "count": 1}, "description": "当前装备与已解锁套装"},
     {"type": "minecraft:item", "item": {"id": "minecraft:diamond", "count": 1}, "description": "资源兑换"},
     {"type": "minecraft:item", "item": {"id": "minecraft:golden_apple", "count": 1}, "description": "消耗品"},
-    {"type": "minecraft:item", "item": {"id": "minecraft:paper", "count": 1}, "description": "任务牌与当前进度"},
+    {"type": "minecraft:item", "item": {"id": "minecraft:filled_map", "count": 1}, "description": "任务中心：任务牌、委托、进度与提交"},
     {"type": "minecraft:item", "item": {"id": "minecraft:totem_of_undying", "count": 1}, "description": "辅助用品、难度与旧装备"}
   ],
   "columns": 2,
@@ -14,9 +14,8 @@
     {"label": "当前装备", "action": {"type": "run_command", "command": "/trigger vt_action set 10"}},
     {"label": "已解锁资源", "action": {"type": "run_command", "command": "/trigger vt_action set 20"}},
     {"label": "消耗品", "action": {"type": "run_command", "command": "/trigger vt_action set 30"}},
-    {"label": "必需任务道具", "action": {"type": "run_command", "command": "/trigger vt_action set 40"}},
+    {"label": "任务中心", "action": {"type": "run_command", "command": "/trigger vt_action set 60"}},
     {"label": "可选辅助用品", "action": {"type": "run_command", "command": "/trigger vt_action set 50"}},
-    {"label": "当前任务与提交", "action": {"type": "run_command", "command": "/trigger vt_action set 60"}},
     {"label": "难度与旧装备", "action": {"type": "run_command", "command": "/trigger vt_action set 70"}},
     {"label": "成就档案", "action": {"type": "run_command", "command": "/trigger vt_action set 180"}}
   ],

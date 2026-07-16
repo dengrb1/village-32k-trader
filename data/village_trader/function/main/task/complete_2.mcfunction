@@ -6,6 +6,7 @@ scoreboard players set @s vt_qrep 0
 scoreboard players set @s vt_a 0
 scoreboard players set @s vt_b 0
 scoreboard players set @s vt_c 0
+scoreboard players set @s vt_d 0
 scoreboard players set @s vt_gear 0
 give @s minecraft:diamond 8
 give @s minecraft:iron_ingot 16
