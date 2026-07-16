@@ -15,8 +15,9 @@ final class UnlockPolicyTest {
       profile.main.stage = stage;
       assertTrue(UnlockPolicy.good(profile, stage));
       assertTrue(UnlockPolicy.task(profile, TaskDefinitions.Route.MAIN, stage));
-      if (stage <= 6) assertTrue(UnlockPolicy.auxiliary(profile, false, stage));
-      assertFalse(UnlockPolicy.auxiliary(profile, false, 7));
+      if (stage <= 8) assertTrue(UnlockPolicy.auxiliary(profile, false, stage));
+      if (stage < 7) assertFalse(UnlockPolicy.auxiliary(profile, false, 7));
+      if (stage < 8) assertFalse(UnlockPolicy.auxiliary(profile, false, 8));
       if (stage < 10) assertFalse(UnlockPolicy.task(profile, TaskDefinitions.Route.MAIN, stage + 1));
     }
     profile.main.stage = 2;

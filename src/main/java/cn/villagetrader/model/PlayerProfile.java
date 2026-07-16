@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public final class PlayerProfile {
-  public static final int CURRENT_SCHEMA = 2;
+  public static final int CURRENT_SCHEMA = 3;
 
   public int schemaVersion = CURRENT_SCHEMA;
   public UUID uuid;
@@ -23,6 +23,13 @@ public final class PlayerProfile {
   public int selectedMainAuxiliary;
   public int selectedChildAuxiliary;
   public boolean portableKeyAuthorized;
+  /** Permanent main-route equipment-pass entitlements. */
+  public Set<Integer> mainEquipmentPasses = new HashSet<>();
+  /** Permanent guardian-route equipment-pass entitlements. */
+  public Set<Integer> childEquipmentPasses = new HashSet<>();
+  /** Last announced auxiliary status, keyed by route, to suppress tick spam. */
+  public Map<String, String> auxiliaryStates = new HashMap<>();
+  /** Kept only to read v1/v2 profiles and legacy migrations. */
   public Set<Integer> equipmentTiers = new HashSet<>();
   /** One-time no-cost task activations issued while migrating the former six-stage main route. */
   public Set<Integer> freeMainTaskContracts = new HashSet<>();

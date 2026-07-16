@@ -31,6 +31,7 @@ public final class LegacyMigrator {
     Set<String> tags=player.getScoreboardTags();for(int i=1;i<=6;i++)if(tags.contains("village_trader.main_aux_"+i))p.mainAuxiliaries.add(i);for(int i=1;i<=9;i++)if(tags.contains("village_trader.child_aux_"+i))p.childAuxiliaries.add(i);
     if(tags.contains("village_trader.mark_dragon"))p.child.bossMarks.add("dragon");if(tags.contains("village_trader.mark_wither"))p.child.bossMarks.add("wither");if(tags.contains("village_trader.mark_warden"))p.child.bossMarks.add("warden");
     if(p.main.equipmentTier>0)p.equipmentTiers.add(p.main.equipmentTier);if(tags.contains("village_trader.legacy_64"))p.equipmentTiers.add(64);if(tags.contains("village_trader.legacy_255"))p.equipmentTiers.add(255);if(p.child.ascended)p.equipmentTiers.add(128);
+    grantCurrentPasses(p);
     if(sourceVersion>=2){importAchievementTags(p,tags);backfillV2Achievements(p);}else backfillV1Achievements(p,sourceStage,sourceActive);
     items.convertLegacyItems(player);p.legacyMigrated=true;p.touch(player.getName());return p;
   }
@@ -62,6 +63,12 @@ public final class LegacyMigrator {
   }
 
   private int equipmentTier(int legacyGear){return switch(legacyGear){case 1->5;case 2->10;case 3->20;case 4->32;case 5->64;case 6,7,255->255;case 10,20,32,64,128->legacyGear;default->0;};}
+
+  private void grantCurrentPasses(PlayerProfile p) {
+    for (int tier : new int[] {255,64,32,20,10,5}) if (p.equipmentTiers.contains(tier)) { p.mainEquipmentPasses.add(tier); break; }
+    int child = p.child.ascended ? 128 : p.child.stage >= 6 ? 32 : p.child.stage >= 5 ? 20 : p.child.stage >= 4 ? 10 : p.child.stage >= 3 ? 5 : p.child.stage >= 2 ? 3 : 1;
+    p.childEquipmentPasses.add(child);
+  }
 
   private void importAchievementTags(PlayerProfile p,Set<String> tags){
     for(AchievementDefinitions.Definition definition:AchievementDefinitions.all())if(tags.contains("village_trader.ach."+definition.id()))p.achievements.add(definition.id());

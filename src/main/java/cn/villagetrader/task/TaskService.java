@@ -11,7 +11,9 @@ import java.util.List;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.StructureType;
 import org.bukkit.World;
+import org.bukkit.generator.structure.Structure;
 import org.bukkit.entity.Enemy;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -29,6 +31,7 @@ import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.raid.RaidFinishEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -188,6 +191,7 @@ public final class TaskService implements Listener {
       update(event.getPlayer(), TaskDefinitions.Route.MAIN, 2, "diamonds", 1, false);
       update(event.getPlayer(), TaskDefinitions.Route.CHILD, 5, "diamond", 1, false);
     } else if (type == Material.ANCIENT_DEBRIS) update(event.getPlayer(), TaskDefinitions.Route.MAIN, 3, "debris", 1, false);
+    else if (type == Material.REDSTONE_ORE || type == Material.DEEPSLATE_REDSTONE_ORE) update(event.getPlayer(), TaskDefinitions.Route.MAIN, 2, "redstone", 1, false);
     else if (type == Material.COBBLESTONE) update(event.getPlayer(), TaskDefinitions.Route.CHILD, 2, "cobble", 1, false);
   }
 
@@ -198,6 +202,7 @@ public final class TaskService implements Listener {
     if (event.getEntity() instanceof Enemy) update(killer, TaskDefinitions.Route.MAIN, 2, "hostiles", 1, false);
     switch (event.getEntity().getType()) {
       case BLAZE -> update(killer, TaskDefinitions.Route.MAIN, 3, "blazes", 1, false);
+      case PIGLIN -> update(killer, TaskDefinitions.Route.MAIN, 3, "piglins", 1, false);
       case ELDER_GUARDIAN -> update(killer, TaskDefinitions.Route.MAIN, 4, "elder_guardian", 1, true);
       case ENDER_DRAGON -> {
         update(killer, TaskDefinitions.Route.MAIN, 5, "dragon", 1, true);
@@ -205,6 +210,8 @@ public final class TaskService implements Listener {
         update(killer, TaskDefinitions.Route.BOSS, 1, "dragon", 1, true);
       }
       case BREEZE -> update(killer, TaskDefinitions.Route.MAIN, 7, "breezes", 1, false);
+      case BOGGED -> update(killer, TaskDefinitions.Route.MAIN, 7, "bogged", 1, false);
+      case RAVAGER -> update(killer, TaskDefinitions.Route.MAIN, 6, "ravager", 1, true);
       case WITHER -> {
         update(killer, TaskDefinitions.Route.MAIN, 8, "wither", 1, true);
         update(killer, TaskDefinitions.Route.BOSS, 2, "wither", 1, true);
@@ -239,6 +246,7 @@ public final class TaskService implements Listener {
 
   @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
   public void furnace(FurnaceExtractEvent event) {
+    if (event.getItemType() == Material.IRON_INGOT) update(event.getPlayer(), TaskDefinitions.Route.MAIN, 1, "smelt_iron", event.getItemAmount(), false);
     if (event.getItemType() == Material.IRON_INGOT) update(event.getPlayer(), TaskDefinitions.Route.CHILD, 2, "iron", 1, false);
   }
 
@@ -273,6 +281,34 @@ public final class TaskService implements Listener {
       update(player, TaskDefinitions.Route.MAIN, 6, "totem", 1, true);
     }
     if (type == Material.ECHO_SHARD) update(player, TaskDefinitions.Route.MAIN, 9, "echo_shards", event.getItem().getItemStack().getAmount(), false);
+    if (type == Material.WITHER_SKELETON_SKULL) update(player, TaskDefinitions.Route.MAIN, 8, "wither_skulls", event.getItem().getItemStack().getAmount(), false);
+    if (type == Material.DRAGON_BREATH) update(player, TaskDefinitions.Route.MAIN, 10, "dragon_breath", event.getItem().getItemStack().getAmount(), false);
+  }
+
+  /**
+   * Structure discovery is checked only while the matching commissioned task
+   * is active.  A short loaded-chunk search avoids granting credit merely for
+   * using an unrelated teleport or a locate command.
+   */
+  @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+  public void discoverStructure(PlayerMoveEvent event) {
+    if (event.getTo() == null || event.getFrom().getChunk().equals(event.getTo().getChunk())) return;
+    Player player = event.getPlayer();
+    PlayerProfile profile = profiles.get(player.getUniqueId());
+    if (profile == null || profile.child.enabled || !plugin.isEnabledWorld(player.getWorld())) return;
+    if (profile.main.task.activeId == 4 && near(player, StructureType.OCEAN_MONUMENT)) update(player, TaskDefinitions.Route.MAIN, 4, "ocean_monument", 1, true);
+    if (profile.main.task.activeId == 5 && near(player, StructureType.END_CITY)) update(player, TaskDefinitions.Route.MAIN, 5, "end_city", 1, true);
+    if (profile.main.task.activeId == 9 && near(player, Structure.ANCIENT_CITY)) update(player, TaskDefinitions.Route.MAIN, 9, "ancient_city", 1, true);
+  }
+
+  private boolean near(Player player, StructureType type) {
+    var found = player.getWorld().locateNearestStructure(player.getLocation(), type, 32, false);
+    return found != null && found.getWorld().equals(player.getWorld()) && found.distanceSquared(player.getLocation()) <= 64 * 64;
+  }
+
+  private boolean near(Player player, Structure structure) {
+    var found = player.getWorld().locateNearestStructure(player.getLocation(), structure, 32, false);
+    return found != null && found.getLocation().getWorld().equals(player.getWorld()) && found.getLocation().distanceSquared(player.getLocation()) <= 64 * 64;
   }
 
   @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)

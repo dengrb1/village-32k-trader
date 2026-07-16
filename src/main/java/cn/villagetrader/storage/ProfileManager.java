@@ -132,6 +132,11 @@ public final class ProfileManager implements AutoCloseable {
         version = 2;
         continue;
       }
+      if (version == 2) {
+        migrateV2ToV3(profile);
+        version = 3;
+        continue;
+      }
       throw new IOException("缺少从 schema " + version + " 到新版本的迁移器");
     }
     profile.schemaVersion = version;
@@ -207,6 +212,43 @@ public final class ProfileManager implements AutoCloseable {
     }
   }
 
+  /**
+   * v3 replaces repeatable full equipment bundles with permanent passes.  A
+   * v2 player keeps the highest level they could already use on each route;
+   * no inventory item is edited or removed.
+   */
+  private void migrateV2ToV3(PlayerProfile p) {
+    if (p.mainEquipmentPasses == null) p.mainEquipmentPasses = new HashSet<>();
+    if (p.childEquipmentPasses == null) p.childEquipmentPasses = new HashSet<>();
+    if (p.auxiliaryStates == null) p.auxiliaryStates = new java.util.HashMap<>();
+    int main = highestMainTier(p);
+    int child = highestChildTier(p);
+    if (main > 0) p.mainEquipmentPasses.add(main);
+    if (child > 0) p.childEquipmentPasses.add(child);
+  }
+
+  private int highestMainTier(PlayerProfile p) {
+    if (p.equipmentTiers != null) {
+      for (int tier : new int[] {255, 64, 32, 20, 10, 5}) if (p.equipmentTiers.contains(tier)) return tier;
+    }
+    if (p.main.stage >= 11) return 255;
+    if (p.main.stage >= 9) return 64;
+    if (p.main.stage >= 7) return 32;
+    if (p.main.stage >= 6) return 20;
+    if (p.main.stage >= 3) return 10;
+    return p.main.stage >= 2 ? 5 : 0;
+  }
+
+  private int highestChildTier(PlayerProfile p) {
+    if (p.child.ascended) return 128;
+    if (p.child.stage >= 6) return 32;
+    if (p.child.stage >= 5) return 20;
+    if (p.child.stage >= 4) return 10;
+    if (p.child.stage >= 3) return 5;
+    if (p.child.stage >= 2) return 3;
+    return p.child.stage >= 1 ? 1 : 0;
+  }
+
   private void normalize(PlayerProfile p) {
     if (p.main == null) p.main = new PlayerProfile.Route(1);
     if (p.child == null) p.child = new PlayerProfile.ChildRoute();
@@ -215,6 +257,9 @@ public final class ProfileManager implements AutoCloseable {
     if (p.child.bossTask == null) p.child.bossTask = new PlayerProfile.Task();
     if (p.mainAuxiliaries == null) p.mainAuxiliaries = ConcurrentHashMap.newKeySet();
     if (p.childAuxiliaries == null) p.childAuxiliaries = ConcurrentHashMap.newKeySet();
+    if (p.mainEquipmentPasses == null) p.mainEquipmentPasses = ConcurrentHashMap.newKeySet();
+    if (p.childEquipmentPasses == null) p.childEquipmentPasses = ConcurrentHashMap.newKeySet();
+    if (p.auxiliaryStates == null) p.auxiliaryStates = new ConcurrentHashMap<>();
     if (p.equipmentTiers == null) p.equipmentTiers = ConcurrentHashMap.newKeySet();
     if (p.freeMainTaskContracts == null) p.freeMainTaskContracts = ConcurrentHashMap.newKeySet();
     if (p.achievements == null) p.achievements = ConcurrentHashMap.newKeySet();

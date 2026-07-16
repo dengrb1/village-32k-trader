@@ -16,5 +16,11 @@ final class TaskDefinitionsTest {
     assertEquals(8, TaskDefinitions.get(TaskDefinitions.Route.MAIN, 2).goals().get("diamonds").target());
     assertEquals(4, TaskDefinitions.get(TaskDefinitions.Route.MAIN, 10).goals().get("end_crystals").target());
     assertEquals(16, TaskDefinitions.get(TaskDefinitions.Route.CHILD, 2).goals().get("cobble").target());
+    for (int id = 1; id <= 10; id++) {
+      int goals = TaskDefinitions.get(TaskDefinitions.Route.MAIN, id).goals().size();
+      assertEquals(true, goals >= 3 && goals <= 4);
+    }
+    assertEquals(4, TaskDefinitions.get(TaskDefinitions.Route.MAIN, 1).goals().get("smelt_iron").target());
+    assertEquals(3, TaskDefinitions.get(TaskDefinitions.Route.MAIN, 8).goals().get("wither_skulls").target());
   }
 }

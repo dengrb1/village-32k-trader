@@ -65,6 +65,8 @@ final class ProfileManagerTest {
       assertTrue(migrated.freeMainTaskContracts.contains(9));
       assertEquals(0, migrated.main.task.activeId);
       assertTrue(migrated.equipmentTiers.contains(64));
+      assertTrue(migrated.mainEquipmentPasses.contains(64));
+      assertTrue(migrated.childEquipmentPasses.contains(1));
       assertTrue(migrated.achievements.contains("story_08"));
     }
   }

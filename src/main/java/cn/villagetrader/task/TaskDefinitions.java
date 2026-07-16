@@ -10,16 +10,16 @@ public final class TaskDefinitions {
   private static final Map<String, Definition> TASKS = new LinkedHashMap<>();
 
   static {
-    main(1, "定居启程", goal("crafting_table", "制作工作台", 1), goal("sleep", "在床上睡一晚", 1));
-    main(2, "矿脉勘探", goal("diamonds", "亲自挖掘钻石矿", 8), goal("hostiles", "击杀敌对生物", 20));
-    main(3, "下界远征", goal("nether", "进入下界", 1), goal("blazes", "击杀烈焰人", 10), goal("debris", "亲自挖掘远古残骸", 4));
-    main(4, "沧海巡航", goal("elder_guardian", "击杀远古守卫者", 1), goal("conduit", "制作潮涌核心", 1));
-    main(5, "末地远征", goal("end", "进入末地", 1), goal("dragon", "击杀末影龙", 1));
-    main(6, "村庄守卫", goal("raid", "亲自赢得袭击", 1), goal("totem", "激活后亲自拾取图腾", 1));
-    main(7, "试炼密室", goal("breezes", "击杀旋风人", 3), goal("trial_key", "激活后使用试炼钥匙", 1));
-    main(8, "凋灵攻坚", goal("wither", "击杀凋灵", 1), goal("beacon", "制作信标", 1));
-    main(9, "深暗净化", goal("warden", "击杀监守者", 1), goal("echo_shards", "激活后亲自拾取回响碎片", 8));
-    main(10, "龙魂再临", goal("end_crystals", "激活后使用末地水晶", 4), goal("dragon", "再次击杀末影龙", 1));
+    main(1, "定居启程", goal("crafting_table", "制作工作台", 1), goal("sleep", "在床上睡一晚", 1), goal("smelt_iron", "熔炼并取出铁锭", 4));
+    main(2, "矿脉勘探", goal("diamonds", "亲自挖掘钻石矿", 8), goal("hostiles", "击杀敌对生物", 20), goal("redstone", "亲自挖掘红石矿", 16));
+    main(3, "下界远征", goal("nether", "进入下界", 1), goal("blazes", "击杀烈焰人", 10), goal("debris", "亲自挖掘远古残骸", 4), goal("piglins", "击杀猪灵", 5));
+    main(4, "沧海巡航", goal("elder_guardian", "击杀远古守卫者", 1), goal("conduit", "制作潮涌核心", 1), goal("ocean_monument", "发现海底神殿", 1));
+    main(5, "末地远征", goal("end", "进入末地", 1), goal("dragon", "击杀末影龙", 1), goal("end_city", "发现末地城", 1));
+    main(6, "村庄守卫", goal("raid", "亲自赢得袭击", 1), goal("totem", "激活后亲自拾取图腾", 1), goal("ravager", "击杀劫掠兽", 1));
+    main(7, "试炼密室", goal("breezes", "击杀旋风人", 3), goal("trial_key", "激活后使用试炼钥匙", 1), goal("bogged", "击杀沼骸", 3));
+    main(8, "凋灵攻坚", goal("wither", "击杀凋灵", 1), goal("beacon", "制作信标", 1), goal("wither_skulls", "收集凋灵骷髅头", 3));
+    main(9, "深暗净化", goal("warden", "击杀监守者", 1), goal("echo_shards", "激活后亲自拾取回响碎片", 8), goal("ancient_city", "发现远古城市", 1));
+    main(10, "龙魂再临", goal("end_crystals", "激活后使用末地水晶", 4), goal("dragon", "再次击杀末影龙", 1), goal("dragon_breath", "收集龙息", 4));
     child(1, "木工启程", goal("logs", "持有4个原木", 1), goal("table", "工作台", 1));
     child(2, "小小矿工", goal("cobble", "挖掘圆石", 16), goal("iron", "取出铁锭", 3));
     child(3, "安全过夜", goal("torches", "放置火把", 8), goal("eat", "进食", 1), goal("sleep", "成功睡床", 1));

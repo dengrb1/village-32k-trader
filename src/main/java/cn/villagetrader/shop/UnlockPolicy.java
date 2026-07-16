@@ -14,7 +14,7 @@ public final class UnlockPolicy {
 
   static boolean auxiliary(PlayerProfile profile, boolean child, int id) {
     if (child != profile.child.enabled) return false;
-    if (!child) return id >= 1 && id <= 6 && profile.main.stage >= id;
+    if (!child) return id >= 1 && id <= 8 && profile.main.stage >= id;
     if (id >= 1 && id <= 6) return profile.child.stage >= id;
     return profile.child.stage >= 7 && id <= 9 && profile.child.bossStage >= id - 6;
   }

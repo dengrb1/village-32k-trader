@@ -3,6 +3,7 @@ package cn.villagetrader.shop;
 import cn.villagetrader.VillageTraderPlugin;
 import cn.villagetrader.achievement.AchievementDefinitions;
 import cn.villagetrader.achievement.AchievementService;
+import cn.villagetrader.effect.EffectsService;
 import cn.villagetrader.item.ItemService;
 import cn.villagetrader.model.PlayerProfile;
 import cn.villagetrader.storage.ProfileManager;
@@ -29,8 +30,28 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionType;
 
 public final class ShopService implements Listener {
+  public record BuyResult(boolean success, String message) {}
+  private static final Goods[] MAIN_GOODS = {
+      new Goods("coal", "煤炭", Material.COAL, 64, 1, 1, null), new Goods("iron_ingot", "铁锭", Material.IRON_INGOT, 32, 2, 2, null),
+      new Goods("copper_ingot", "铜锭", Material.COPPER_INGOT, 32, 2, 2, null), new Goods("gold_ingot", "金锭", Material.GOLD_INGOT, 16, 3, 3, null),
+      new Goods("redstone", "红石", Material.REDSTONE, 64, 2, 2, null), new Goods("lapis_lazuli", "青金石", Material.LAPIS_LAZULI, 64, 2, 2, null),
+      new Goods("quartz", "下界石英", Material.QUARTZ, 32, 3, 3, null), new Goods("ender_pearl", "末影珍珠", Material.ENDER_PEARL, 16, 4, 3, null),
+      new Goods("torch", "火把", Material.TORCH, 64, 1, 1, null), new Goods("arrow", "箭矢", Material.ARROW, 64, 1, 1, null),
+      new Goods("cooked_beef", "熟牛排", Material.COOKED_BEEF, 16, 1, 1, null), new Goods("healing", "治疗药水", Material.POTION, 4, 2, 3, PotionType.STRONG_HEALING),
+      new Goods("swiftness", "迅捷药水", Material.POTION, 4, 2, 3, PotionType.SWIFTNESS), new Goods("fire_resistance", "抗火药水", Material.POTION, 4, 3, 4, PotionType.LONG_FIRE_RESISTANCE),
+      new Goods("water_breathing", "水肺药水", Material.POTION, 4, 4, 4, PotionType.LONG_WATER_BREATHING), new Goods("slow_falling", "缓降药水", Material.POTION, 4, 5, 5, PotionType.LONG_SLOW_FALLING),
+      new Goods("experience_bottle", "经验瓶", Material.EXPERIENCE_BOTTLE, 16, 3, 4, null), new Goods("white_shulker_box", "白色潜影盒", Material.WHITE_SHULKER_BOX, 1, 5, 6, null),
+      new Goods("purple_shulker_box", "紫色潜影盒", Material.PURPLE_SHULKER_BOX, 1, 5, 6, null), new Goods("diamond", "钻石", Material.DIAMOND, 64, 2, 5, null),
+      new Goods("emerald", "绿宝石", Material.EMERALD, 64, 2, 5, null), new Goods("golden_apple", "金苹果", Material.GOLDEN_APPLE, 8, 2, 4, null),
+      new Goods("firework_rocket", "烟花火箭", Material.FIREWORK_ROCKET, 64, 2, 4, null), new Goods("diamond_block", "钻石块", Material.DIAMOND_BLOCK, 16, 3, 8, null),
+      new Goods("emerald_block", "绿宝石块", Material.EMERALD_BLOCK, 16, 3, 8, null), new Goods("netherite_scrap", "下界合金碎片", Material.NETHERITE_SCRAP, 16, 3, 9, null),
+      new Goods("netherite_ingot", "下界合金锭", Material.NETHERITE_INGOT, 8, 4, 12, null), new Goods("enchanted_golden_apple", "附魔金苹果", Material.ENCHANTED_GOLDEN_APPLE, 2, 4, 10, null),
+      new Goods("totem", "不死图腾", Material.TOTEM_OF_UNDYING, 1, 5, 14, null), new Goods("netherite_block", "下界合金块", Material.NETHERITE_BLOCK, 4, 6, 20, null)
+  };
   private final VillageTraderPlugin plugin;
   private final ProfileManager profiles;
   private final ServerStateManager serverState;
@@ -48,9 +69,10 @@ public final class ShopService implements Listener {
     if (p == null || p.writeBlocked) { error(player, "档案尚未加载或已因损坏锁定。"); return; }
     Menu menu = new Menu(Component.text("村庄成长商店"));
     menu.button(10, icon(Material.DIAMOND, "资源与消耗品", "按当前路线和阶段显示"), this::openGoods);
-    menu.button(12, icon(Material.PAPER, "当前任务", "购买、补领、提交与目标详情"), this::openTasks);
+    menu.button(12, icon(Material.PAPER, "任务中心", "任务牌、委托、完成状态与提交条件"), this::openTasks);
     menu.button(14, icon(Material.TOTEM_OF_UNDYING, "辅助用品", "购买、选择与免费补领"), this::openAuxiliaries);
-    menu.button(16, icon(Material.NETHERITE_CHESTPLATE, "装备与回溯", "查看已解锁装备阶级"), this::openEquipment);
+    menu.button(16, icon(Material.NETHERITE_CHESTPLATE, "装备通行证", "购买通行证后按需领取单件装备"), this::openEquipment);
+    menu.button(20, icon(Material.MAP, "十章全局进度", "任意地点均可用 /vt progress 打开"), this::openProgress);
     AchievementService.Title title = achievements.title(p);
     menu.button(18, icon(Material.KNOWLEDGE_BOOK, "成就档案 · " + achievements.total(p) + "/" + AchievementDefinitions.total(), "当前称号：" + title.name()), this::openAchievements);
     menu.button(29, icon(Material.BOOK, "教程", tutorial(p)), ignored -> openTutorial(player));
@@ -63,11 +85,10 @@ public final class ShopService implements Listener {
     PlayerProfile p = profiles.get(player.getUniqueId());
     Menu menu = new Menu(Component.text(p.child.enabled ? "儿童普通商品" : "主线资源与消耗品"));
     if (p.child.enabled) {
-      Goods[] goods = {new Goods(Material.COBBLESTONE, 64, 1), new Goods(Material.OAK_LOG, 32, 1), new Goods(Material.IRON_INGOT, 16, 2), new Goods(Material.BREAD, 16, 2), new Goods(Material.TORCH, 64, 3), new Goods(Material.SHIELD, 1, 4), new Goods(Material.EMERALD, 8, 5), new Goods(Material.GOLDEN_APPLE, 2, 6)};
-      addGoods(menu, goods, p, true);
+      Goods[] goods = {new Goods("cobblestone", "圆石", Material.COBBLESTONE, 64, 1, 1, null), new Goods("oak_log", "橡木原木", Material.OAK_LOG, 32, 1, 1, null), new Goods("iron_ingot", "铁锭", Material.IRON_INGOT, 16, 2, 2, null), new Goods("bread", "面包", Material.BREAD, 16, 2, 2, null), new Goods("torch", "火把", Material.TORCH, 64, 3, 2, null), new Goods("shield", "盾牌", Material.SHIELD, 1, 4, 3, null), new Goods("emerald", "绿宝石", Material.EMERALD, 8, 5, 4, null), new Goods("golden_apple", "金苹果", Material.GOLDEN_APPLE, 2, 6, 5, null)};
+      addGoods(menu, player, goods, p, true);
     } else {
-      Goods[] goods = {new Goods(Material.DIAMOND, 64, 2), new Goods(Material.EMERALD, 64, 2), new Goods(Material.GOLDEN_APPLE, 8, 2), new Goods(Material.FIREWORK_ROCKET, 64, 2), new Goods(Material.DIAMOND_BLOCK, 16, 3), new Goods(Material.EMERALD_BLOCK, 16, 3), new Goods(Material.NETHERITE_SCRAP, 16, 3), new Goods(Material.NETHERITE_INGOT, 8, 4), new Goods(Material.ENCHANTED_GOLDEN_APPLE, 2, 4), new Goods(Material.TOTEM_OF_UNDYING, 1, 5), new Goods(Material.NETHERITE_BLOCK, 4, 6)};
-      addGoods(menu, goods, p, false);
+      addGoods(menu, player, MAIN_GOODS, p, false);
     }
     back(menu, 49);
     player.openInventory(menu.inventory);
@@ -81,13 +102,32 @@ public final class ShopService implements Listener {
     Menu menu = new Menu(Component.text("当前任务与提交"));
     TaskDefinitions.Definition definition = TaskDefinitions.get(route, stage);
     String name = definition == null ? "当前路线已完成" : definition.name();
-    menu.button(13, icon(Material.WRITABLE_BOOK, name, definition == null ? "无后续普通任务" : goals(definition)), ignored -> {});
+    menu.button(13, icon(Material.WRITABLE_BOOK, name, definition == null ? "无后续普通任务" : goals(definition, profileTask(p, route))), ignored -> {});
     if (definition != null) {
       menu.button(29, icon(Material.EMERALD, route == TaskDefinitions.Route.BOSS ? "购买 Boss 挑战书" : "购买并激活任务牌", taskCostText(p, route, stage)), pl -> purchaseTask(pl, route, stage));
       menu.button(31, icon(Material.PAPER, "免费补领一次", "仅当前任务牌丢失且尚未补领时可用"), pl -> reissue(pl, route, stage));
       menu.button(33, icon(Material.LIME_DYE, route == TaskDefinitions.Route.BOSS ? "提交挑战书并开始挑战" : "提交当前任务", route == TaskDefinitions.Route.BOSS ? "挑战书先消耗，之后击杀才记录印记" : "会校验所有目标和本人绑定任务牌"), pl -> { if (route == TaskDefinitions.Route.BOSS) activateBossChallenge(pl, stage); else tasks.submit(pl, route); openTasks(pl); });
     }
     back(menu, 49);
+    player.openInventory(menu.inventory);
+  }
+
+  /** Read-only ten-chapter overview, callable from /vt progress anywhere. */
+  public void openProgress(Player player) {
+    PlayerProfile profile = profiles.get(player.getUniqueId());
+    if (profile == null) { error(player, "档案尚未加载。"); return; }
+    Menu menu = new Menu(Component.text("主线十章全局进度 · 已完成 " + Math.min(10, Math.max(0, profile.main.stage - 1)) + "/10"));
+    int slot = 10;
+    for (int chapter = 1; chapter <= 10; chapter++) {
+      TaskDefinitions.Definition definition = TaskDefinitions.get(TaskDefinitions.Route.MAIN, chapter);
+      String status;
+      Material material;
+      if (chapter < profile.main.stage) { status = "已完成"; material = Material.LIME_DYE; }
+      else if (chapter == profile.main.stage) { status = "当前章节：" + goals(definition, profile.main.task); material = Material.CLOCK; }
+      else { status = "锁定"; material = Material.GRAY_DYE; }
+      menu.button(slot++, icon(material, "第" + chapter + "章 · " + definition.name(), status), ignored -> {});
+    }
+    menu.button(49, icon(Material.ARROW, "返回商店", "查看其它功能"), this::open);
     player.openInventory(menu.inventory);
   }
 
@@ -107,10 +147,10 @@ public final class ShopService implements Listener {
         menu.button(slot++, icon(Material.DIAMOND, "兑换升格核心", "钻石×16 + 下界合金锭×4"), this::buyAscension);
         menu.button(slot++, icon(Material.LIME_DYE, "提交升格核心", "校验三个印记、所有权和本人绑定核心"), this::submitAscension);
       } else {
-        menu.button(slot++, icon(Material.NETHERITE_CHESTPLATE, "兑换 128级装备", equipmentPriceText(player, p)), pl -> purchaseEquipment(pl, 128));
+        menu.button(slot++, icon(Material.NETHERITE_CHESTPLATE, "128级守护通行证", equipmentPriceText(player, p)), pl -> openEquipmentTier(pl, 128));
       }
     }
-    addAuxiliaries(menu, p, true, 7, 9, slot);
+    addAuxiliaries(menu, player, p, true, 7, 9, slot);
     back(menu, 49);
     player.openInventory(menu.inventory);
   }
@@ -118,7 +158,7 @@ public final class ShopService implements Listener {
   private void openAuxiliaries(Player player) {
     PlayerProfile p = profiles.get(player.getUniqueId());
     Menu menu = new Menu(Component.text("可选辅助用品"));
-    int next = addAuxiliaries(menu, p, p.child.enabled, 1, 6, 10);
+    int next = addAuxiliaries(menu, player, p, p.child.enabled, 1, p.child.enabled ? 9 : 8, 10);
     if (next == 10) menu.button(22, icon(Material.PAPER, "暂无可用辅助用品", "随着进度推进会在此显示"), ignored -> {});
     back(menu, 49);
     player.openInventory(menu.inventory);
@@ -126,16 +166,47 @@ public final class ShopService implements Listener {
 
   private void openEquipment(Player player) {
     PlayerProfile p = profiles.get(player.getUniqueId());
-    Menu menu = new Menu(Component.text("装备与旧装备回溯"));
+    Menu menu = new Menu(Component.text("装备等级通行证"));
     boolean child = p.child.enabled;
     int[] tiers = child ? new int[] {1, 3, 5, 10, 20, 32, 128} : new int[] {5, 10, 20, 32, 64, 255};
     int slot = 10;
     for (int tier : tiers) {
       if (!(child ? UnlockPolicy.childEquipment(p, tier) : UnlockPolicy.mainEquipment(p, tier))) continue;
-      menu.button(slot++, icon(Material.NETHERITE_CHESTPLATE, tier + "级装备", "含同档长矛；" + equipmentPriceText(player, p)), pl -> purchaseEquipment(pl, tier));
+      boolean passed = child ? p.childEquipmentPasses.contains(tier) : p.mainEquipmentPasses.contains(tier);
+      String lore = passed ? "已持有通行证：点击分页免费领取单件" : "首次购买：" + equipmentPriceText(player, p) + "；不自动发放整套";
+      menu.button(slot++, icon(Material.NETHERITE_CHESTPLATE, tier + "级" + (child ? "守护" : "主线") + "通行证", lore), pl -> openEquipmentTier(pl, tier));
     }
     if (slot == 10) menu.button(22, icon(Material.PAPER, "暂无可领取装备", "随着进度推进会在此显示"), ignored -> {});
     back(menu, 49); player.openInventory(menu.inventory);
+  }
+
+  private void openEquipmentTier(Player player, int tier) {
+    PlayerProfile p = profiles.get(player.getUniqueId());
+    boolean child = p.child.enabled;
+    boolean passed = child ? p.childEquipmentPasses.contains(tier) : p.mainEquipmentPasses.contains(tier);
+    if (!passed) { purchaseEquipmentPass(player, tier); return; }
+    Menu menu = new Menu(Component.text(tier + "级装备通行证 · 分类领取"));
+    int slot = 10;
+    for (EffectsService.EquipmentCategory category : EffectsService.EquipmentCategory.values()) {
+      EffectsService.EquipmentCategory selected = category;
+      menu.button(slot++, icon(categoryIcon(category), category.display() + "装备", "点击查看并免费领取对应单件"), pl -> openEquipmentCategory(pl, tier, selected));
+    }
+    menu.button(49, icon(Material.ARROW, "返回等级通行证", "选择其它等级"), this::openEquipment);
+    player.openInventory(menu.inventory);
+  }
+
+  private void openEquipmentCategory(Player player, int tier, EffectsService.EquipmentCategory category) {
+    PlayerProfile p = profiles.get(player.getUniqueId());
+    boolean child = p.child.enabled;
+    Menu menu = new Menu(Component.text(tier + "级 · " + category.display()));
+    int slot = 10;
+    for (EffectsService.EquipmentPiece piece : EffectsService.EquipmentPiece.values()) {
+      if (piece.category() != category || !plugin.effects().pieces(player, child, tier).containsKey(piece)) continue;
+      EffectsService.EquipmentPiece chosen = piece;
+      menu.button(slot++, icon(pieceIcon(piece), piece.display(), "已持有通行证：免费补领此单件"), pl -> claimEquipment(pl, tier, chosen));
+    }
+    menu.button(49, icon(Material.ARROW, "返回装备分类", "选择其它装备"), pl -> openEquipmentTier(pl, tier));
+    player.openInventory(menu.inventory);
   }
 
   private void openSettings(Player player) {
@@ -249,27 +320,43 @@ public final class ShopService implements Listener {
     p.child.ascensionKeyOwned=false;p.child.ascended=true;p.equipmentTiers.add(128);achievements.award(player,"guardian_07");profiles.save(p);player.sendMessage(Component.text("守护升格完成！128级强化守护装备已永久解锁。",NamedTextColor.LIGHT_PURPLE));openTasks(player);
   }
 
-  private void purchaseEquipment(Player player, int tier) {
+  private void purchaseEquipmentPass(Player player, int tier) {
     PlayerProfile profile = profiles.get(player.getUniqueId());
     if (profile == null) { error(player, "档案尚未加载。"); return; }
     boolean child = profile.child.enabled;
     boolean unlocked = child ? UnlockPolicy.childEquipment(profile, tier) : UnlockPolicy.mainEquipment(profile, tier);
     if (!unlocked) { error(player, "尚未解锁此装备。" ); return; }
+    if (child ? profile.childEquipmentPasses.contains(tier) : profile.mainEquipmentPasses.contains(tier)) { openEquipmentTier(player, tier); return; }
     Map<Material, Integer> cost = child ? InventoryUtil.cost(Material.DIRT, childDirtPrice(player, profile)) : goodsPrice();
     if (!InventoryUtil.pay(player, cost)) { error(player, "支付物不足：" + costText(cost)); return; }
-    var result = child ? plugin.effects().giveChildEquipment(player, tier) : plugin.effects().giveMainEquipment(player, tier);
-    if (!result.success()) { error(player, result.message()); return; }
+    if (child) { profile.childEquipmentPasses.add(tier); profile.child.equipmentTier = tier; }
+    else { profile.mainEquipmentPasses.add(tier); profile.main.equipmentTier = tier; }
+    profile.touch(player.getName());
+    profiles.save(profile);
     if (!child) {
       String achievement = mainEquipmentAchievement(tier);
       if (achievement != null) achievements.award(player, achievement);
     }
-    success(player, result.message());
+    success(player, "已登记 " + tier + " 级通行证；请选择分类领取所需单件。");
+    openEquipmentTier(player, tier);
   }
 
-  private void purchaseMainGood(Player player, Goods good) {
-    PlayerProfile p = profiles.get(player.getUniqueId()); if (p.child.enabled || !UnlockPolicy.good(p, good.stage)) { error(player, "尚未解锁此商品。"); return; }
-    Map<Material, Integer> price = goodsPrice(); if (!InventoryUtil.pay(player, price)) { error(player, "支付物不足：" + costText(price)); return; }
-    InventoryUtil.giveOrDrop(player, createGood(good)); success(player, "兑换成功 ×" + good.amount);
+  private void claimEquipment(Player player, int tier, EffectsService.EquipmentPiece piece) {
+    PlayerProfile p = profiles.get(player.getUniqueId());
+    boolean child = p != null && p.child.enabled;
+    var result = child ? plugin.effects().claimChildEquipment(player, tier, piece) : plugin.effects().claimMainEquipment(player, tier, piece);
+    if (result.success()) success(player, result.message()); else error(player, result.message());
+  }
+
+  public BuyResult buyMainGood(Player player, String id, int packs) {
+    if (packs < 1 || packs > 64) return new BuyResult(false, "购买包数必须是 1–64。");
+    PlayerProfile p = profiles.get(player.getUniqueId());
+    Goods good = findMainGood(id);
+    if (p == null || p.child.enabled || good == null || !UnlockPolicy.good(p, good.stage)) return new BuyResult(false, "商品不存在、路线不符或尚未解锁。");
+    Map<Material, Integer> price = goodsPrice(good, packs);
+    if (!InventoryUtil.pay(player, price)) return new BuyResult(false, "支付物不足：" + costText(price));
+    for (int i = 0; i < packs; i++) InventoryUtil.giveOrDrop(player, createGood(good));
+    return new BuyResult(true, "兑换成功：" + good.name + " ×" + (good.amount * packs) + "（" + packs + " 包）。");
   }
 
   private void purchaseChildGood(Player player, Goods good) {
@@ -295,17 +382,33 @@ public final class ShopService implements Listener {
     InventoryUtil.giveOrDrop(player, items.auxiliary(player, child, id, name)); profiles.save(p); success(player, "已购买并登记 " + name);
   }
 
-  private void addGoods(Menu menu, Goods[] goods, PlayerProfile profile, boolean child) {
+  private void addGoods(Menu menu, Player player, Goods[] goods, PlayerProfile profile, boolean child) {
     int slot = 10;
     for (Goods good : goods) {
       if (!UnlockPolicy.good(profile, good.stage)) continue;
       int targetSlot = slot++;
       String stageLabel = child ? "解锁章 " : "解锁阶段 ";
-      menu.button(targetSlot, icon(good.material, good.material.translationKey(), "获得 ×" + good.amount + "，" + stageLabel + good.stage), pl -> {
-        if (child) purchaseChildGood(pl, good); else purchaseMainGood(pl, good);
+      String price = child ? "泥土×" + childDirtPrice(player, profile) : costText(goodsPrice(good, 1));
+      menu.button(targetSlot, icon(good.material, good.name, "每包 ×" + good.amount + "，" + stageLabel + good.stage + "，价格：" + price), pl -> {
+        if (child) purchaseChildGood(pl, good); else openGoodQuantity(pl, good);
       });
     }
     if (slot == 10) menu.button(22, icon(Material.PAPER, "暂无可兑换商品", "随着进度推进会在此显示"), ignored -> {});
+  }
+
+  private void openGoodQuantity(Player player, Goods good) {
+    Menu menu = new Menu(Component.text(good.name + " · 批量购买"));
+    menu.button(11, icon(good.material, "购买 1 包", "获得 ×" + good.amount + "，价格：" + costText(goodsPrice(good, 1))), pl -> buyFromMenu(pl, good, 1));
+    menu.button(13, icon(good.material, "购买 16 包", "获得 ×" + (good.amount * 16) + "，价格：" + costText(goodsPrice(good, 16))), pl -> buyFromMenu(pl, good, 16));
+    menu.button(15, icon(good.material, "购买 64 包", "获得 ×" + (good.amount * 64) + "，价格：" + costText(goodsPrice(good, 64))), pl -> buyFromMenu(pl, good, 64));
+    menu.button(31, icon(Material.COMMAND_BLOCK, "自定义包数", "使用 /vt buy " + good.id + " <1-64>；扣款与发放原子完成"), ignored -> {});
+    menu.button(49, icon(Material.ARROW, "返回商品", "选择其它商品"), this::openGoods);
+    player.openInventory(menu.inventory);
+  }
+
+  private void buyFromMenu(Player player, Goods good, int packs) {
+    BuyResult result = buyMainGood(player, good.id, packs);
+    if (result.success()) success(player, result.message()); else error(player, result.message());
   }
 
   private ItemStack createGood(Goods good) {
@@ -315,20 +418,49 @@ public final class ShopService implements Listener {
       meta.setPower(3);
       item.setItemMeta(meta);
     }
+    if (good.potion != null) {
+      PotionMeta meta = (PotionMeta) item.getItemMeta();
+      meta.setBasePotionType(good.potion);
+      item.setItemMeta(meta);
+    }
     return item;
   }
 
-  private int addAuxiliaries(Menu menu, PlayerProfile profile, boolean child, int firstId, int lastId, int slot) {
-    String[] mainNames = {"矿工补给包", "下界护符", "末地护符", "袭击守护符", "凋灵净化符", "幽匿护符"};
+  private Goods findMainGood(String id) {
+    for (Goods good : MAIN_GOODS) if (good.id.equalsIgnoreCase(id)) return good;
+    return null;
+  }
+
+  private int addAuxiliaries(Menu menu, Player player, PlayerProfile profile, boolean child, int firstId, int lastId, int slot) {
+    String[] mainNames = {"矿工补给包", "下界护符", "末地护符", "袭击守护符", "凋灵净化符", "幽匿护符", "建造者护符", "旅行者护符"};
     String[] childNames = {"学徒护符", "红石工具包", "归途罗盘", "金苹果护符", "商人徽章", "龙战护符", "凋灵护符", "净化乳剂", "幽匿软靴"};
     for (int id = firstId; id <= lastId; id++) {
       if (!UnlockPolicy.auxiliary(profile, child, id)) continue;
       int itemId = id;
       String name = child ? childNames[id - 1] : mainNames[id - 1];
-      boolean owned = child ? profile.childAuxiliaries.contains(id) : profile.mainAuxiliaries.contains(id);
-      menu.button(slot++, icon(Material.PAPER, name, owned ? "已登记：点击选择/缺失时补领" : "点击购买并登记"), pl -> auxiliary(pl, child, itemId, name));
+      menu.button(slot++, icon(Material.PAPER, name, auxiliaryStatus(player, profile, child, id)), pl -> auxiliary(pl, child, itemId, name));
     }
     return slot;
+  }
+
+  private String auxiliaryStatus(Player player, PlayerProfile profile, boolean child, int id) {
+    boolean registered = child ? profile.childAuxiliaries.contains(id) : profile.mainAuxiliaries.contains(id);
+    boolean selected = (child ? profile.selectedChildAuxiliary : profile.selectedMainAuxiliary) == id;
+    boolean carried = registered && items.has(player, child ? "child_aux" : "main_aid", id);
+    boolean active = carried && selected && auxiliarySceneActive(player, child, id);
+    return "登记：" + (registered ? "是" : "否") + "；选中：" + (selected ? "是" : "否") + "；携带：" + (carried ? "是" : "否") + "；生效：" + (active ? "是" : "否");
+  }
+
+  private boolean auxiliarySceneActive(Player player, boolean child, int id) {
+    if (child) return true;
+    return switch (id) {
+      case 2 -> player.getWorld().getEnvironment() == org.bukkit.World.Environment.NETHER;
+      case 3 -> player.getWorld().getEnvironment() == org.bukkit.World.Environment.THE_END;
+      case 4 -> !player.getWorld().getNearbyEntities(player.getLocation(), 64, 64, 64, entity -> entity.getType().name().contains("PILLAGER") || entity.getType().name().contains("VINDICATOR") || entity.getType().name().contains("RAVAGER")).isEmpty();
+      case 6 -> player.getLocation().getBlock().getBiome().getKey().getKey().contains("deep_dark");
+      case 7 -> player.getWorld().getEnvironment() == org.bukkit.World.Environment.NORMAL;
+      default -> true;
+    };
   }
 
   private Material categoryIcon(AchievementDefinitions.Category category) {
@@ -338,6 +470,37 @@ public final class ShopService implements Listener {
       case COMBAT -> Material.DIAMOND_SWORD;
       case TRADE -> Material.EMERALD;
       case GUARDIAN -> Material.SHIELD;
+    };
+  }
+
+  private Material categoryIcon(EffectsService.EquipmentCategory category) {
+    return switch (category) {
+      case ARMOR -> Material.NETHERITE_CHESTPLATE;
+      case MELEE -> Material.NETHERITE_SWORD;
+      case TOOLS -> Material.NETHERITE_PICKAXE;
+      case RANGED -> Material.BOW;
+      case UTILITY -> Material.ELYTRA;
+    };
+  }
+
+  private Material pieceIcon(EffectsService.EquipmentPiece piece) {
+    return switch (piece) {
+      case HELMET -> Material.NETHERITE_HELMET;
+      case CHESTPLATE -> Material.NETHERITE_CHESTPLATE;
+      case LEGGINGS -> Material.NETHERITE_LEGGINGS;
+      case BOOTS -> Material.NETHERITE_BOOTS;
+      case SWORD -> Material.NETHERITE_SWORD;
+      case AXE -> Material.NETHERITE_AXE;
+      case SPEAR -> Material.NETHERITE_SPEAR;
+      case TRIDENT -> Material.TRIDENT;
+      case MACE -> Material.MACE;
+      case FORTUNE_PICKAXE, SILK_PICKAXE -> Material.NETHERITE_PICKAXE;
+      case SHOVEL -> Material.NETHERITE_SHOVEL;
+      case HOE -> Material.NETHERITE_HOE;
+      case BOW -> Material.BOW;
+      case CROSSBOW -> Material.CROSSBOW;
+      case SHIELD -> Material.SHIELD;
+      case ELYTRA -> Material.ELYTRA;
     };
   }
 
@@ -353,7 +516,7 @@ public final class ShopService implements Listener {
   }
 
   private int childDirtPrice(Player player, PlayerProfile profile) {
-    return profile.selectedChildAuxiliary == 5 && profile.childAuxiliaries.contains(5) && items.has(player, "child_aux", 5) ? 1 : 4;
+    return player != null && profile.selectedChildAuxiliary == 5 && profile.childAuxiliaries.contains(5) && items.has(player, "child_aux", 5) ? 1 : 4;
   }
 
   private String mainEquipmentAchievement(int tier) {
@@ -369,6 +532,15 @@ public final class ShopService implements Listener {
   }
 
   private Map<Material, Integer> goodsPrice() { return switch (serverState.state().penaltyLevel) { case 1 -> InventoryUtil.cost(Material.DIRT, 16); case 2 -> InventoryUtil.cost(Material.EMERALD, 16); case 3 -> InventoryUtil.cost(Material.NETHERITE_INGOT, 4); default -> InventoryUtil.cost(Material.DIRT, 1); }; }
+  private Map<Material, Integer> goodsPrice(Goods good, int packs) {
+    int unit = Math.max(1, good.price * packs);
+    return switch (serverState.state().penaltyLevel) {
+      case 1 -> InventoryUtil.cost(Material.DIRT, unit * 16);
+      case 2 -> InventoryUtil.cost(Material.EMERALD, unit * 16);
+      case 3 -> InventoryUtil.cost(Material.NETHERITE_INGOT, unit * 4);
+      default -> InventoryUtil.cost(Material.DIRT, unit);
+    };
+  }
   private Map<Material, Integer> surcharge() { return switch (serverState.state().penaltyLevel) { case 1 -> InventoryUtil.cost(Material.DIRT, 16); case 2 -> InventoryUtil.cost(Material.EMERALD, 16); case 3 -> InventoryUtil.cost(Material.NETHERITE_INGOT, 4); default -> Map.of(); }; }
   private Map<Material, Integer> taskCost(TaskDefinitions.Route route, int id) {
     if (route == TaskDefinitions.Route.MAIN) return switch (id) {
@@ -393,7 +565,7 @@ public final class ShopService implements Listener {
     return InventoryUtil.pay(player,cost);
   }
   private boolean payAuxCost(Player player,boolean child,int id,Map<Material,Integer> cost){if(child&&id==9){Map<Material,Integer> withoutWool=new LinkedHashMap<>(cost);withoutWool.remove(Material.WHITE_WOOL);if(!InventoryUtil.has(player,withoutWool)||InventoryUtil.countMatching(player,m->m.name().endsWith("_WOOL"))<8)return false;InventoryUtil.pay(player,withoutWool);return InventoryUtil.payMatching(player,m->m.name().endsWith("_WOOL"),8);}return InventoryUtil.pay(player,cost);}
-  private Map<Material,Integer> mainAuxCost(int id) { return switch(id){case 1->InventoryUtil.cost(Material.EMERALD,8);case 2->InventoryUtil.cost(Material.DIAMOND,4);case 3->InventoryUtil.cost(Material.GOLDEN_APPLE,1);case 4->InventoryUtil.cost(Material.EMERALD_BLOCK,1);case 5->InventoryUtil.cost(Material.DIAMOND_BLOCK,1);default->InventoryUtil.cost(Material.ECHO_SHARD,4);}; }
+  private Map<Material,Integer> mainAuxCost(int id) { return switch(id){case 1->InventoryUtil.cost(Material.EMERALD,8);case 2->InventoryUtil.cost(Material.DIAMOND,4);case 3->InventoryUtil.cost(Material.GOLDEN_APPLE,1);case 4->InventoryUtil.cost(Material.EMERALD_BLOCK,1);case 5->InventoryUtil.cost(Material.DIAMOND_BLOCK,1);case 6->InventoryUtil.cost(Material.ECHO_SHARD,4);case 7->InventoryUtil.cost(Material.IRON_INGOT,16,Material.FEATHER,8);default->InventoryUtil.cost(Material.ENDER_PEARL,8,Material.GOLDEN_CARROT,8);}; }
   private Map<Material,Integer> childAuxCost(int id) { return switch(id){case 1->InventoryUtil.cost(Material.LEATHER,2,Material.IRON_INGOT,2);case 2->InventoryUtil.cost(Material.COPPER_INGOT,4,Material.REDSTONE,2);case 3->InventoryUtil.cost(Material.COMPASS,1,Material.BREAD,4);case 4->InventoryUtil.cost(Material.GOLD_INGOT,4,Material.GOLDEN_APPLE,1);case 5->InventoryUtil.cost(Material.EMERALD,8);case 6->InventoryUtil.cost(Material.DIAMOND,1,Material.TOTEM_OF_UNDYING,1);case 7->InventoryUtil.cost(Material.DIAMOND,4,Material.GOLDEN_APPLE,1);case 8->InventoryUtil.cost(Material.EMERALD_BLOCK,2,Material.MILK_BUCKET,1);default->InventoryUtil.cost(Material.ECHO_SHARD,4,Material.WHITE_WOOL,8);}; }
 
   @EventHandler public void click(InventoryClickEvent event) { if (!(event.getInventory().getHolder(false) instanceof Menu menu)) return; event.setCancelled(true); if (!(event.getWhoClicked() instanceof Player player) || event.getClickedInventory() != event.getView().getTopInventory()) return; Consumer<Player> action = menu.actions.get(event.getSlot()); if (action != null) action.accept(player); }
@@ -403,6 +575,7 @@ public final class ShopService implements Listener {
   private ItemStack icon(Material material, String name, String lore) { ItemStack item = new ItemStack(material); ItemMeta meta = item.getItemMeta(); meta.displayName(Component.text(name, NamedTextColor.GOLD)); meta.lore(List.of(Component.text(lore, NamedTextColor.GRAY))); item.setItemMeta(meta); return item; }
   private String tutorial(PlayerProfile p) { return p.child.enabled ? "儿童线：完成六章后开放 Boss 番外和升格" : "主线：任务牌激活后才开始计数"; }
   private String goals(TaskDefinitions.Definition d) { StringBuilder text = new StringBuilder(); for (var g : d.goals().values()) { if (!text.isEmpty()) text.append("；"); text.append(g.label()).append("×").append(g.target()); } return text.toString(); }
+  private String goals(TaskDefinitions.Definition d, PlayerProfile.Task task) { StringBuilder text = new StringBuilder(); for (var g : d.goals().values()) { if (!text.isEmpty()) text.append("；"); text.append(g.label()).append(" ").append(task.progress.getOrDefault(g.key(), 0)).append("/").append(g.target()); } return text.toString(); }
   private String costText(Map<Material,Integer> cost) { if (cost.isEmpty()) return "免费"; StringBuilder text = new StringBuilder(); cost.forEach((m,a)->{if(!text.isEmpty())text.append(" + ");text.append(m.translationKey()).append("×").append(a);}); return text.toString(); }
   private void merge(Map<Material,Integer> target, Map<Material,Integer> extra) { extra.forEach((m,a)->target.merge(m,a,Integer::sum)); }
   private void error(Player p,String s){p.sendActionBar(Component.text(s,NamedTextColor.RED));}
@@ -413,7 +586,7 @@ public final class ShopService implements Listener {
   private String routeName(TaskDefinitions.Route r){return switch(r){case MAIN->"main";case CHILD->"child";case BOSS->"boss";case ASCENSION->"ascension";};}
   private String itemKind(TaskDefinitions.Route r){return switch(r){case MAIN->"main_quest";case CHILD->"child_quest";case BOSS->"child_boss_quest";case ASCENSION->"child_ascension_core";};}
 
-  private record Goods(Material material,int amount,int stage){}
+  private record Goods(String id, String name, Material material, int amount, int stage, int price, PotionType potion) {}
   private final class Menu implements InventoryHolder {
     private final Inventory inventory; private final Map<Integer,Consumer<Player>> actions=new HashMap<>();
     private Menu(Component title){inventory=Bukkit.createInventory(this,54,title);}
